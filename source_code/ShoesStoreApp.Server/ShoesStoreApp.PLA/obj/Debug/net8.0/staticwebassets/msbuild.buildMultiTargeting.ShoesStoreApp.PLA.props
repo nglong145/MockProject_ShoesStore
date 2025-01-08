@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ShoesStoreApp.PLA.props" />
+</Project>
