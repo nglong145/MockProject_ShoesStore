@@ -1,0 +1,33 @@
+.navbar {
+  padding: 10px 0;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
+  text-align: center;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-nav .nav-link {
+  font-size: 14px;
+  color: #000;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+.navbar-right a {
+  font-size: 18px;
+  color: #000;
+}
+
+.navbar-right a:hover {
+  color: #007bff;
+}
