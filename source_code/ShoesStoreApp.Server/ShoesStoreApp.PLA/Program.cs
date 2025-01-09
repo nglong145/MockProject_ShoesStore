@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using ShoesStoreApp.BLL.Services.Base;
+using ShoesStoreApp.BLL.Services.BlogService;
+using ShoesStoreApp.BLL.Services.BrandService;
 using ShoesStoreApp.DAL.Data;
+using ShoesStoreApp.DAL.Infrastructure;
+using ShoesStoreApp.DAL.Models;
+using ShoesStoreApp.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +20,10 @@ builder.Services.AddDbContext<ShoesStoreAppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 var app = builder.Build();
 
