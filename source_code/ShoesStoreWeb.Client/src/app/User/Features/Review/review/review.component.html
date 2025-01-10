@@ -1,0 +1,64 @@
+<div class="row">
+  <!-- Danh sách đánh giá -->
+  <div class="col-md-6">
+    <div *ngFor="let review of reviews" class="mb-3">
+      <div class="d-flex align-items-center">
+        <img
+          src="https://via.placeholder.com/50"
+          alt="User Avatar"
+          class="rounded-circle me-2"
+        />
+        <div>
+          <strong>{{ review.user }}</strong>
+          <p class="text-muted mb-1">{{ review.date }}</p>
+          <p class="mb-0">{{ review.comment }}</p>
+        </div>
+      </div>
+      <div>
+        <span *ngFor="let star of [].constructor(5); let i = index">
+          <i
+            class="bi"
+            [ngClass]="
+              i < review.rating ? 'bi-star-fill text-warning' : 'bi-star'
+            "
+          ></i>
+        </span>
+      </div>
+    </div>
+    <button
+      class="btn btn-secondary btn-sm"
+      *ngIf="showLoadMore"
+      (click)="loadMore()"
+    >
+      Xem thêm
+    </button>
+  </div>
+
+  <!-- Form gửi đánh giá -->
+  <div class="col-md-6">
+    <div class="d-flex align-items-center mb-3">
+      <img
+        src="https://via.placeholder.com/50"
+        alt="User Avatar"
+        class="rounded-circle me-2"
+      />
+      <strong>Trần Thanh C</strong>
+    </div>
+    <div class="mb-2">
+      <span *ngFor="let star of [].constructor(5); let i = index">
+        <i
+          class="bi"
+          [ngClass]="i < userRating ? 'bi-star-fill text-warning' : 'bi-star'"
+          (click)="setRating(i + 1)"
+          style="cursor: pointer"
+        ></i>
+      </span>
+    </div>
+    <textarea
+      class="form-control mb-2"
+      placeholder="Viết bình luận về sản phẩm tại đây"
+      [(ngModel)]="userComment"
+    ></textarea>
+    <button class="btn btn-success" (click)="submitReview()">Gửi</button>
+  </div>
+</div>
