@@ -1,10 +1,24 @@
-.navbar {
+
+.nav-bar {
   padding: 10px 0;
+  width: 100%;
 }
 
-.navbar-left,
-.navbar-center,
-.navbar-right {
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  margin: 0 30px;
+  width: 95%;
+}
+
+.navbar-center {
   text-align: center;
 }
 
@@ -15,7 +29,7 @@
 }
 
 .navbar-nav .nav-link {
-  font-size: 14px;
+  font-size: 20px;
   color: #000;
 }
 
@@ -23,8 +37,13 @@
   color: #007bff;
 }
 
+
+.navbar-right {
+  text-align: right;
+}
+
 .navbar-right a {
-  font-size: 18px;
+  font-size: 25px;
   color: #000;
 }
 
