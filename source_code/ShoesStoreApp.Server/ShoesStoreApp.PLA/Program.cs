@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ShoesStoreApp.BLL.Services.Base;
 using ShoesStoreApp.BLL.Services.BlogService;
 using ShoesStoreApp.BLL.Services.BrandService;
+using ShoesStoreApp.BLL.Services.SizeService;
 using ShoesStoreApp.DAL.Data;
 using ShoesStoreApp.DAL.Infrastructure;
 using ShoesStoreApp.DAL.Models;
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<ShoesStoreAppDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<ISizeSrevice, SizeService>();
 
 var app = builder.Build();
 

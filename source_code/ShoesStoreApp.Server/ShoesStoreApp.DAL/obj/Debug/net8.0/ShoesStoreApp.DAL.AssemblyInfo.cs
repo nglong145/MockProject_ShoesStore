@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShoesStoreApp.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc705df7d7717a607536344f79f95c9123b8cfe2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1abeb2c2c413ce2d5cc839f1ebf05133a900ed9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShoesStoreApp.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShoesStoreApp.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

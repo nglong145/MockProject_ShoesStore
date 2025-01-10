@@ -17,9 +17,11 @@ namespace ShoesStoreApp.DAL.Infrastructure
 
         private IGenericRepository<Brand>? _brandRepository;
         private IGenericRepository<Blog>? _blogRepository;
+        private IGenericRepository<Size>? _sizeRepository;
 
         public IGenericRepository<Brand> BrandRepository => _brandRepository ?? new GenericRepository<Brand>(_context);
         public IGenericRepository<Blog> BlogRepository => _blogRepository ?? new GenericRepository<Blog>(_context);
+        public IGenericRepository<Size> SizeRepository => _sizeRepository ?? new GenericRepository<Size>(_context);
         public UnitOfWork(ShoesStoreAppDbContext context)
         {
             _context = context;

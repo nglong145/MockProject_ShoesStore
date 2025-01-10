@@ -4907,19 +4907,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nguye\\.nuget\\packages\\": {}
+    "C:\\Users\\hahuy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\hahuy\\Source\\Repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj",
       "projectName": "ShoesStoreApp.DAL",
-      "projectPath": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj",
-      "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\obj\\",
+      "projectPath": "C:\\Users\\hahuy\\Source\\Repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj",
+      "packagesPath": "C:\\Users\\hahuy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hahuy\\Source\\Repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hahuy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

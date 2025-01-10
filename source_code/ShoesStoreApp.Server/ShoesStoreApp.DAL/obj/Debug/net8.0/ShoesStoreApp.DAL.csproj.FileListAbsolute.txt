@@ -13,3 +13,18 @@ C:\Users\nguye\OneDrive\Máy tính\ProjectFPT\MockProject_ShoesStore\source_code
 C:\Users\nguye\OneDrive\Máy tính\ProjectFPT\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.pdb
 C:\Users\nguye\OneDrive\Máy tính\ProjectFPT\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.genruntimeconfig.cache
 C:\Users\nguye\OneDrive\Máy tính\ProjectFPT\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ref\ShoesStoreApp.DAL.dll
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\bin\Debug\net8.0\ShoesStoreApp.DAL.deps.json
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\bin\Debug\net8.0\ShoesStoreApp.DAL.runtimeconfig.json
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\bin\Debug\net8.0\ShoesStoreApp.DAL.dll
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\bin\Debug\net8.0\ShoesStoreApp.DAL.pdb
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.csproj.AssemblyReference.cache
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.AssemblyInfoInputs.cache
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.AssemblyInfo.cs
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.csproj.CoreCompileInputs.cache
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.sourcelink.json
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.dll
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\refint\ShoesStoreApp.DAL.dll
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.pdb
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ShoesStoreApp.DAL.genruntimeconfig.cache
+C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\obj\Debug\net8.0\ref\ShoesStoreApp.DAL.dll

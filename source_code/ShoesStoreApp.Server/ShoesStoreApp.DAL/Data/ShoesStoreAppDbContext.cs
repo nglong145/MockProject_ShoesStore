@@ -10,6 +10,7 @@ namespace ShoesStoreApp.DAL.Data
     {
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Blog> Blog { get; set; }
+        public DbSet<Size> Size { get; set; }
         public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
         {
 

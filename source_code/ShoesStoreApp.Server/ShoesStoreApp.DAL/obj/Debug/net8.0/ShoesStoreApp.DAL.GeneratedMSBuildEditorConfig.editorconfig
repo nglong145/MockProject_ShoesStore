@@ -16,6 +16,6 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ShoesStoreApp.DAL
-build_property.ProjectDir = C:\Users\nguye\OneDrive\Máy tính\ProjectFPT\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\
+build_property.ProjectDir = C:\Users\hahuy\source\repos\MockProject_ShoesStore\source_code\ShoesStoreApp.Server\ShoesStoreApp.DAL\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
