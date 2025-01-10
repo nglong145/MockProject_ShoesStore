@@ -8,10 +8,12 @@ namespace ShoesStoreApp.DAL.Data
 {
     public class ShoesStoreAppDbContext : IdentityDbContext<User, Role, Guid>
     {
-        //public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) :base(optionsBuilder)
-        //{
+        public DbSet<Brand> Brand { get; set; }
+        public DbSet<Blog> Blog { get; set; }
+        public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
+        {
 
-        //}
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
