@@ -12,14 +12,14 @@ namespace ShoesStoreApp.DAL.Data
         public DbSet<Blog> Blog { get; set; }
         public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
         {
-
+        
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
+                optionsBuilder.UseSqlServer("Server=LAPTOP-82GOTJUD\\SQLEXPRESS;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
                      .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             }
         }
