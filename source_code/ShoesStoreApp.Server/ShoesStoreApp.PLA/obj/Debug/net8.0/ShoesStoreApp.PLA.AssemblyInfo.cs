@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShoesStoreApp.PLA")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d2a70c64585029bdde2720c94b10937d575b916")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42a9d3aa605d15cc44ee9079053d502d69b58f19")]
+>>>>>>> develop
 [assembly: System.Reflection.AssemblyProductAttribute("ShoesStoreApp.PLA")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShoesStoreApp.PLA")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,176 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using ShoesStoreApp.BLL.ViewModels.Auth;
+using ShoesStoreApp.DAL.Data;
+using ShoesStoreApp.DAL.Models;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace ShoesStoreApp.BLL.Services.AuthenticationService
+{
+    public class AuthenticationService:IAuthenticationService
+    {
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
+        private readonly IConfiguration _configuration;
+        private readonly ShoesStoreAppDbContext _context;
+
+        public AuthenticationService(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration,
+                                     ShoesStoreAppDbContext context)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _configuration = configuration;
+            _context = context;
+        }
+
+        public async Task<AuthResultVm> RegisterUserAsync(RegisterVm registerVm)
+        {
+            var userExists = await _userManager.FindByEmailAsync(registerVm.Email);
+            if (userExists != null)
+            {
+                throw new Exception($"User {registerVm.Email} already exists!");
+            }
+
+            var role = await _roleManager.FindByNameAsync("User");
+
+            var newUser = new User
+            {
+                RoleId = role.Id,
+                FullName = registerVm.FullName,
+                Address = registerVm.Address,
+                Email = registerVm.Email,
+                UserName = registerVm.Email,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            var result = await _userManager.CreateAsync(newUser, registerVm.Password);
+            if (result.Succeeded)
+            {
+                return new AuthResultVm { Message = $"User {registerVm.Email} created!" };
+            }
+
+            throw new Exception("User could not be created!");
+        }
+
+        public async Task<AuthResultVm> LoginUserAsync(LoginVm loginVm)
+        {
+            var user = await _userManager.FindByEmailAsync(loginVm.Email);
+            if (user == null || !await _userManager.CheckPasswordAsync(user, loginVm.Password))
+            {
+                throw new Exception("Invalid login credentials!");
+            }
+
+            return await GenerateJwtTokenAsync(user);
+        }
+
+        //private async Task<AuthResultVm> GenerateJwtToken(User user)
+        //{
+        //    var authClaims = new List<Claim>
+        //{
+        //    new Claim(ClaimTypes.Name, user.UserName),
+        //    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        //    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+        //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        //};
+
+        //    var roles = await _userManager.GetRolesAsync(user);
+        //    foreach (var role in roles)
+        //    {
+        //        authClaims.Add(new Claim(ClaimTypes.Role, role));
+        //    }
+
+        //    var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+
+        //    var token = new JwtSecurityToken(
+        //        issuer: _configuration["JWT:Issuer"],
+        //        audience: _configuration["JWT:Audience"],
+        //        expires: DateTime.UtcNow.AddHours(1),
+        //        claims: authClaims,
+        //        signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+        //    );
+
+        //    return new AuthResultVm
+        //    {
+        //        Token = new JwtSecurityTokenHandler().WriteToken(token),
+        //        ExpiresAt = token.ValidTo
+        //    };
+        //}
+
+
+        public async Task<AuthResultVm> RefreshTokenAsync(string refreshToken)
+        {
+            var storedToken = await _context.RefreshToken.FirstOrDefaultAsync(rt => rt.Token == refreshToken);
+
+            if (storedToken == null || storedToken.IsRevoked || storedToken.DateExpire <= DateTime.UtcNow)
+            {
+                throw new UnauthorizedAccessException("Invalid or expired refresh token");
+            }
+
+            var user = await _userManager.FindByIdAsync(storedToken.UserId.ToString());
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("User not found");
+            }
+
+            // Revoke old token
+            storedToken.IsRevoked = true; 
+            _context.RefreshToken.Update(storedToken);
+
+            var jwtResult = await GenerateJwtTokenAsync(user);
+            await _context.SaveChangesAsync();
+
+            return jwtResult;
+
+        }
+
+        private async Task<AuthResultVm> GenerateJwtTokenAsync(User user)
+        {
+            var authClaims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["JWT:Issuer"],
+                audience: _configuration["JWT:Audience"],
+                expires: DateTime.UtcNow.AddHours(1),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
+
+            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+            var refreshToken = new RefreshToken
+            {
+                JwtId = token.Id,
+                Token = Guid.NewGuid().ToString(),
+                UserId = user.Id,
+                DateAdded = DateTime.UtcNow,
+                DateExpire = DateTime.UtcNow.AddDays(7)
+
+            };
+
+            await _context.RefreshToken.AddAsync(refreshToken);
+            await _context.SaveChangesAsync();
+
+            return new AuthResultVm
+            {
+                Token = jwtToken,
+                RefreshToken = refreshToken.Token,
+                ExpiresAt = token.ValidTo
+            };
+        }
+
+    }
+}
