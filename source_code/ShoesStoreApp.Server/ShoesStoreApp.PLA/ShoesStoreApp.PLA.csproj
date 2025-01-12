@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\ShoesStoreApp.BLL\ShoesStoreApp.BLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShoesStoreApp.BLL\ShoesStoreApp.BLL.csproj" />
+    <Folder Include="Images\Product\" />
   </ItemGroup>
 
 </Project>

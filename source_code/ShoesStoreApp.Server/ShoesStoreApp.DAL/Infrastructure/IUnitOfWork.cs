@@ -9,6 +9,7 @@ namespace ShoesStoreApp.DAL.Infrastructure
         ShoesStoreAppDbContext Context { get; }
         IGenericRepository<Brand> BrandRepository { get; }
         IGenericRepository<Blog> BlogRepository { get; }
+        IGenericRepository<ImageSystem> ImageRepository { get; }
         IGenericRepository<TEntity> GenericRepository<TEntity>() where TEntity : class;
         int SaveChanges();
         Task<int> SaveChangesAsync();
