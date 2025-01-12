@@ -21,10 +21,21 @@ namespace ShoesStoreApp.DAL.Infrastructure
         private IGenericRepository<Cart>? _cartRepository;
         
 
+        private IGenericRepository<Size>? _sizeRepository;
+
         public IGenericRepository<Brand> BrandRepository => _brandRepository ?? new GenericRepository<Brand>(_context);
         public IGenericRepository<Blog> BlogRepository => _blogRepository ?? new GenericRepository<Blog>(_context);
+
         public IGenericRepository<CartItem> CartItemRepository => _cartItemRepository ?? new GenericRepository<CartItem>(_context);
         public IGenericRepository<Cart> CartRepository => _cartRepository ?? new GenericRepository<Cart>(_context);
+
+        public IGenericRepository<Size> SizeRepository => _sizeRepository ?? new GenericRepository<Size>(_context);
+
+        private IGenericRepository<ImageSystem>? _imageRepository;
+
+        public IGenericRepository<ImageSystem> ImageRepository => _imageRepository ?? new GenericRepository<ImageSystem>(_context);
+
+
         public UnitOfWork(ShoesStoreAppDbContext context)
         {
             _context = context;

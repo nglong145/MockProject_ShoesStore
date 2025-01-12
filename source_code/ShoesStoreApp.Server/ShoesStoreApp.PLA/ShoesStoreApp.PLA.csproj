@@ -15,4 +15,8 @@
     <ProjectReference Include="..\ShoesStoreApp.BLL\ShoesStoreApp.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Product\" />
+  </ItemGroup>
+
 </Project>

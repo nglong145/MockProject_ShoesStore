@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoesStoreApp.DAL.Data;
 
@@ -11,9 +12,11 @@ using ShoesStoreApp.DAL.Data;
 namespace ShoesStoreApp.DAL.Migrations
 {
     [DbContext(typeof(ShoesStoreAppDbContext))]
-    partial class ShoesStoreAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250112022418_UpdateTableUser")]
+    partial class UpdateTableUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,41 +384,6 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("ShoesStoreApp.DAL.Models.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateExpire")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JwtId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshToken");
-                });
-
             modelBuilder.Entity("ShoesStoreApp.DAL.Models.Review", b =>
                 {
                     b.Property<Guid>("ProductId")
@@ -471,20 +439,6 @@ namespace ShoesStoreApp.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("085dad78-878b-4772-af4e-be07991e3e6e"),
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("9702c5f4-757a-4310-b12c-06b8ba145c32"),
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("ShoesStoreApp.DAL.Models.Size", b =>
@@ -570,8 +524,9 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -593,27 +548,6 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("cb1a9b67-658e-4b75-b98d-a3797982beb0"),
-                            AccessFailedCount = 0,
-                            Address = "Default Address",
-                            ConcurrencyStamp = "349c57d9-c4b6-41b0-a915-d434c585cbff",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            FullName = "Administrator",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGKj8ugb5fFmDI37PWMROG53iwj51PJF+Kj43jEC1hI1XqeEy3ZnM43HyYDgQnS+dA==",
-                            PhoneNumberConfirmed = false,
-                            RoleId = new Guid("085dad78-878b-4772-af4e-be07991e3e6e"),
-                            Status = true,
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -740,17 +674,6 @@ namespace ShoesStoreApp.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Brand");
-                });
-
-            modelBuilder.Entity("ShoesStoreApp.DAL.Models.RefreshToken", b =>
-                {
-                    b.HasOne("ShoesStoreApp.DAL.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ShoesStoreApp.DAL.Models.Review", b =>
