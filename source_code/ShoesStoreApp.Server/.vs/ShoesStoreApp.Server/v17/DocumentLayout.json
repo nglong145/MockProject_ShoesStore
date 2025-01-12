@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{348E3EA1-0D50-4DE2-850D-7ADF67F48A74}|ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj|c:\\users\\nguye\\onedrive\\m\u00E1y t\u00EDnh\\projectfpt\\mockproject_shoesstore\\source_code\\shoesstoreapp.server\\shoesstoreapp.pla\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{348E3EA1-0D50-4DE2-850D-7ADF67F48A74}|ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj|solutionrelative:shoesstoreapp.pla\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{109269D4-D132-49F0-9126-FE3C983DCFE8}|ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj|c:\\users\\nguye\\onedrive\\m\u00E1y t\u00EDnh\\projectfpt\\mockproject_shoesstore\\source_code\\shoesstoreapp.server\\shoesstoreapp.dal\\data\\shoesstoreappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{109269D4-D132-49F0-9126-FE3C983DCFE8}|ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj|solutionrelative:shoesstoreapp.dal\\data\\shoesstoreappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -25,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{109269D4-D132-49F0-9126-FE3C983DCFE8}|ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj|c:\\users\\nguye\\onedrive\\m\u00E1y t\u00EDnh\\projectfpt\\mockproject_shoesstore\\source_code\\shoesstoreapp.server\\shoesstoreapp.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{109269D4-D132-49F0-9126-FE3C983DCFE8}|ShoesStoreApp.DAL\\ShoesStoreApp.DAL.csproj|solutionrelative:shoesstoreapp.dal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{348E3EA1-0D50-4DE2-850D-7ADF67F48A74}|ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj|c:\\users\\nguye\\onedrive\\m\u00E1y t\u00EDnh\\projectfpt\\mockproject_shoesstore\\source_code\\shoesstoreapp.server\\shoesstoreapp.pla\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{348E3EA1-0D50-4DE2-850D-7ADF67F48A74}|ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj|solutionrelative:shoesstoreapp.pla\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BFE594AD-51B7-429B-B548-D75AA8280312}|ShoesStoreApp.BLL\\ShoesStoreApp.BLL.csproj|c:\\users\\nguye\\onedrive\\m\u00E1y t\u00EDnh\\projectfpt\\mockproject_shoesstore\\source_code\\shoesstoreapp.server\\shoesstoreapp.bll\\viewmodels\\auth\\authresultvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "IAuthenticationService.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.BLL\\Services\\AuthenticationService\\IAuthenticationService.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.BLL\\Services\\AuthenticationService\\IAuthenticationService.cs",
@@ -86,12 +86,11 @@
               "RelativeToolTip": "ShoesStoreApp.BLL\\Services\\AuthenticationService\\IAuthenticationService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T07:48:10.455Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T07:48:10.455Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AuthenticationService.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.BLL\\Services\\AuthenticationService\\AuthenticationService.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.BLL\\Services\\AuthenticationService\\AuthenticationService.cs",
@@ -99,25 +98,24 @@
               "RelativeToolTip": "ShoesStoreApp.BLL\\Services\\AuthenticationService\\AuthenticationService.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAAcwDQAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T03:24:21.991Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T03:24:21.991Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "AuthenticationController.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\Controllers\\AuthenticationController.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.PLA\\Controllers\\AuthenticationController.cs",
               "ToolTip": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\Controllers\\AuthenticationController.cs",
               "RelativeToolTip": "ShoesStoreApp.PLA\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwBsAAAAtAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAQwBsAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-12T03:00:10.939Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\Models\\User.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.DAL\\Models\\User.cs",
@@ -125,18 +123,17 @@
               "RelativeToolTip": "ShoesStoreApp.DAL\\Models\\User.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T07:40:38.875Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T07:40:38.875Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ShoesStoreAppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\Data\\ShoesStoreAppDbContext.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.DAL\\Data\\ShoesStoreAppDbContext.cs",
               "ToolTip": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\Data\\ShoesStoreAppDbContext.cs",
               "RelativeToolTip": "ShoesStoreApp.DAL\\Data\\ShoesStoreAppDbContext.cs",
-              "ViewState": "AQIAABwAAAAAAAAAAADwvwgAAAA9AAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAwwAgAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-12T07:18:31.866Z",
               "EditorCaption": ""
@@ -151,12 +148,11 @@
               "RelativeToolTip": "ShoesStoreApp.DAL\\Data\\SeedData.cs",
               "ViewState": "AQIAABkAAAAAAAAAAAAQwCsAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T07:10:56.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T07:10:56.049Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "RefreshToken.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.DAL\\Models\\RefreshToken.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.DAL\\Models\\RefreshToken.cs",
@@ -164,12 +160,11 @@
               "RelativeToolTip": "ShoesStoreApp.DAL\\Models\\RefreshToken.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T07:10:10.85Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T07:10:10.85Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\nguye\\OneDrive\\M\u00E1y t\u00EDnh\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\Program.cs",
               "RelativeDocumentMoniker": "ShoesStoreApp.PLA\\Program.cs",
@@ -177,8 +172,7 @@
               "RelativeToolTip": "ShoesStoreApp.PLA\\Program.cs",
               "ViewState": "AQIAACwAAAAAAAAAAAArwDcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T03:15:00.287Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T03:15:00.287Z"
             },
             {
               "$type": "Document",
@@ -190,8 +184,7 @@
               "RelativeToolTip": "ShoesStoreApp.PLA\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-01-12T03:02:40.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T03:02:40.968Z"
             },
             {
               "$type": "Document",
@@ -203,8 +196,7 @@
               "RelativeToolTip": "ShoesStoreApp.BLL\\ViewModels\\Auth\\RegisterVm.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T02:17:52.067Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T02:17:52.067Z"
             },
             {
               "$type": "Document",
@@ -216,8 +208,7 @@
               "RelativeToolTip": "ShoesStoreApp.BLL\\ViewModels\\Auth\\LoginVm.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T02:17:22.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T02:17:22.047Z"
             },
             {
               "$type": "Document",
@@ -229,8 +220,7 @@
               "RelativeToolTip": "ShoesStoreApp.BLL\\ViewModels\\Auth\\AuthResultVm.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-12T02:16:29.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-12T02:16:29.365Z"
             }
           ]
         }
