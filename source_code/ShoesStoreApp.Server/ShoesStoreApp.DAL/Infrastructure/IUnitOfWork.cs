@@ -10,9 +10,14 @@ namespace ShoesStoreApp.DAL.Infrastructure
         IGenericRepository<Brand> BrandRepository { get; }
         IGenericRepository<Blog> BlogRepository { get; }
 
+        IGenericRepository<CartItem> CartItemRepository { get; }
+        IGenericRepository<Cart> CartRepository { get; }
+
+
         IGenericRepository<Size> SizeRepository { get; }
 
         IGenericRepository<ImageSystem> ImageRepository { get; }
+
 
         IGenericRepository<TEntity> GenericRepository<TEntity>() where TEntity : class;
         int SaveChanges();

@@ -8,10 +8,14 @@ using ShoesStoreApp.BLL.Services.AuthenticationService;
 using ShoesStoreApp.BLL.Services.BlogService;
 using ShoesStoreApp.BLL.Services.BrandService;
 
+using ShoesStoreApp.BLL.Services.CartService;
+
+
 using ShoesStoreApp.BLL.Services.SizeService;
 
 using ShoesStoreApp.BLL.Services.Image;
 using ShoesStoreApp.BLL.Services.ProductService;
+
 
 using ShoesStoreApp.DAL.Data;
 using ShoesStoreApp.DAL.Infrastructure;
@@ -66,6 +70,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddScoped<ISizeSrevice, SizeService>();
 
