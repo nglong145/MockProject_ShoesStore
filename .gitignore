@@ -1,0 +1,8 @@
+*.vs
+*.dll
+*.pdb
+*.cache
+*.json
+
+bin/
+obj/
