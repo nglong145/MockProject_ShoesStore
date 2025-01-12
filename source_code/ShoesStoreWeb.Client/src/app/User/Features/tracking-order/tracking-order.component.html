@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="row section">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <!-- Ảnh đại diện -->
+      <div class="text-center mb-4">
+        <img
+          src="https://via.placeholder.com/80"
+          alt="Avatar"
+          class="img-fluid rounded-circle"
+          style="width: 150px; height: 150px; object-fit: cover"
+        />
+        <p class="mt-2 fw-bold">Trần Thanh C</p>
+        <p class="">tranthanhcgmail.com</p>
+      </div>
+
+      <!-- Menu -->
+      <div class="list-group">
+        <a
+          href="#"
+          class="list-group-item list-group-item-action border-0 "
+          style="border-radius: 0"
+          >Thông tin tài khoản</a
+        >
+        <a href="#" class="list-group-item list-group-item-action border-0"
+          >Thay đổi mật khẩu</a
+        >
+        <a href="#" 
+          class="list-group-item list-group-item-action border-0 active"
+          style="background-color: #f8f9fa; color: #000;"
+          >Đơn hàng</a
+        >
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <h5>Đơn hàng</h5>
+      <table class="table table-bordered mt-3">
+        <thead class="table-light">
+          <tr>
+            <th>Mã đơn</th>
+            <th>Sản phẩm</th>
+            <th>Thành tiền</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.id }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img [src]="order.productImage" alt="Product" class="me-2" width="50" />
+                <span>{{ order.productName }}</span>
+              </div>
+            </td>
+            <td>{{ order.price | currency:'VND' }}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'bg-success': order.status === 'Đã giao',
+                'bg-warning': order.status === 'Đang giao'
+              }">{{ order.status }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
