@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\ShoesStoreApp.PLA.props" />
-</Project>
