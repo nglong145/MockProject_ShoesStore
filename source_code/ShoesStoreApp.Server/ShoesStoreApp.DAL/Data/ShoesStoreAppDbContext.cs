@@ -10,6 +10,15 @@ namespace ShoesStoreApp.DAL.Data
     {
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Blog> Blog { get; set; }
+
+        public DbSet<Size> Size { get; set; }
+
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ImageSystem> Image { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
+        public DbSet<Role> Role { get; set; }
+
+
         public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
         {
 
@@ -32,10 +41,15 @@ namespace ShoesStoreApp.DAL.Data
             modelBuilder.Ignore<IdentityUserRole<Guid>>();
 
 
+            modelBuilder.Entity<User>()
+                        .HasOne(u => u.Role)
+                        .WithMany(r => r.Users)
+                        .HasForeignKey(u => u.RoleId);
+
             // Config when delete brand, don't delete product
             modelBuilder.Entity<Product>()
                         .HasOne(p => p.Brand)
-                        .WithMany()
+                        .WithMany(b=>b.Products)
                         .HasForeignKey(p => p.BrandId)
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -93,6 +107,8 @@ namespace ShoesStoreApp.DAL.Data
                         .HasOne<Product>(ci => ci.Product)
                         .WithMany(p => p.CartItems)
                         .HasForeignKey(ci => ci.ProductId);
+
+            modelBuilder.Seed();
         }
     }
 }
