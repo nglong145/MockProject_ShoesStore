@@ -6,6 +6,13 @@ import { UserLayoutComponent } from './Layout/user-layout/user-layout.component'
 import { HomePageComponent } from './User/Pages/home-page/home-page.component';
 import { ShopComponent } from './User/Pages/shop/shop.component';
 import { ProductComponent } from './User/Pages/product/product.component';
+import { AddproductComponent } from './admin/product/addproduct/addproduct.component';
+import { UpdateProductComponent } from './admin/product/update-product/update-product.component';
+import { AddBrandComponent } from './admin/brand/add-brand/add-brand.component';
+import { UpdateBrandComponent } from './admin/brand/update-brand/update-brand.component';
+import { AddBlogComponent } from './admin/blog/add-blog/add-blog.component';
+import { UpdateBlogComponent } from './admin/blog/update-blog/update-blog.component';
+
 
 export const routes: Routes = [
   {
@@ -44,4 +51,28 @@ export const routes: Routes = [
       // Thêm các route khác cho user
     ],
   },
+  {
+    path: 'admin/product/add',
+    component: AddproductComponent
+  },
+  {
+    path: 'admin/product/update',
+    component: UpdateProductComponent
+  },
+  {
+    path: 'admin/brand/add',
+    component: AddBrandComponent
+  },
+  {
+    path: 'admin/brand/update',
+    component: UpdateBrandComponent
+  },
+  {
+    path: 'admin/blog/add',
+    component: AddBlogComponent
+  },
+  {
+    path: 'admin/blog/update',
+    component: UpdateBlogComponent
+  }
 ];
