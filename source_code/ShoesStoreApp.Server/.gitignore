@@ -42,8 +42,6 @@ Generated_Code/
 *.csproj.nuget.dgspec.json
 project.lock.json
 
-# Configuration
-appsettings*.json
 
 # Database files
 *.mdf
