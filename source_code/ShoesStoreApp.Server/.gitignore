@@ -42,7 +42,6 @@ Generated_Code/
 *.csproj.nuget.dgspec.json
 project.lock.json
 
-
 # Database files
 *.mdf
 *.ldf
@@ -63,7 +62,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Resharper files
-
-
 _ReSharper*/
+
 
