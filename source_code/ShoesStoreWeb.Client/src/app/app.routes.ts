@@ -6,6 +6,10 @@ import { UserLayoutComponent } from './Layout/user-layout/user-layout.component'
 import { HomePageComponent } from './User/Pages/home-page/home-page.component';
 import { ShopComponent } from './User/Pages/shop/shop.component';
 import { ProductComponent } from './User/Pages/product/product.component';
+import { IndexComponent } from './admin/index/index.component';
+import { ContactComponent } from './admin/contact/contact.component';
+import { ListCustomerComponent } from './admin/customer/list-customer/list-customer.component';
+import { ListOrderComponent } from './admin/order/list-order/list-order.component';
 
 import { AddproductComponent } from './admin/product/addproduct/addproduct.component';
 import { UpdateProductComponent } from './admin/product/update-product/update-product.component';
@@ -24,7 +28,24 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    children: [],
+    children: [
+      {
+        path: 'index',
+        component: IndexComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
+      },
+      {
+        path: 'customer',
+        component: ListCustomerComponent
+      },
+      {
+        path: 'order',
+        component: ListOrderComponent
+      }
+    ],
   },
   {
     path: '',
