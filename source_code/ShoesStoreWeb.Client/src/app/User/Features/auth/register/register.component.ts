@@ -47,4 +47,8 @@ export class RegisterComponent {
       }
     );
   }
+
+  onClickBackToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 }
