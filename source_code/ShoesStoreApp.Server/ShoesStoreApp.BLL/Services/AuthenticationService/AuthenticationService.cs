@@ -42,7 +42,6 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             {
                 RoleId = role.Id,
                 FullName = registerVm.FullName,
-                Address = registerVm.Address,
                 Email = registerVm.Email,
                 UserName = registerVm.Email,
                 SecurityStamp = Guid.NewGuid().ToString()
@@ -67,39 +66,6 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
 
             return await GenerateJwtTokenAsync(user);
         }
-
-        //private async Task<AuthResultVm> GenerateJwtToken(User user)
-        //{
-        //    var authClaims = new List<Claim>
-        //{
-        //    new Claim(ClaimTypes.Name, user.UserName),
-        //    new Claim(JwtRegisteredClaimNames.Email, user.Email),
-        //    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-        //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        //};
-
-        //    var roles = await _userManager.GetRolesAsync(user);
-        //    foreach (var role in roles)
-        //    {
-        //        authClaims.Add(new Claim(ClaimTypes.Role, role));
-        //    }
-
-        //    var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
-
-        //    var token = new JwtSecurityToken(
-        //        issuer: _configuration["JWT:Issuer"],
-        //        audience: _configuration["JWT:Audience"],
-        //        expires: DateTime.UtcNow.AddHours(1),
-        //        claims: authClaims,
-        //        signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-        //    );
-
-        //    return new AuthResultVm
-        //    {
-        //        Token = new JwtSecurityTokenHandler().WriteToken(token),
-        //        ExpiresAt = token.ValidTo
-        //    };
-        //}
 
 
         public async Task<AuthResultVm> RefreshTokenAsync(string refreshToken)
@@ -170,6 +136,42 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
                 RefreshToken = refreshToken.Token,
                 ExpiresAt = token.ValidTo
             };
+        }
+
+
+        public async Task<UserVm> GetUserInfoAsync(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            return new UserVm
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address
+            };
+        }
+
+
+        public async Task<bool> UpdateUserInfoAsync(Guid userId, UpdateUserVm updateUserVm)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            user.FullName = updateUserVm.FullName;
+            user.PhoneNumber = updateUserVm.PhoneNumber;
+            user.Address = updateUserVm.Address;
+
+            var result = await _userManager.UpdateAsync(user);
+            return result.Succeeded;
         }
 
     }

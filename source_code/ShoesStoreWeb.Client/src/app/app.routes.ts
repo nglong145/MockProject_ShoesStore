@@ -9,6 +9,7 @@ import { ProductComponent } from './User/Pages/product/product.component';
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
 import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
 import { LoginComponent } from './User/Features/auth/login/login.component';
+import { RegisterComponent } from './User/Features/auth/register/register.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
     path: '',
     component: UserLayoutComponent,
     children: [
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
       {
         path: 'login',
         component: LoginComponent,
