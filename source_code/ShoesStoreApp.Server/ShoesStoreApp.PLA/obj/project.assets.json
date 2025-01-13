@@ -3155,19 +3155,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nguye\\.nuget\\packages\\": {}
+    "C:\\Users\\hahuy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj",
+      "projectUniqueName": "C:\\Users\\hahuy\\source\\repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj",
       "projectName": "ShoesStoreApp.PLA",
-      "projectPath": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj",
-      "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\obj\\",
+      "projectPath": "C:\\Users\\hahuy\\source\\repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\ShoesStoreApp.PLA.csproj",
+      "packagesPath": "C:\\Users\\hahuy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hahuy\\source\\repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.PLA\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hahuy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3182,8 +3182,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.BLL\\ShoesStoreApp.BLL.csproj": {
-              "projectPath": "C:\\Users\\nguye\\OneDrive\\Máy tính\\ProjectFPT\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.BLL\\ShoesStoreApp.BLL.csproj"
+            "C:\\Users\\hahuy\\source\\repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.BLL\\ShoesStoreApp.BLL.csproj": {
+              "projectPath": "C:\\Users\\hahuy\\source\\repos\\MockProject_ShoesStore\\source_code\\ShoesStoreApp.Server\\ShoesStoreApp.BLL\\ShoesStoreApp.BLL.csproj"
             }
           }
         }
