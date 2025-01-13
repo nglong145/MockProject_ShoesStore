@@ -8,6 +8,7 @@ import { ShopComponent } from './User/Pages/shop/shop.component';
 import { ProductComponent } from './User/Pages/product/product.component';
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
 import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
+import { LoginComponent } from './User/Features/auth/login/login.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,10 @@ export const routes: Routes = [
     path: '',
     component: UserLayoutComponent,
     children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
       {
         path: '',
         component: HomePageComponent,
@@ -51,7 +56,7 @@ export const routes: Routes = [
       {
         path: 'personal-info/order',
         component: TrackingOrderComponent,
-      }
+      },
       // Thêm các route khác cho user
     ],
   },
