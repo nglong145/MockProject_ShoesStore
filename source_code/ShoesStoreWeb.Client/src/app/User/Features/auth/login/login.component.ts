@@ -4,15 +4,17 @@ import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginRequest } from '../models/login-request.model';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   model: LoginRequest;
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -25,7 +27,7 @@ export class LoginComponent {
     };
   }
 
-  onFormSubmit() {
+  onFormSubmit(): void {
     console.log(this.model);
     this.authService.login(this.model).subscribe({
       next: (response) => {
@@ -40,7 +42,7 @@ export class LoginComponent {
           'Strict'
         );
 
-        this.authService.setUser({ email: this.model.email });
+        localStorage.setItem('token', response.token);
         this.router.navigateByUrl('/');
       },
       error: (err) => {

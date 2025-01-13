@@ -21,7 +21,7 @@ namespace ShoesStoreApp.DAL.Data
 
         public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
         {
-        
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
