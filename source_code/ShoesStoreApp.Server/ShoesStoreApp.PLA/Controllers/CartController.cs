@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.CartService;
 using ShoesStoreApp.BLL.ViewModels;
@@ -17,10 +18,16 @@ public class CartController : ControllerBase
         _cartService = cartService;
     }
 
-    [HttpGet("get-cart-by-userId/{userId}")]
-    public async Task<IActionResult> GetCartByUserId(Guid userId)
+    [HttpGet("get-cart-of-user")]
+    public async Task<IActionResult> GetCartByUserId()
     {
-        var cart = await _cartService.GetCartByUserId(userId);
+        var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized(new { Message = "User is not authenticated." });
+        }
+        
+        var cart = await _cartService.GetCartByUserId(Guid.Parse(userId));
         
         if (cart == null)
             return BadRequest("No cart found");
