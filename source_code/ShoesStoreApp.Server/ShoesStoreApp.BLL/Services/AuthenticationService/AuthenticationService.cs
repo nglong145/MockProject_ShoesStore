@@ -44,6 +44,7 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
                 FullName = registerVm.FullName,
                 Email = registerVm.Email,
                 UserName = registerVm.Email,
+                Cart = new Cart(),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 

@@ -28,8 +28,10 @@ public class CartService : BaseService<Cart>, ICartService
             CreatedDate = cart.CreatedDate,
             Items = cart.Items.Select(ci => new CartItemVM
             {
+                CartId = ci.CartId,
                 ProductId = ci.ProductId,
                 ProductName = ci.Product.ProductName,
+                ProductImage = ci.Product.ProductImage,
                 Price = ci.Price,
                 Quantity = ci.Quantity
             }).ToList()
