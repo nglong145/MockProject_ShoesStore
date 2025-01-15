@@ -4,10 +4,8 @@ import { AdminLayoutComponent } from '../../../Layout/admin-layout/admin-layout.
 
 @Component({
   selector: 'app-index',
-  imports: [AdminheaderComponent],
+  imports: [],
   templateUrl: './index.component.html',
-  styleUrl: './index.component.css'
+  styleUrl: './index.component.css',
 })
-export class IndexComponent {
-  
-}
+export class IndexComponent {}

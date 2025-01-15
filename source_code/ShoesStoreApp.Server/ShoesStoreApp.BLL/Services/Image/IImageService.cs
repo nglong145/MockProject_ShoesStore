@@ -6,7 +6,7 @@ namespace ShoesStoreApp.BLL.Services.Image
 {
     public interface IImageService
     {
-        Task<ImageSystem> SaveImageToDatabaseAsync(string fileName, string fileExtension, string urlPath);
+        Task<ImageSystem> SaveImageToDatabaseAsync(string fileName, string fileExtension);
         void ValidateFileUpload(IFormFile file);
     }
 }

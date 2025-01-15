@@ -41,6 +41,7 @@ import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.comp
 
 
 
+
 export const routes: Routes = [
   {
     path: 'admin',
@@ -48,15 +49,15 @@ export const routes: Routes = [
     children: [
       {
         path: 'index',
-        component: IndexComponent
+        component: IndexComponent,
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
       },
       {
         path: 'customer',
-        component: ListCustomerComponent
+        component: ListCustomerComponent,
       },
       {
         path: 'order',
@@ -73,6 +74,7 @@ export const routes: Routes = [
       {
         path: 'blog',
         component: ListBlogComponent
+
       },
     ],
   },
@@ -99,7 +101,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'product',
+        path: 'product/:id',
         component: ProductComponent,
       },
 
@@ -126,26 +128,37 @@ export const routes: Routes = [
   },
   {
     path: 'admin/product/add',
-    component: AddproductComponent
+    component: AddproductComponent,
   },
   {
+<<<<<<< HEAD
     path: 'admin/product/update/:id',
     component: UpdateProductComponent
+=======
+    path: 'admin/product/update',
+    component: UpdateProductComponent,
+>>>>>>> Setting-Product
   },
   {
     path: 'admin/brand/add',
-    component: AddBrandComponent
+    component: AddBrandComponent,
   },
   {
     path: 'admin/brand/update',
-    component: UpdateBrandComponent
+    component: UpdateBrandComponent,
   },
   {
     path: 'admin/blog/add',
-    component: AddBlogComponent
+    component: AddBlogComponent,
   },
   {
+<<<<<<< HEAD
     path: 'admin/blog/update/:id',
     component: UpdateBlogComponent
   }
+=======
+    path: 'admin/blog/update',
+    component: UpdateBlogComponent,
+  },
+>>>>>>> Setting-Product
 ];

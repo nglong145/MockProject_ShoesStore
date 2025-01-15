@@ -16,11 +16,12 @@ namespace ShoesStoreApp.BLL.Services.Image
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ImageSystem> SaveImageToDatabaseAsync(string fileName, string fileExtension, string urlPath)
+        public async Task<ImageSystem> SaveImageToDatabaseAsync(string fileName, string fileExtension)
         {
+            var urlPath = $"/Images/Product/{fileName}{fileExtension}";
             var existingImage = await _unitOfWork.GenericRepository<ImageSystem>()
-            .GetQuery(img => img.FileName == fileName && img.FileExtension == fileExtension)
-            .FirstOrDefaultAsync();
+                .GetQuery(img => img.FileName == fileName && img.FileExtension == fileExtension)
+                .FirstOrDefaultAsync();
 
             if (existingImage != null)
             {

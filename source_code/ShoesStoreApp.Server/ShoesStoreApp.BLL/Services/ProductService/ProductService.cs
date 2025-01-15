@@ -1,12 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoesStoreApp.BLL.Services.Base;
+using ShoesStoreApp.BLL.ViewModels;
 using ShoesStoreApp.DAL.Infrastructure;
 using ShoesStoreApp.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoesStoreApp.BLL.Services.ProductService
 {
@@ -16,11 +12,45 @@ namespace ShoesStoreApp.BLL.Services.ProductService
             
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByStatusAsync(string status)
+        public async Task<PaginatedResult<Product>> GetProductsByStatusAsync(string status, int pageIndex, int pageSize)
         {
-            return await _unitOfWork.GenericRepository<Product>()
-                                    .GetQuery(p => p.Status == status)
-                                    .ToListAsync();
+            var query = _unitOfWork.GenericRepository<Product>().GetQuery(p => p.Status == status).Include(p => p.Brand);
+            return await PaginatedResult<Product>.CreateAsync(query, pageIndex, pageSize);
+        }
+
+        public async Task<PaginatedResult<Product>> GetFilteredProductsAsync(ProductFilterVm filter)
+        {
+            var query = _unitOfWork.GenericRepository<Product>().GetQuery().Include(p => p.Brand);
+
+            // Filter by status
+            if (!string.IsNullOrEmpty(filter.Status))
+            {
+                query = query.Where(p => p.Status == filter.Status).Include(p => p.Brand);
+            }
+
+            // Filter by brand
+            if (filter.BrandId.HasValue)
+            {
+                query = query.Where(p => p.BrandId == filter.BrandId.Value).Include(p => p.Brand);
+            }
+
+            // Filter by size
+            if (!string.IsNullOrEmpty(filter.SizeName))
+            {
+                query = query.Where(p => p.Sizes.Any(s => s.SizeName == filter.SizeName)).Include(p => p.Brand);
+            }
+
+            // Filter by price
+            if (filter.MinPrice.HasValue)
+            {
+                query = query.Where(p => p.Price >= filter.MinPrice.Value).Include(p => p.Brand);
+            }
+            if (filter.MaxPrice.HasValue)
+            {
+                query = query.Where(p => p.Price <= filter.MaxPrice.Value).Include(p => p.Brand);
+            }
+
+            return await PaginatedResult<Product>.CreateAsync(query, filter.PageIndex, filter.PageSize);
         }
     }
 }
