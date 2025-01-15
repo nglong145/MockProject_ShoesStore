@@ -475,13 +475,15 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("41413663-4c60-4068-93ab-591737d13dd5"),
+                            Id = new Guid("052f453f-ab51-4035-bcfe-467ba4506c22"),
+
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
-                        {
-                            Id = new Guid("4dd47138-8857-4fd2-942e-f1f50f60818c"),
+
+                            Id = new Guid("f45d405b-e271-484a-b270-c6cf17a561d6"),
+
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -596,19 +598,23 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("582e216c-2dbc-49b7-9407-879056ecd0e0"),
+
+                            Id = new Guid("2bfc4217-b6af-4855-9529-7f01c9331629"),
                             AccessFailedCount = 0,
                             Address = "Default Address",
-                            ConcurrencyStamp = "8a35d63e-9910-4cd5-954b-dde115f84222",
+                            ConcurrencyStamp = "ba0aa5bd-e275-42ce-9a80-6965b6dcad3c",
+
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FullName = "Administrator",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAELrDT4pYzvJR6qvLn6gDj0Ns/tEUBJbSmimBWKn8DNAYcCdlvcllN7l8VUTBVRxDUw==",
+
+                            PasswordHash = "AQAAAAIAAYagAAAAEMqkISYVp44ZWWmyIg9yG9q3sF09AR1S/bKrfD7rmR00ymd7tyF+LFPrQGhJJxUs+Q==",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("41413663-4c60-4068-93ab-591737d13dd5"),
+                            RoleId = new Guid("052f453f-ab51-4035-bcfe-467ba4506c22"),
+
                             Status = true,
                             TwoFactorEnabled = false,
                             UserName = "admin"
