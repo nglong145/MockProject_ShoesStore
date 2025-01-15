@@ -23,7 +23,6 @@ import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-
 import { LoginComponent } from './User/Features/auth/login/login.component';
 import { RegisterComponent } from './User/Features/auth/register/register.component';
 
-
 export const routes: Routes = [
   {
     path: 'admin',
@@ -31,20 +30,20 @@ export const routes: Routes = [
     children: [
       {
         path: 'index',
-        component: IndexComponent
+        component: IndexComponent,
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
       },
       {
         path: 'customer',
-        component: ListCustomerComponent
+        component: ListCustomerComponent,
       },
       {
         path: 'order',
-        component: ListOrderComponent
-      }
+        component: ListOrderComponent,
+      },
     ],
   },
   {
@@ -70,7 +69,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'product',
+        path: 'product/:id',
         component: ProductComponent,
       },
 
@@ -97,26 +96,26 @@ export const routes: Routes = [
   },
   {
     path: 'admin/product/add',
-    component: AddproductComponent
+    component: AddproductComponent,
   },
   {
     path: 'admin/product/update',
-    component: UpdateProductComponent
+    component: UpdateProductComponent,
   },
   {
     path: 'admin/brand/add',
-    component: AddBrandComponent
+    component: AddBrandComponent,
   },
   {
     path: 'admin/brand/update',
-    component: UpdateBrandComponent
+    component: UpdateBrandComponent,
   },
   {
     path: 'admin/blog/add',
-    component: AddBlogComponent
+    component: AddBlogComponent,
   },
   {
     path: 'admin/blog/update',
-    component: UpdateBlogComponent
-  }
+    component: UpdateBlogComponent,
+  },
 ];

@@ -1,4 +1,6 @@
-﻿using ShoesStoreApp.BLL.Services.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoesStoreApp.BLL.Services.Base;
+using ShoesStoreApp.BLL.ViewModels;
 using ShoesStoreApp.DAL.Infrastructure;
 using ShoesStoreApp.DAL.Models;
 
@@ -9,5 +11,12 @@ namespace ShoesStoreApp.BLL.Services.SizeService
         public SizeService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
+
+        public async Task<List<Size>> GetSizeByProductId(Guid id)
+        {
+            var query = _unitOfWork.GenericRepository<Size>().GetQuery(s => s.ProductId == id);
+            return await query.ToListAsync();
+        }
+
     }
 }

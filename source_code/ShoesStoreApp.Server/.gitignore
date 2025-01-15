@@ -63,3 +63,9 @@ yarn-error.log*
 
 # Resharper files
 _ReSharper*/
+
+
+# image file
+*.png 
+*.jpg
+*.jpeg

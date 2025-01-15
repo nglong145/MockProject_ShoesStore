@@ -32,18 +32,14 @@ export class LoginComponent {
     this.authService.login(this.model).subscribe({
       next: (response) => {
         console.log(response);
-        this.cookieService.set(
-          'Authentication',
-          `Bearer ${response.token}`,
-          undefined,
-          '/',
-          undefined,
-          true,
-          'Strict'
-        );
 
-        localStorage.setItem('token', response.token);
-        this.router.navigateByUrl('/');
+        // Sau khi đăng nhập thành công, chuyển hướng về trang chủ và cập nhật thông tin người dùng
+        this.router.navigateByUrl('/').then(() => {
+          // Cập nhật thông tin người dùng vào BehaviorSubject
+          this.authService.getUserInfo().subscribe((user) => {
+            this.authService.setUser(user); // Cập nhật thông tin người dùng vào BehaviorSubject
+          });
+        });
       },
       error: (err) => {
         console.log(err);

@@ -16,18 +16,10 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.loadUser();
-  }
-
-  loadUser(): void {
-    this.authService.getUserInfo().subscribe(
-      (userInfo) => {
-        this.user = userInfo;
-      },
-      (error) => {
-        console.error('Error loading user info:', error);
-      }
-    );
+    // Đăng ký vào BehaviorSubject để nhận thông tin người dùng khi có sự thay đổi
+    this.authService.user().subscribe((user) => {
+      this.user = user; // Cập nhật người dùng vào header
+    });
   }
 
   logout(): void {

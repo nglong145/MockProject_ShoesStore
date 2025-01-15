@@ -54,6 +54,31 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("The size does not exist!");
         }
 
+
+        [HttpGet("get-size-by-product/{id}")]
+        public async Task<IActionResult> GetSizeByProductId(Guid id)
+        {
+            var sizes = await _sizeService.GetSizeByProductId(id);
+            var sizeVm = new List<SizeVm>();
+            if (sizes != null)
+            {
+                foreach (var size in sizes)
+                {
+                    sizeVm.Add(new SizeVm
+                    {
+                        SizeId = size.SizeId,
+                        SizeName = size.SizeName,
+                        Quantity = size.Quantity,
+                        Status = size.Status,
+                        ProductId = size.ProductId,
+                    });
+                }
+                return Ok(sizeVm);
+            }
+            return BadRequest("The size does not exist!");
+        }
+
+
         [HttpPost("add-new-size")]
         public async Task<IActionResult> AddNewSize([FromBody] AddSizeVm addSizeVm)
         {

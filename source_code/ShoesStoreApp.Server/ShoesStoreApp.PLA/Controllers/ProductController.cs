@@ -51,10 +51,7 @@ namespace ShoesStoreApp.PLA.Controllers
                     await file.CopyToAsync(stream);
                 }
 
-                var httpRequest = _httpContextAccessor.HttpContext.Request;
-                var urlPath = $"{httpRequest.Scheme}://{httpRequest.Host}{httpRequest.PathBase}/Images/Product/{fileName}{fileExtension}";
-
-                var uploadedImage = await _imageService.SaveImageToDatabaseAsync(fileName, fileExtension, urlPath);
+                var uploadedImage = await _imageService.SaveImageToDatabaseAsync(fileName, fileExtension);
 
                 return Ok(uploadedImage);
             }
@@ -91,30 +88,66 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
 
-        [HttpPost("Get-All-Product-With-Status")]
-        public async Task<IActionResult> GetAllProductWithStatus([FromBody] string status)
+        [HttpGet("Get-All-Product-With-Status")]
+        public async Task<IActionResult> GetAllProductWithStatus([FromQuery] string status,int pageIndex,int pageSize)
         {
-            var products = await _productService.GetProductsByStatusAsync(status);
 
-            var productVms = new List<ProductVm>();
-
-            foreach (var product in products)
+            if (string.IsNullOrEmpty(status))
             {
-                var brand = await _brandService.GetByIdAsync(product.BrandId);
-                productVms.Add(new ProductVm
-                {
-                    ProductId = product.ProductId,
-                    BrandId = product.BrandId,
-                    BrandName = brand.BrandName,
-                    ProductName = product.ProductName,
-                    ProductImage = product.ProductImage,
-                    Price = product.Price,
-                    Description = product.Description,
-                    Status = product.Status,
-                });
+                return BadRequest(new { message = "Status cannot be null or empty." });
             }
 
-            return Ok(productVms);
+            if (pageIndex <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { message = "PageIndex and PageSize must be greater than 0." });
+            }
+
+            var products = await _productService.GetProductsByStatusAsync(status, pageIndex, pageSize);
+
+            var productVms = products.Items.Select(product => new ProductVm
+            {
+                ProductId = product.ProductId,
+                BrandId = product.BrandId,
+                BrandName = product.Brand.BrandName,
+                ProductName = product.ProductName,
+                ProductImage = product.ProductImage,
+                Price = product.Price,
+                Description = product.Description,
+                Status = product.Status,
+            }).ToList();
+
+            var response = new PaginatedResult<ProductVm>(productVms, products.TotalPages, products.PageIndex, pageSize);
+
+            return Ok(response);
+
+        }
+
+
+        [HttpPost("Get-Filtered-Products")]
+        public async Task<IActionResult> GetFilteredProducts([FromBody] ProductFilterVm filter)
+        {
+            if (filter.PageIndex <= 0 || filter.PageSize <= 0)
+            {
+                return BadRequest(new { message = "PageIndex and PageSize must be greater than 0." });
+            }
+
+            var products = await _productService.GetFilteredProductsAsync(filter);
+
+            var productVms = products.Items.Select(product => new ProductVm
+            {
+                ProductId = product.ProductId,
+                BrandId = product.BrandId,
+                BrandName = product.Brand.BrandName,
+                ProductName = product.ProductName,
+                ProductImage = product.ProductImage,
+                Price = product.Price,
+                Description = product.Description,
+                Status = product.Status,
+            }).ToList();
+
+            var response = new PaginatedResult<ProductVm>(productVms, products.TotalPages, products.PageIndex, filter.PageSize);
+
+            return Ok(response);
         }
 
         [HttpGet("Get-Product-By-Id/{id}")]
