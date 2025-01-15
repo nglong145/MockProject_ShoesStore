@@ -475,13 +475,13 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("085dad78-878b-4772-af4e-be07991e3e6e"),
+                            Id = new Guid("052f453f-ab51-4035-bcfe-467ba4506c22"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("9702c5f4-757a-4310-b12c-06b8ba145c32"),
+                            Id = new Guid("f45d405b-e271-484a-b270-c6cf17a561d6"),
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -523,7 +523,6 @@ namespace ShoesStoreApp.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -597,19 +596,19 @@ namespace ShoesStoreApp.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cb1a9b67-658e-4b75-b98d-a3797982beb0"),
+                            Id = new Guid("2bfc4217-b6af-4855-9529-7f01c9331629"),
                             AccessFailedCount = 0,
                             Address = "Default Address",
-                            ConcurrencyStamp = "349c57d9-c4b6-41b0-a915-d434c585cbff",
+                            ConcurrencyStamp = "ba0aa5bd-e275-42ce-9a80-6965b6dcad3c",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FullName = "Administrator",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGKj8ugb5fFmDI37PWMROG53iwj51PJF+Kj43jEC1hI1XqeEy3ZnM43HyYDgQnS+dA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMqkISYVp44ZWWmyIg9yG9q3sF09AR1S/bKrfD7rmR00ymd7tyF+LFPrQGhJJxUs+Q==",
                             PhoneNumberConfirmed = false,
-                            RoleId = new Guid("085dad78-878b-4772-af4e-be07991e3e6e"),
+                            RoleId = new Guid("052f453f-ab51-4035-bcfe-467ba4506c22"),
                             Status = true,
                             TwoFactorEnabled = false,
                             UserName = "admin"

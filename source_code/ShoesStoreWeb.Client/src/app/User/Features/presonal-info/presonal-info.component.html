@@ -1,0 +1,135 @@
+<div class="container mt-5">
+  <div class="row section">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <!-- Ảnh đại diện -->
+      <div class="text-center mb-4">
+        <img
+          src="https://via.placeholder.com/80"
+          alt="Avatar"
+          class="img-fluid rounded-circle"
+          style="width: 150px; height: 150px; object-fit: cover"
+        />
+        <p class="mt-2 fw-bold">Trần Thanh C</p>
+        <p class="">tranthanhcgmail.com</p>
+      </div>
+
+      <!-- Menu -->
+      <div class="list-group">
+        <a
+          href="#"
+          class="list-group-item list-group-item-action border-0 active"
+          style="border-radius: 0; background-color: #f8f9fa; color: #000;"
+          >Thông tin tài khoản</a
+        >
+        <a href="#" class="list-group-item list-group-item-action border-0"
+          >Thay đổi mật khẩu</a
+        >
+        <a href="#" class="list-group-item list-group-item-action border-0"
+          >Đơn hàng</a
+        >
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <!-- Thông tin tài khoản -->
+      <div class="card mb-4 border-0">
+        <div class="card-body">
+          <h5 class="card-title">Thông tin tài khoản</h5>
+          <h5
+            style="
+              border-bottom: 2px solid #000;
+              width: 100px;
+              margin-bottom: 20px;
+            "
+          ></h5>
+
+          <div class="row mb-2">
+            <div class="col-2">Họ tên:</div>
+            <div class="col-10">Trần Thanh C</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-2">Email:</div>
+            <div class="col-10">tranthanhcgmail.com</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-2">Số điện thoại:</div>
+            <div class="col-10">0265236154</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-2">Địa chỉ:</div>
+            <div class="col-10">Yên Mỹ - Hưng Yên</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form chỉnh sửa thông tin -->
+      <div class="card border-0">
+        <div class="card-body">
+          <h5 class="card-title">Thay đổi thông tin</h5>
+          <h5
+            style="
+              border-bottom: 2px solid #000;
+              width: 100px;
+              margin-bottom: 20px;
+            "
+          ></h5>
+
+          <form (ngSubmit)="updateProfile()">
+            <div class="row mb-3">
+              <div class="col-2">
+                <label for="name" class="form-label">Họ tên</label>
+              </div>
+              <div class="col-10">
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  [(ngModel)]="user.name"
+                  name="name"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-2">
+                <label for="phone" class="form-label">Số điện thoại</label>
+              </div>
+              <div class="col-10">
+                <input
+                  type="text"
+                  id="phone"
+                  class="form-control"
+                  [(ngModel)]="user.phone"
+                  name="phone"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-2">
+                <label for="address" class="form-label">Địa chỉ</label>
+              </div>
+              <div class="col-10">
+                <input
+                  type="text"
+                  id="address"
+                  class="form-control"
+                  [(ngModel)]="user.address"
+                  name="address"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 text-end">
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

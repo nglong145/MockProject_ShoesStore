@@ -1,0 +1,28 @@
+<div class="container">
+    <p>Order</p>
+
+    <table>
+        <tr>
+            <th>OrderId</th>
+            <th>Customer Name</th>
+            <th>Created Date</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>
+                <select name="questionId" id="questionId" class="form-control" (change)="onClick($event)">
+                    <ng-container>
+                        <option value="Active">Processing</option>
+                        <option value="Block">Delivered</option>
+                    </ng-container>
+                </select>
+                 
+            </td>
+            <td><a href="">See more</a></td>
+        </tr>
+
+    </table>
+</div>

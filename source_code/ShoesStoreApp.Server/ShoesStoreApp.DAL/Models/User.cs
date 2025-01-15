@@ -7,7 +7,7 @@ namespace ShoesStoreApp.DAL.Models
         public Guid RoleId { get; set; }
         public Role Role { get; set; }
         public string FullName { get; set; }
-        public string Address { get; set; }
+        public string? Address { get; set; }
         public bool Status { get; set; } = true;
 
         public Cart Cart { get; set; }
