@@ -6,22 +6,25 @@ import { UserLayoutComponent } from './Layout/user-layout/user-layout.component'
 import { HomePageComponent } from './User/Pages/home-page/home-page.component';
 import { ShopComponent } from './User/Pages/shop/shop.component';
 import { ProductComponent } from './User/Pages/product/product.component';
-import { IndexComponent } from './admin/index/index.component';
-import { ContactComponent } from './admin/contact/contact.component';
-import { ListCustomerComponent } from './admin/customer/list-customer/list-customer.component';
-import { ListOrderComponent } from './admin/order/list-order/list-order.component';
+import { IndexComponent } from './admin/core/index/index.component';
+import { ContactComponent } from './admin/core/contact/contact.component';
+import { ListCustomerComponent } from './admin/feature/customer/list-customer/list-customer.component';
+import { ListOrderComponent } from './admin/feature/order/list-order/list-order.component';
 
-import { AddproductComponent } from './admin/product/addproduct/addproduct.component';
-import { UpdateProductComponent } from './admin/product/update-product/update-product.component';
-import { AddBrandComponent } from './admin/brand/add-brand/add-brand.component';
-import { UpdateBrandComponent } from './admin/brand/update-brand/update-brand.component';
-import { AddBlogComponent } from './admin/blog/add-blog/add-blog.component';
-import { UpdateBlogComponent } from './admin/blog/update-blog/update-blog.component';
+import { AddproductComponent } from './admin/feature/product/addproduct/addproduct.component';
+import { UpdateProductComponent } from './admin/feature/product/update-product/update-product.component';
+import { AddBrandComponent } from './admin/feature/brand/add-brand/add-brand.component';
+import { UpdateBrandComponent } from './admin/feature/brand/update-brand/update-brand.component';
+import { AddBlogComponent } from './admin/feature/blog/add-blog/add-blog.component';
+import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blog.component';
 
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
 import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
 import { LoginComponent } from './User/Features/auth/login/login.component';
 import { RegisterComponent } from './User/Features/auth/register/register.component';
+import { ListProductComponent } from './admin/feature/product/list-product/list-product.component';
+import { ListBrandComponent } from './admin/feature/brand/list-brand/list-brand.component';
+import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
 
 
 export const routes: Routes = [
@@ -44,7 +47,19 @@ export const routes: Routes = [
       {
         path: 'order',
         component: ListOrderComponent
-      }
+      },
+      {
+        path: 'product',
+        component: ListProductComponent
+      },
+      {
+        path: 'brand',
+        component: ListBrandComponent
+      },
+      {
+        path: 'blog',
+        component: ListBlogComponent
+      },
     ],
   },
   {
@@ -100,7 +115,7 @@ export const routes: Routes = [
     component: AddproductComponent
   },
   {
-    path: 'admin/product/update',
+    path: 'admin/product/update/:id',
     component: UpdateProductComponent
   },
   {
@@ -116,7 +131,7 @@ export const routes: Routes = [
     component: AddBlogComponent
   },
   {
-    path: 'admin/blog/update',
+    path: 'admin/blog/update/:id',
     component: UpdateBlogComponent
   }
 ];
