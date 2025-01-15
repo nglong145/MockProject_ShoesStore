@@ -6,22 +6,21 @@ import { UserLayoutComponent } from './Layout/user-layout/user-layout.component'
 import { HomePageComponent } from './User/Pages/home-page/home-page.component';
 import { ShopComponent } from './User/Pages/shop/shop.component';
 import { ProductComponent } from './User/Pages/product/product.component';
-import { IndexComponent } from './admin/index/index.component';
-import { ContactComponent } from './admin/contact/contact.component';
-import { ListCustomerComponent } from './admin/customer/list-customer/list-customer.component';
-import { ListOrderComponent } from './admin/order/list-order/list-order.component';
-
-import { AddproductComponent } from './admin/product/addproduct/addproduct.component';
-import { UpdateProductComponent } from './admin/product/update-product/update-product.component';
-import { AddBrandComponent } from './admin/brand/add-brand/add-brand.component';
-import { UpdateBrandComponent } from './admin/brand/update-brand/update-brand.component';
-import { AddBlogComponent } from './admin/blog/add-blog/add-blog.component';
-import { UpdateBlogComponent } from './admin/blog/update-blog/update-blog.component';
+import { IndexComponent } from './admin/core/index/index.component';
 
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
 import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
 import { LoginComponent } from './User/Features/auth/login/login.component';
 import { RegisterComponent } from './User/Features/auth/register/register.component';
+import { ContactComponent } from './admin/core/contact/contact.component';
+import { ListCustomerComponent } from './admin/features/customer/list-customer/list-customer.component';
+import { ListOrderComponent } from './admin/features/order/list-order/list-order.component';
+import { AddproductComponent } from './admin/features/product/addproduct/addproduct.component';
+import { UpdateProductComponent } from './admin/features/product/update-product/update-product.component';
+import { AddBrandComponent } from './admin/features/brand/add-brand/add-brand.component';
+import { UpdateBrandComponent } from './admin/features/brand/update-brand/update-brand.component';
+import { AddBlogComponent } from './admin/features/blog/add-blog/add-blog.component';
+import { UpdateBlogComponent } from './admin/features/blog/update-blog/update-blog.component';
 
 
 export const routes: Routes = [

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AdminheaderComponent } from '../../admin/adminheader/adminheader.component';
+import { AdminheaderComponent } from '../../admin/core/adminheader/adminheader.component';
 
 @Component({
   selector: 'app-admin-layout',
