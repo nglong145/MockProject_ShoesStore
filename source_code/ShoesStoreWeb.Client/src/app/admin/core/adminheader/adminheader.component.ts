@@ -17,6 +17,7 @@ export class AdminheaderComponent {
     if(liItem === 1){
       this.router.navigateByUrl('admin/index')
     }
+
     if(liItem === 2){
       this.router.navigateByUrl('admin/product')
     }
@@ -26,6 +27,7 @@ export class AdminheaderComponent {
     if(liItem === 4){
       this.router.navigateByUrl('admin/blog')
     }
+
     if(liItem === 5){
       this.router.navigateByUrl('admin/order')
     }
