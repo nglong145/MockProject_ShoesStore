@@ -22,6 +22,7 @@ using ShoesStoreApp.DAL.Infrastructure;
 using ShoesStoreApp.DAL.Models;
 using System.Text;
 using ShoesStoreApp.BLL.Services.Custumer;
+using ShoesStoreApp.BLL.Services.ReviewService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,8 @@ builder.Services.AddScoped<ISizeSrevice, SizeService>();
 
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
