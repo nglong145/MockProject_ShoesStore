@@ -1,6 +1,6 @@
 namespace ShoesStoreApp.BLL.ViewModels;
 
-public class PaymentVM
+public class PaymentMethodVM
 {
     public Guid PaymentId { get; set; }
     public string PaymentMethod { get; set; }

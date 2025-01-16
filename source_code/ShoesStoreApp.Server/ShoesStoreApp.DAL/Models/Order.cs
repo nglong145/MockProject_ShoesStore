@@ -14,7 +14,6 @@
         public bool IsPayment {get;set;}
         public string Status { get; set; }
         public DateTime CreatedDate { get; set; }
-
         public List<OrderItem> Items { get; set; }
     }
 }

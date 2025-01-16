@@ -22,8 +22,15 @@ using ShoesStoreApp.DAL.Infrastructure;
 using ShoesStoreApp.DAL.Models;
 using System.Text;
 using ShoesStoreApp.BLL.Services.Custumer;
+using ShoesStoreApp.BLL.Services.PaymentService;
+using ShoesStoreApp.BLL.ViewModels.Payment;
 
 var builder = WebApplication.CreateBuilder(args);
+// payment
+
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+
 
 // Add services to the container.
 
@@ -78,7 +85,7 @@ builder.Services.AddScoped<ISizeSrevice, SizeService>();
 
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IPaymentMethodService, PaymentMethodService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IUserService, UserService>();
