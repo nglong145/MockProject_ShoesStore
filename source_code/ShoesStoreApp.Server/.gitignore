@@ -71,4 +71,7 @@ _ReSharper*/
 *.jpg
 *.jpeg
 
+# migrationsmigrations
+ShoesStoreApp.DAL/Migrations/
+
 
