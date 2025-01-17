@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adminheader',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './adminheader.component.html',
   styleUrl: './adminheader.component.css',
   

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrandViewModel } from '../model/brand_viewmodel';
-import { BrandService } from '../service/brand-service.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { BrandService } from '../service/brand-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 @Component({
-  selector: 'app-update-brand',
+  selector: 'app-update-brands',
   imports: [FormsModule],
-  templateUrl: './update-brand.component.html',
-  styleUrl: './update-brand.component.css'
+  templateUrl: './update-brands.component.html',
+  styleUrl: './update-brands.component.css'
 })
-export class UpdateBrandComponent {
+export class UpdateBrandsComponent {
   brand: BrandViewModel
   id?: string | null
   fileImage: File | null = null
