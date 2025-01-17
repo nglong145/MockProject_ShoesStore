@@ -14,6 +14,7 @@ namespace ShoesStoreApp.DAL.Data
         public DbSet<Size> Size { get; set; }
 
         public DbSet<Product> Product { get; set; }
+        public DbSet<Review> Review { get; set; }
         public DbSet<ImageSystem> Image { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
         public DbSet<Role> Role { get; set; }

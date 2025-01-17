@@ -47,7 +47,7 @@ export class ProductListComponent implements OnInit {
   // }
 
   loadProducts(): void {
-    this.filters.status = 'Đang bán';
+    this.filters.status = '1';
     const filter = {
       ...this.filters,
       pageIndex: this.currentPage,

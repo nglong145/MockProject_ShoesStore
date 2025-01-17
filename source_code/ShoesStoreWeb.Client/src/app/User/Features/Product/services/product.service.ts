@@ -49,4 +49,24 @@ export class ProductService {
       `${BASE_URL}/Size/get-size-by-product/${productId}`
     );
   }
+
+  getSimilarProducts(
+    status: string,
+    brandId: string,
+    productId: string,
+    pageIndex: number,
+    pageSize: number
+  ): Observable<PaginatedResult<Product>> {
+    let params = {
+      status,
+      brandId,
+      productId,
+      pageIndex: pageIndex.toString(),
+      pageSize: pageSize.toString(),
+    };
+    return this.http.get<PaginatedResult<Product>>(
+      `${BASE_URL}/Product/Get-Similar-Product`,
+      { params }
+    );
+  }
 }
