@@ -1,28 +1,28 @@
 <div class="container">
     <p>Customer</p>
 
-    <table>
-        <tr>
-            <th>CustomerId</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>
-                <select name="questionId" id="questionId" class="form-control" (change)="onClick($event)">
-                    <ng-container>
-                        <option value="Active">Active</option>
-                        <option value="Block">Block</option>
-                    </ng-container>
-                </select>
-                 
-            </td>
-            <td><a href="">See more</a></td>
-        </tr>
+    <ng-container *ngIf="customers$ | async as customers">
+        <table>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let customer of customers">
+                <td>{{customer.fullName}}</td>
+                <td>{{customer.email}}</td>
+                <td>
+                    <select name="status" id="status" class="form-control" (change)="onClick($event, customer.id)" [value]="customer.status ? 'Active' : 'Block'">
+                        <ng-container>
+                            <option value="Active">Active</option>
+                            <option value="Block">Block</option>
+                        </ng-container>
+                    </select>
+                </td>
+                <td><a href="">See more</a></td>
+            </tr>
 
-    </table>
+        </table>
+    </ng-container>
 </div>

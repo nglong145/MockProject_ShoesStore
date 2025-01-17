@@ -9,12 +9,15 @@ import { ProductComponent } from './User/Pages/product/product.component';
 
 import { ListCustomerComponent } from './admin/feature/customer/list-customer/list-customer.component';
 import { ListOrderComponent } from './admin/feature/order/list-order/list-order.component';
-
 import { AddproductComponent } from './admin/feature/product/addproduct/addproduct.component';
 import { UpdateProductComponent } from './admin/feature/product/update-product/update-product.component';
 import { AddBrandComponent } from './admin/feature/brand/add-brand/add-brand.component';
 import { UpdateBrandComponent } from './admin/feature/brand/update-brand/update-brand.component';
 import { AddBlogComponent } from './admin/feature/blog/add-blog/add-blog.component';
+
+// import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blog.component';
+// import { ListProductComponent } from './admin/feature/product/list-product/list-product.component';
+// import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
 
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
 import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
@@ -29,6 +32,8 @@ import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blo
 import { BlogListComponent } from './User/Core/Component/blog-list/blog-list.component';
 import { BlogDetailComponent } from './User/Features/Blog/blog-detail/blog-detail.component';
 import { BlogPageComponent } from './User/Features/Blog/blog-page/blog-page.component';
+
+import { ListBrandComponent } from './admin/feature/brand/list-brand/list-brand.component';
 
 export const routes: Routes = [
   {
@@ -136,7 +141,7 @@ export const routes: Routes = [
     component: AddBrandComponent,
   },
   {
-    path: 'admin/brand/update',
+    path: 'admin/brand/update/:id',
     component: UpdateBrandComponent,
   },
   {

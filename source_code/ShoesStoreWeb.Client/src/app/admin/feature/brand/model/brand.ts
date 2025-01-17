@@ -1,5 +1,5 @@
 export interface Brand {
-    id: string
+    brandId: string
     brandName: string
     brandImage: string
     description: string
