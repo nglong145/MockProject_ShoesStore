@@ -17,6 +17,8 @@ namespace ShoesStoreApp.DAL.Infrastructure
         IGenericRepository<Size> SizeRepository { get; }
 
         IGenericRepository<ImageSystem> ImageRepository { get; }
+        IGenericRepository<Product> ProductRepository { get; }
+        IGenericRepository<Review> ReviewRepository { get; }
 
 
         IGenericRepository<TEntity> GenericRepository<TEntity>() where TEntity : class;

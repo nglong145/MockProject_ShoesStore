@@ -24,24 +24,13 @@
     <!-- Tab Description -->
     <div *ngIf="activeTab === 'description'">
       <p>
-        Giày Adidas Stan Smith Fairway M20324 là sự kết hợp hoàn hảo giữa phong
-        cách cổ điển và hiện đại. Với thiết kế tinh tế, chất liệu da cao cấp, và
-        màu trắng chủ đạo, đôi giày này mang lại sự sang trọng và thanh lịch.
+        {{ product?.description }}
       </p>
-      <ul>
-        <li>Thương hiệu: Adidas</li>
-        <li>Nhà thiết kế: Horst Dassler</li>
-        <li>Công nghệ: EVA</li>
-        <li>Màu sắc: Trắng</li>
-        <li>Kiểu dáng: Lifestyle</li>
-        <li>Mã sản phẩm: M20324</li>
-        <li>Chất lượng: Authentic</li>
-      </ul>
     </div>
 
     <!-- Tab Review -->
     <div *ngIf="activeTab === 'reviews'">
-      <app-review></app-review>
+      <app-review [productId]="product?.productId"></app-review>
     </div>
   </div>
 </div>

@@ -1,145 +1,47 @@
-<div class="sidebar bg-light p-3" style="width: 250px">
-  <h5 class="text-center">Giày nam (140)</h5>
+<!-- code thêm  -->
+<div class="sidebar bg-light p-3">
+  <h5 class="text-center">Lọc sản phẩm</h5>
 
-  <div class="mb-4 box">
+  <!-- Lọc theo thương hiệu -->
+  <div class="mb-4">
     <h6>Thương hiệu</h6>
-    <select class="form-select" aria-label="Chọn thương hiệu">
-      <option selected>Tất cả</option>
-      <option value="Nike">Nike</option>
-      <option value="Adidas">Adidas</option>
+    <select class="form-select" (change)="onBrandChange($event)">
+      <option value="">Tất cả</option>
+      <option *ngFor="let brand of brands" [value]="brand.id">
+        {{ brand.name }}
+      </option>
     </select>
   </div>
 
-  <div class="mb-4 box color-box">
-    <h6>Màu sắc</h6>
-    <div class="row">
-      <div class="d-flex flex-column align-items-center w-100">
-        <div class="d-flex justify-content-between w-100 mb-3">
-          <div class="text-center color-item">
-            <button class="color-circle bg-black"></button>
-            <span class="d-block text-muted" style="font-size: 12px">Đen</span>
-          </div>
-          <div class="text-center color-item">
-            <button class="color-circle bg-white border"></button>
-            <span class="d-block text-muted" style="font-size: 12px"
-              >Trắng</span
-            >
-          </div>
-          <div class="text-center color-item">
-            <button class="color-circle bg-danger"></button>
-            <span class="d-block text-muted" style="font-size: 12px">Đỏ</span>
-          </div>
-          <div class="text-center color-item">
-            <button class="color-circle bg-warning"></button>
-            <span class="d-block text-muted" style="font-size: 12px">Vàng</span>
-          </div>
-          <div class="text-center color-item">
-            <button class="color-circle bg-primary"></button>
-            <span class="d-block text-muted" style="font-size: 12px"
-              >Xanh dương</span
-            >
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-between w-100">
-          <div class="text-center color-item">
-            <button
-              class="color-circle bg-pink"
-              style="background-color: #ff54c3"
-            ></button>
-            <span class="d-block text-muted" style="font-size: 12px">Hồng</span>
-          </div>
-          <div class="text-center color-item">
-            <button
-              class="color-circle bg-brown"
-              style="background-color: #ad5a3d"
-            ></button>
-            <span class="d-block text-muted" style="font-size: 12px">Nâu</span>
-          </div>
-          <div class="text-center color-item">
-            <button
-              class="color-circle bg-green"
-              style="background-color: #73ff5a"
-            ></button>
-            <span class="d-block text-muted" style="font-size: 12px"
-              >Xanh lá</span
-            >
-          </div>
-          <div class="text-center color-item">
-            <button
-              class="color-circle bg-orange"
-              style="background-color: #ff9131"
-            ></button>
-            <span class="d-block text-muted" style="font-size: 12px">Cam</span>
-          </div>
-          <div class="text-center color-item">
-            <button
-              class="color-circle bg-purple"
-              style="background-color: #db63ff"
-            ></button>
-            <span class="d-block text-muted" style="font-size: 12px">Tím</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="mb-4 box">
-    <h6>Size</h6>
+  <!-- Lọc theo kích cỡ -->
+  <div class="mb-4">
+    <h6>Kích cỡ</h6>
     <div class="d-flex flex-wrap gap-2">
-      <button class="btn btn-outline-dark btn-sm">35</button>
-      <button class="btn btn-outline-dark btn-sm">36</button>
-      <button class="btn btn-outline-dark btn-sm">37</button>
-      <button class="btn btn-outline-dark btn-sm">38</button>
-      <button class="btn btn-outline-dark btn-sm">39</button>
-      <button class="btn btn-outline-dark btn-sm">40</button>
-      <button class="btn btn-outline-dark btn-sm">41</button>
-      <button class="btn btn-outline-dark btn-sm">42</button>
-      <button class="btn btn-outline-dark btn-sm">43</button>
+      <button
+        class="btn btn-outline-dark btn-sm"
+        *ngFor="let size of sizes"
+        [class.active]="selectedSize === size"
+        (click)="onSizeChange(size)"
+      >
+        {{ size }}
+      </button>
     </div>
   </div>
 
   <div class="mb-4">
-    <h6>Giá</h6>
-    <div class="form-check">
+    <h6>Khoảng giá</h6>
+    <div class="form-check" *ngFor="let range of priceRanges">
       <input
         class="form-check-input"
         type="radio"
         name="priceFilter"
-        id="price1"
+        [checked]="
+          selectedPriceRange?.min === range.min &&
+          selectedPriceRange?.max === range.max
+        "
+        (click)="onPriceRangeChange(range)"
       />
-      <label class="form-check-label" for="price1"> < 500.000 VND </label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="priceFilter"
-        id="price2"
-      />
-      <label class="form-check-label" for="price2">
-        500.000 - 1.000.000 VND
-      </label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="priceFilter"
-        id="price3"
-      />
-      <label class="form-check-label" for="price3">
-        1.000.000 - 1.500.000 VND
-      </label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="priceFilter"
-        id="price4"
-      />
-      <label class="form-check-label" for="price4"> > 2.000.000 VND </label>
+      <label class="form-check-label">{{ range.label }}</label>
     </div>
   </div>
 </div>

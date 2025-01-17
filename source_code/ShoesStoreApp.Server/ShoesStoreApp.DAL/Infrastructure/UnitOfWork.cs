@@ -23,6 +23,10 @@ namespace ShoesStoreApp.DAL.Infrastructure
 
         private IGenericRepository<Size>? _sizeRepository;
 
+        private IGenericRepository<ImageSystem>? _imageRepository;
+        private IGenericRepository<Product>? _productRepository;
+        private IGenericRepository<Review>? _reviewRepository;
+
         public IGenericRepository<Brand> BrandRepository => _brandRepository ?? new GenericRepository<Brand>(_context);
         public IGenericRepository<Blog> BlogRepository => _blogRepository ?? new GenericRepository<Blog>(_context);
 
@@ -31,9 +35,10 @@ namespace ShoesStoreApp.DAL.Infrastructure
 
         public IGenericRepository<Size> SizeRepository => _sizeRepository ?? new GenericRepository<Size>(_context);
 
-        private IGenericRepository<ImageSystem>? _imageRepository;
 
         public IGenericRepository<ImageSystem> ImageRepository => _imageRepository ?? new GenericRepository<ImageSystem>(_context);
+        public IGenericRepository<Product> ProductRepository => _productRepository ?? new GenericRepository<Product>(_context);
+        public IGenericRepository<Review> ReviewRepository => _reviewRepository ?? new GenericRepository<Review>(_context);
 
 
         public UnitOfWork(ShoesStoreAppDbContext context)

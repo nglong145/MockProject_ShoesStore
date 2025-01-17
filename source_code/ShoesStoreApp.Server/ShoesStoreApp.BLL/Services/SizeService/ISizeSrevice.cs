@@ -5,5 +5,6 @@ namespace ShoesStoreApp.BLL.Services.SizeService
 {
     public interface ISizeSrevice : IBaseService<Size>
     {
+        Task<List<Size>> GetSizeByProductId(Guid id);
     }
 }
