@@ -1,83 +1,69 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { Product } from '../models/product.model';
+import { ProductService } from '../services/product.service';
+import { PaginatedResult } from '../models/paginated-result.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-related-product',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './related-product.component.html',
   styleUrl: './related-product.component.css',
 })
-export class RelatedProductComponent {
-  products = [
-    {
-      id: 1,
-      name: 'Giày Adidas Adizero Adios Pro EVO 1',
-      category: 'Giày nam',
-      price: 1200000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 2,
-      name: 'Giày Adidas AdifOM Superstar',
-      category: 'Giày nam',
-      price: 860000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 3,
-      name: 'Giày Nike Air Jordan 1 Retro',
-      category: 'Giày nam',
-      price: 950000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 4,
-      name: 'Giày Nike Air Jordan 1 Low',
-      category: 'Giày nam',
-      price: 990000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 5,
-      name: 'Giày Puma RS-X3',
-      category: 'Giày nam',
-      price: 760000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 6,
-      name: 'Giày Converse Chuck Taylor',
-      category: 'Giày nam',
-      price: 700000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 7,
-      name: 'Giày Vans Old Skool',
-      category: 'Giày nam',
-      price: 650000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-    {
-      id: 8,
-      name: 'Giày New Balance 574',
-      category: 'Giày nam',
-      price: 890000,
-      image: 'assets/Images/blog1.1.jpeg',
-    },
-  ];
+export class RelatedProductComponent implements OnInit, OnChanges {
+  @Input() product?: Product;
+  productsSimilar: Product[] = [];
+  chunkedProducts: Product[][] = [];
+  status: string = '1';
+  pageSize = 8;
+  pageIndex = 1;
 
-  chunkedProducts: any[] = [];
+  constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-    this.chunkedProducts = this.chunkArray(this.products, 4);
+  ngOnInit(): void {
+    this.loadRelatedProducts();
   }
 
-  chunkArray(array: any[], chunkSize: number): any[] {
-    const results = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      results.push(array.slice(i, i + chunkSize));
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['product']) {
+      this.loadRelatedProducts();
     }
-    return results;
+  }
+  loadRelatedProducts(): void {
+    if (this.product)
+      this.productService
+        .getSimilarProducts(
+          this.status,
+          this.product.brandId,
+          this.product.productId,
+          this.pageIndex,
+          this.pageSize
+        )
+        .subscribe((response: PaginatedResult<Product>) => {
+          this.chunkedProducts = this.chunkArray(response.items, 4);
+        });
+  }
+
+  private chunkArray(array: Product[], chunkSize: number): Product[][] {
+    if (array.length === 0) {
+      return [];
+    }
+
+    if (array.length <= chunkSize) {
+      return [array];
+    }
+
+    const result: Product[][] = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
   }
 }

@@ -18,6 +18,13 @@ namespace ShoesStoreApp.BLL.Services.ProductService
             return await PaginatedResult<Product>.CreateAsync(query, pageIndex, pageSize);
         }
 
+        public async Task<PaginatedResult<Product>> GetProductsSimilarAsync(string status,Guid brandId, Guid productId, int pageIndex, int pageSize)
+        {
+            var query = _unitOfWork.GenericRepository<Product>().GetQuery(p => p.Status == status && p.BrandId==brandId && p.ProductId!= productId).Include(p => p.Brand);
+            return await PaginatedResult<Product>.CreateAsync(query, pageIndex, pageSize);
+        }
+
+
         public async Task<PaginatedResult<Product>> GetFilteredProductsAsync(ProductFilterVm filter)
         {
             var query = _unitOfWork.GenericRepository<Product>().GetQuery().Include(p => p.Brand);

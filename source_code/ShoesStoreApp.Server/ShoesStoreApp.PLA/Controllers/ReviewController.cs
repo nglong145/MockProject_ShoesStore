@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.ReviewService;
 using ShoesStoreApp.BLL.ViewModels;
 using ShoesStoreApp.DAL.Models;
@@ -11,10 +12,12 @@ namespace ShoesStoreApp.PLA.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewService _reviewService;
+        private readonly UserManager<User> _userManager;
 
-        public ReviewController(IReviewService reviewService)
+        public ReviewController(IReviewService reviewService, UserManager<User> userManager)
         {
             _reviewService = reviewService;
+            _userManager = userManager;
         }
 
 
@@ -22,16 +25,31 @@ namespace ShoesStoreApp.PLA.Controllers
         public async Task<IActionResult> GetReviewsByProductId(Guid productId)
         {
             var reviews = await _reviewService.GetReviewsByProductIdAsync(productId);
+            var reviewVms = new List<ReviewVm>();
 
             if (reviews == null || !reviews.Any())
             {
                 return NotFound(new { Message = "No reviews found for this product." });
             }
+            foreach (var review in reviews)
+            {
+                var user = await _userManager.FindByIdAsync(review.UserId.ToString());
+                reviewVms.Add(new ReviewVm
+                {
+                    ProductId = review.ProductId,
+                    UserId = review.UserId,
+                    FullName=user.FullName,
+                    Rating = review.Rating,
+                    ReviewText = review.ReviewText,
+                    CreatedDate = review.CreatedDate,
+                    Status = review.Status,
+                });
+            }
 
-            return Ok(reviews);
+            return Ok(reviewVms);
         }
 
-        [HttpGet("Get-Review-By-Product-User")]
+        [HttpGet("Get-Review-By-Product-User/{productId}")]
         public async Task<IActionResult> GetReviewByProductUser(Guid productId)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -41,14 +59,27 @@ namespace ShoesStoreApp.PLA.Controllers
             }
             Guid userId = Guid.Parse(userIdClaim);
 
-            var review = await _reviewService.GetReviewByIdAsync(userId, productId);
+            var review = await _reviewService.GetReviewByIdAsync(productId,userId);
 
             if (review == null)
             {
                 return NotFound(new { Message = "Review not found." });
             }
+            var user = await _userManager.FindByIdAsync(review.UserId.ToString());
+            var reviewVm = new ReviewVm
+            {
+                ProductId = review.ProductId,
+                UserId = review.UserId,
+                FullName = user.FullName,
+                Rating = review.Rating,
+                ReviewText = review.ReviewText,
+                CreatedDate = review.CreatedDate,
+                Status = review.Status,
+            };
 
-            return Ok(review);
+
+
+            return Ok(reviewVm);
         }
 
         [HttpPost("Add-Review")]
@@ -62,58 +93,58 @@ namespace ShoesStoreApp.PLA.Controllers
                 return Unauthorized(new { Message = "User is not authenticated." });
             }
 
-            var review = new Review
+            try
             {
-                ProductId = reviewVm.ProductId,
-                UserId = Guid.Parse(userIdClaim),
-                Rating = reviewVm.Rating,
-                ReviewText = reviewVm.ReviewText,
-                CreatedDate = DateTime.UtcNow,
-                Status = reviewVm.Status,
+                var review = new Review
+                {
+                    ProductId = reviewVm.ProductId,
+                    UserId = Guid.Parse(userIdClaim),
+                    Rating = reviewVm.Rating,
+                    ReviewText = reviewVm.ReviewText,
+                    CreatedDate = DateTime.UtcNow.ToLocalTime(),
+                    Status = reviewVm.Status,
+                };
 
-            };
+                await _reviewService.AddAsync(review);
 
-            await _reviewService.AddAsync(review);
-
-            //var productResponse = new ProductVm
-            //{
-            //    ProductId = product.ProductId,
-            //    BrandId = product.BrandId,
-            //    ProductName = product.ProductName,
-            //    ProductImage = product.ProductImage,
-            //    Price = product.Price,
-            //    Description = product.Description,
-            //    Status = product.Status
-            //};
-            return Ok(review);
+                return Ok(review);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
-        [HttpPost("Update-Review")]
-        public async Task<IActionResult> UpdateReview(Guid productId,[FromBody] AddReviewVm reviewVm)
-        {
+        //[HttpPost("Update-Review")]
+        //public async Task<IActionResult> UpdateReview(Guid productId,[FromBody] AddReviewVm reviewVm)
+        //{
 
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            Guid userId= Guid.Parse(userIdClaim);
+        //    var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        //    Guid userId= Guid.Parse(userIdClaim);
 
-            if (string.IsNullOrEmpty(userIdClaim))
-            {
-                return Unauthorized(new { Message = "User is not authenticated." });
-            }
+        //    if (string.IsNullOrEmpty(userIdClaim))
+        //    {
+        //        return Unauthorized(new { Message = "User is not authenticated." });
+        //    }
 
-            var updatedReview = await _reviewService.GetReviewByIdAsync(productId, userId);
+        //    var updatedReview = await _reviewService.GetReviewByIdAsync(productId, userId);
 
-            if (updatedReview != null)
-            {
-                updatedReview.Rating = reviewVm.Rating;
-                updatedReview.ReviewText = reviewVm.ReviewText;
-                updatedReview.Status = reviewVm.ProductImage;
+        //    if (updatedReview != null)
+        //    {
+        //        updatedReview.Rating = reviewVm.Rating;
+        //        updatedReview.ReviewText = reviewVm.ReviewText;
+        //        updatedReview.Status = reviewVm.ProductImage;
 
-                await _reviewService.UpdateAsync(updatedReview);
-                return Ok(updatedReview);
-            }
+        //        await _reviewService.UpdateAsync(updatedReview);
+        //        return Ok(updatedReview);
+        //    }
 
-            return NotFound($"Review doesn't already exist");
-        }
+        //    return NotFound($"Review doesn't already exist");
+        //}
 
         [HttpDelete("Delete-Review")]
         public async Task<IActionResult> DeleteReview(Guid productId)

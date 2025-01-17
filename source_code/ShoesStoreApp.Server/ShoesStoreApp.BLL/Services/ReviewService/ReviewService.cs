@@ -29,5 +29,26 @@ namespace ShoesStoreApp.BLL.Services.ReviewService
         }
 
 
+        public async Task<bool> CanReviewProductAsync(Guid userId, Guid productId)
+        {
+            
+            var orders = await _unitOfWork.GenericRepository<Order>()
+                .GetQuery(o => o.UserId == userId && o.Status == "Giao hàng thành công")
+                .Include(o => o.Items) 
+                .ToListAsync();
+
+            return orders.Any(order => order.Items.Any(item => item.ProductId == productId));
+        }
+
+        public override async Task<int> AddAsync(Review entity)
+        {
+            var canReview = await CanReviewProductAsync(entity.UserId, entity.ProductId);
+            if (!canReview)
+            {
+                throw new UnauthorizedAccessException("You cannot review this product as you haven't purchased it or the order is not delivered.");
+            }
+
+            return await base.AddAsync(entity);
+        }
     }
 }

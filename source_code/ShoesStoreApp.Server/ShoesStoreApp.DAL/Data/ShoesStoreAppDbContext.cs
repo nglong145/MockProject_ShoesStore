@@ -20,10 +20,10 @@ namespace ShoesStoreApp.DAL.Data
         public DbSet<Role> Role { get; set; }
 
 
-        //public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
-        //{
+        public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
+        {
 
-        //}
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -7,6 +7,7 @@ namespace ShoesStoreApp.BLL.Services.ProductService
     public interface IProductService:IBaseService<Product>
     {
         Task<PaginatedResult<Product>> GetProductsByStatusAsync(string status, int pageIndex, int pageSize);
+        Task<PaginatedResult<Product>> GetProductsSimilarAsync(string status,Guid brandId, Guid productId, int pageIndex, int pageSize);
         Task<PaginatedResult<Product>> GetFilteredProductsAsync(ProductFilterVm filter);
     }
 }

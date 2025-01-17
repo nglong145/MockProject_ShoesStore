@@ -30,7 +30,7 @@
 
     <!-- Tab Review -->
     <div *ngIf="activeTab === 'reviews'">
-      <app-review></app-review>
+      <app-review [productId]="product?.productId"></app-review>
     </div>
   </div>
 </div>

@@ -7,5 +7,10 @@ namespace ShoesStoreApp.BLL.Services.ReviewService
     {
         Task<IEnumerable<Review>> GetReviewsByProductIdAsync(Guid productId);
         Task<Review> GetReviewByIdAsync(Guid productId,Guid userId);
+        Task<bool> CanReviewProductAsync(Guid userId, Guid productId);
+        Task<int> AddAsync(Review entity);
     }
 }
+
+
+

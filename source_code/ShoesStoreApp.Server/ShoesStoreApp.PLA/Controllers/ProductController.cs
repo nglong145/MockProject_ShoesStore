@@ -61,7 +61,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
-
+        // Get All Product
         [HttpGet("Get-All-Product")]
         public async Task<IActionResult> GetAllProduct()
         {
@@ -87,7 +87,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(productVms);
         }
 
-
+        // Get All Product by status and pagination
         [HttpGet("Get-All-Product-With-Status")]
         public async Task<IActionResult> GetAllProductWithStatus([FromQuery] string status,int pageIndex,int pageSize)
         {
@@ -122,7 +122,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
         }
 
-
+        // Filter Product and pagination
         [HttpPost("Get-Filtered-Products")]
         public async Task<IActionResult> GetFilteredProducts([FromBody] ProductFilterVm filter)
         {
@@ -150,6 +150,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(response);
         }
 
+        // Get Product by Id
         [HttpGet("Get-Product-By-Id/{id}")]
         public async Task<IActionResult> GetProductById(Guid id)
         {
@@ -176,7 +177,37 @@ namespace ShoesStoreApp.PLA.Controllers
             return NotFound($"Product with ID {id} doesn't already exist");
         }
 
+        // Get Similar Product
+        [HttpGet("Get-Similar-Product")]
+        public async Task<IActionResult> GetProduct([FromQuery] string status,Guid brandId, Guid productId, int pageIndex, int pageSize)
+        {
+            if (pageIndex <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { message = "PageIndex and PageSize must be greater than 0." });
+            }
 
+            var products = await _productService.GetProductsSimilarAsync(status,brandId,productId, pageIndex, pageSize);
+
+            var productVms = products.Items.Select(product => new ProductVm
+            {
+                ProductId = product.ProductId,
+                BrandId = product.BrandId,
+                BrandName = product.Brand.BrandName,
+                ProductName = product.ProductName,
+                ProductImage = product.ProductImage,
+                Price = product.Price,
+                Description = product.Description,
+                Status = product.Status,
+            }).ToList();
+
+            var response = new PaginatedResult<ProductVm>(productVms, products.TotalPages, products.PageIndex, pageSize);
+
+            return Ok(response);
+
+        }
+
+
+        // Add product
         [HttpPost("Add-Product")]
         public async Task<IActionResult> AddProduct([FromBody] AddProductVm productVm)
         {
@@ -216,7 +247,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
         }
 
-
+        // Update Product
         [HttpPut("Update-Product/{id}")]
         public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] AddProductVm productVm)
         {
@@ -246,7 +277,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
         }
 
-
+        // Delete product
         [HttpPut("Delete-Product/{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id, [FromBody] DeleteProductVm productVm)
         {
