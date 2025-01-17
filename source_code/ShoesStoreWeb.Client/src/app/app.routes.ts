@@ -26,6 +26,9 @@ import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.comp
 import { IndexComponent } from './admin/Core/index/index.component';
 import { ContactComponent } from './admin/Core/contact/contact.component';
 import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blog.component';
+import { BlogListComponent } from './User/Core/Component/blog-list/blog-list.component';
+import { BlogDetailComponent } from './User/Features/Blog/blog-detail/blog-detail.component';
+import { BlogPageComponent } from './User/Features/Blog/blog-page/blog-page.component';
 
 export const routes: Routes = [
   {
@@ -106,6 +109,16 @@ export const routes: Routes = [
       {
         path: 'personal-info/order',
         component: TrackingOrderComponent,
+      },
+
+      {
+        path: 'blog',
+        component: BlogPageComponent,
+      },
+
+      {
+        path: 'blog/:id',
+        component: BlogDetailComponent,
       },
       // Thêm các route khác cho user
     ],
