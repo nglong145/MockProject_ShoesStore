@@ -1,9 +1,9 @@
-using ShoesStoreApp.BLL.Services.Base;
+using ShoesStoreApp.BLL.ViewModels.Payment;
 using ShoesStoreApp.DAL.Models;
 
-namespace ShoesStoreApp.BLL.Services.CartService;
+namespace ShoesStoreApp.BLL.Services.PaymentService;
 
-public interface IPaymentService : IBaseService<Payment>
+public interface IPaymentService
 {
-    
+    Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(Order model);
 }

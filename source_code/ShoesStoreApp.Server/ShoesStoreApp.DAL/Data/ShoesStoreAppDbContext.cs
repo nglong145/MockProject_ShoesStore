@@ -84,7 +84,7 @@ namespace ShoesStoreApp.DAL.Data
                         .HasForeignKey(r => r.UserId);
 
             // Config OrderItem
-            modelBuilder.Entity<OrderItem>().HasKey(oi => new { oi.OrderId, oi.ProductId });
+            modelBuilder.Entity<OrderItem>().HasKey(oi => new { oi.OrderId, oi.ProductId, oi.Size });
 
             modelBuilder.Entity<OrderItem>()
                         .HasOne<Order>(oi => oi.Order)
@@ -97,7 +97,7 @@ namespace ShoesStoreApp.DAL.Data
                         .HasForeignKey(oi => oi.ProductId);
 
             // Config CartItem
-            modelBuilder.Entity<CartItem>().HasKey(ci => new { ci.CartId, ci.ProductId });
+            modelBuilder.Entity<CartItem>().HasKey(ci => new { ci.CartId, ci.ProductId, ci.Size });
 
             modelBuilder.Entity<CartItem>()
                         .HasOne<Cart>(ci => ci.Cart)

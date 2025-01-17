@@ -30,37 +30,49 @@ public class CartItemController : ControllerBase
         }
         
         var cartUser = await _cartService.GetCartByUserId(Guid.Parse(userId));
-
+        
+        var exitItem = cartUser.Items.FirstOrDefault(i => i.ProductId == cartItem.ProductId && i.Size == cartItem.Size);
+        if (exitItem != null)
+        {
+            var itemCart = await _cartItemService.GetCartItemAsync(exitItem.CartId, exitItem.ProductId, exitItem.Size);
+            itemCart.Quantity += 1;
+            itemCart.Size = exitItem.Size;
+            await _cartItemService.UpdateAsync(itemCart);
+            return Ok(itemCart);
+        }
+        
         var item = new CartItem()
         {
             CartId = cartUser.CartId,
             ProductId = cartItem.ProductId,
             Price = cartItem.Price,
-            Quantity = cartItem.Quantity
+            Quantity = cartItem.Quantity,
+            Size = cartItem.Size
         };
         
         await _cartItemService.AddAsync(item);
         return Ok(item);
     }
 
-    [HttpPut("update-cart-item/{cartId}/{productId}")]
-    public async Task<IActionResult> UpdateCartItem(Guid cartId, Guid productId, [FromBody] UpdateCartItemVM updateCartItem)
+    [HttpPut("update-cart-item/{cartId}/{productId}/{size}")]
+    public async Task<IActionResult> UpdateCartItem(Guid cartId, Guid productId, string size, [FromBody] UpdateCartItemVM updateCartItem)
     {
-        var cartItem = await _cartItemService.GetCartItemAsync(cartId, productId);
+        var cartItem = await _cartItemService.GetCartItemAsync(cartId, productId, size);
         if (cartItem == null)
             return NotFound("cartItem not found");
         
         cartItem.Quantity = updateCartItem.Quantity;
         cartItem.Price = updateCartItem.Price;
+        cartItem.Size = updateCartItem.Size;
         
         await _cartItemService.UpdateAsync(cartItem);
         return Ok(cartItem);
     }
 
-    [HttpDelete("remove-cart-item/{cartId}/{productId}")]
-    public async Task<IActionResult> DeleteCartItem(Guid cartId, Guid productId)
+    [HttpDelete("remove-cart-item/{cartId}/{productId}/{size}")]
+    public async Task<IActionResult> DeleteCartItem(Guid cartId, Guid productId, string size)
     {
-        var cartItem = await _cartItemService.GetCartItemAsync(cartId, productId);
+        var cartItem = await _cartItemService.GetCartItemAsync(cartId, productId, size);
         if (cartItem == null)
             return NotFound("cartItem not found");
         

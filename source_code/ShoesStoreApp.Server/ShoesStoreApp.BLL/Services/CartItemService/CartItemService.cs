@@ -11,11 +11,11 @@ public class CartItemService : BaseService<CartItem>, ICartItemService
     {
     }
     
-    public Task<CartItem> GetCartItemAsync(Guid cartId, Guid productId)
+    public Task<CartItem> GetCartItemAsync(Guid cartId, Guid productId, string Size)
     {
         var cartItem = _unitOfWork.GenericRepository<CartItem>()
             .GetQuery()
-            .FirstOrDefaultAsync(ci => ci.ProductId == productId && ci.CartId == cartId);
+            .FirstOrDefaultAsync(ci => ci.ProductId == productId && ci.CartId == cartId && ci.Size == Size);
         return cartItem;
     }
 }

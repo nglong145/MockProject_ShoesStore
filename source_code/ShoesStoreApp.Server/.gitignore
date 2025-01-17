@@ -64,18 +64,10 @@ yarn-error.log*
 # Resharper files
 _ReSharper*/
 
- 
- 
 # image files
 *.png
 *.jpg
 *.jpeg
 
-# migrationsmigrations
-ShoesStoreApp.DAL/Migrations/
-
-
 # migration 
 ShoesStoreApp.DAL/Migrations/
-
-

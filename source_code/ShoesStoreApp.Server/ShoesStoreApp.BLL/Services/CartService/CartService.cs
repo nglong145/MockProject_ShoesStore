@@ -32,6 +32,7 @@ public class CartService : BaseService<Cart>, ICartService
                 ProductId = ci.ProductId,
                 ProductName = ci.Product.ProductName,
                 ProductImage = ci.Product.ProductImage,
+                Size = ci.Size,
                 Price = ci.Price,
                 Quantity = ci.Quantity
             }).ToList()

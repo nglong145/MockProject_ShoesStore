@@ -1,3 +1,6 @@
+using ShoesStoreApp.BLL.ViewModels.Payment;
+using ShoesStoreApp.DAL.Models;
+
 namespace ShoesStoreApp.BLL.ViewModels;
 
 public class UserVM
