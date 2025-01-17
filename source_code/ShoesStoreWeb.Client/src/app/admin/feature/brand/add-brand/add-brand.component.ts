@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { BrandViewModel } from '../model/brand_viewmodel';
 import { Subscription } from 'rxjs';
 import { BrandService } from '../service/brand-service.service';
+import { routes } from '../../../../app.routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-brand',
@@ -15,7 +17,7 @@ export class AddBrandComponent {
   addBrandSubscription?: Subscription
   fileImage: File | null = null
   baseUrl: string = "https://localhost:7158/Images/Product/";
-  constructor(private brandService: BrandService){
+  constructor(private brandService: BrandService, private router: Router){
     this.brand = {
       brandName: '',
       brandImage: '',
@@ -44,6 +46,7 @@ export class AddBrandComponent {
           this.addBrandSubscription = this.brandService.addBrand(this.brand).subscribe({
             next: reponse => {
               console.log("add success")
+              this.router.navigateByUrl('admin/brand')
             },
             error: err => {
               console.log(this.brand)

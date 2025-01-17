@@ -28,7 +28,7 @@ namespace ShoesStoreApp.DAL.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-82GOTJUD\\SQLEXPRESS;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
+                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
                      .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             }
         }

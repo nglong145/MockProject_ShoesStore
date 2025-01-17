@@ -63,13 +63,13 @@ body{
 }
 
 .right-content i{
-    font-size: 0px;
-    border-radius: 30px;
+    font-size: 18px;
+    border-radius: 20px;
     background-color: rgb(219, 219, 219);
     display: flex;
     align-items: center;
     margin: 0 auto;
-    padding: 12px;
+    padding: 10px;
     margin-right: 10px;
 }
 

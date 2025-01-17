@@ -1,19 +1,19 @@
 <div class="container">
-    <h1>Add brand</h1>
+    <h1>Update brand</h1>
 
     <form (submit)="updateBrand()">
         <div>
-          <label class="form-lable" for="brandName">Brand Name:</label>
+          <label class="form-lable mt-3" for="brandName">Brand Name:</label>
           <input type="text" id="brandName" [(ngModel)]="brand.brandName" name="brandName" class="form-control" required />
         </div>
     
         <div>
-          <label class="form-lable" for="description">Description:</label>
+          <label class="form-lable mt-3" for="description">Description:</label>
           <textarea id="description" [(ngModel)]="brand.description" name="description" class="form-control"></textarea>
         </div>
     
         <div>
-          <label class="form-lable" for="file">Upload Image:</label>
+          <label class="form-lable mt-3" for="file">Upload Image:</label>
           <input class="form-control" type="file" id="file" (change)="onFileSelected($event)" accept="image/*" />
         </div>
     
