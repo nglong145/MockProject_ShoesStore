@@ -64,10 +64,10 @@ export class AuthService {
     return this.http.get<User>(`${BASE_URL}/Authentication/user-info`);
   }
 
-  // // Cập nhật thông tin người dùng
-  // updateUserInfo(data: Partial<User>): Observable<void> {
-  //   return this.http.put<void>(`${this.apiUrl}/update-user-info`, data);
-  // }
+  // Cập nhật thông tin người dùng
+  updateUserInfo(data: Partial<User>): Observable<void> {
+    return this.http.put<void>(`${BASE_URL}/Authentication/update-user-info`, data);
+  }
 
   setUser(user: User): void {
     this.$user.next(user);

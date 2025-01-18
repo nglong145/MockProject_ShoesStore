@@ -1,31 +1,30 @@
 <div class="container mt-5">
-  <div class="row section">
+  <div class="row section" *ngIf="user$ | async as user">
     <!-- Sidebar -->
     <div class="col-md-3">
       <!-- Ảnh đại diện -->
-      <div class="text-center mb-4">
+      <div class="text-center mb-4" >
         <img
           src="https://via.placeholder.com/80"
           alt="Avatar"
           class="img-fluid rounded-circle"
           style="width: 150px; height: 150px; object-fit: cover"
         />
-        <p class="mt-2 fw-bold">Trần Thanh C</p>
-        <p class="">tranthanhcgmail.com</p>
+        <p class="mt-2 fw-bold">{{user.fullName}}</p>
+        <p class="">{{user.email}}</p>
       </div>
 
       <!-- Menu -->
       <div class="list-group">
         <a
-          href="#"
           class="list-group-item list-group-item-action border-0 active"
           style="border-radius: 0; background-color: #f8f9fa; color: #000;"
           >Thông tin tài khoản</a
         >
-        <a href="#" class="list-group-item list-group-item-action border-0"
+        <a class="list-group-item list-group-item-action border-0"
           >Thay đổi mật khẩu</a
         >
-        <a href="#" class="list-group-item list-group-item-action border-0"
+        <a href="/personal-info/order" class="list-group-item list-group-item-action border-0"
           >Đơn hàng</a
         >
       </div>
@@ -47,19 +46,20 @@
 
           <div class="row mb-2">
             <div class="col-2">Họ tên:</div>
-            <div class="col-10">Trần Thanh C</div>
+            <div class="col-10">{{user.fullName}}</div>
           </div>
           <div class="row mb-2">
             <div class="col-2">Email:</div>
-            <div class="col-10">tranthanhcgmail.com</div>
+            <div class="col-10">{{user.email}}</div>
           </div>
+
           <div class="row mb-2">
             <div class="col-2">Số điện thoại:</div>
-            <div class="col-10">0265236154</div>
+            <div class="col-10">{{user.phoneNumber}}</div>
           </div>
           <div class="row mb-2">
             <div class="col-2">Địa chỉ:</div>
-            <div class="col-10">Yên Mỹ - Hưng Yên</div>
+            <div class="col-10">{{user.address}}</div>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
             "
           ></h5>
 
-          <form (ngSubmit)="updateProfile()">
+          <form  (ngSubmit)="updateProfile()">
             <div class="row mb-3">
               <div class="col-2">
                 <label for="name" class="form-label">Họ tên</label>
@@ -86,7 +86,7 @@
                   type="text"
                   id="name"
                   class="form-control"
-                  [(ngModel)]="user.name"
+                  [(ngModel)]="editUser.fullName"
                   name="name"
                 />
               </div>
@@ -101,7 +101,7 @@
                   type="text"
                   id="phone"
                   class="form-control"
-                  [(ngModel)]="user.phone"
+                  [(ngModel)]="editUser.phoneNumber"
                   name="phone"
                 />
               </div>
@@ -116,7 +116,7 @@
                   type="text"
                   id="address"
                   class="form-control"
-                  [(ngModel)]="user.address"
+                  [(ngModel)]="editUser.address"
                   name="address"
                 />
               </div>

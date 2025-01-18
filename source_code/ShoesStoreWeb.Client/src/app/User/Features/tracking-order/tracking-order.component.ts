@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { OrderVM } from '../models/Order';
+import { Observable, Subscription } from 'rxjs';
+import { PersonalInfoService } from '../service/personal-info.service';
+import { User } from '../../auth/models/user.model';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-tracking-order',
@@ -9,20 +14,19 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './tracking-order.component.css'
 })
 export class TrackingOrderComponent {
-  orders = [
-    {
-      id: 'ĐH250101-0001',
-      productName: "Giày Adidas Adizero Adios Pro EVO 1 'White Black' IH5564",
-      productImage: 'https://via.placeholder.com/80',
-      price: 1200000,
-      status: 'Đã giao'
-    },
-    {
-      id: 'ĐH250103-0001',
-      productName: "Giày Adidas Adizero Adios Pro EVO 1 'White Black' IH5564",
-      productImage: 'https://via.placeholder.com/80',
-      price: 1200000,
-      status: 'Đang giao'
+  user$?: Observable<User>;
+  orders$?: Observable<OrderVM[]>;
+  orderSubsription?: Subscription;
+
+  constructor(private personalInfoService: PersonalInfoService,private authService: AuthService) {}
+  
+    ngOnInit() : void{
+      this.orders$ = this.personalInfoService.getAllUnpaidOrderOfUser();
+      this.user$ = this.authService.getUserInfo();
     }
-  ];
+  
+    ngOnDestroy() : void {
+      this.orderSubsription?.unsubscribe();
+    }
+  
 }

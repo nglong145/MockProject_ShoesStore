@@ -15,7 +15,7 @@ public class OrderService : BaseService<Order>, IOrderService
 
     public async Task<List<OrderVM>> GetOrdersByPaymentStatus(Guid userId, bool isPaid)
     {
-        var order = _unitOfWork.GenericRepository<Order>()
+        var order = _unitOfWork.GenericRepository<Order>()     
             .GetQuery()
             .Include(o => o.Items)
             .ThenInclude(i => i.Product)

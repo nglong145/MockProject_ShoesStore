@@ -20,7 +20,7 @@ import { AddBlogComponent } from './admin/feature/blog/add-blog/add-blog.compone
 // import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
 
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
-import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
+import { TrackingOrderComponent } from './User/Features/presonal-info/tracking-order/tracking-order.component';
 import { LoginComponent } from './User/Features/auth/login/login.component';
 import { RegisterComponent } from './User/Features/auth/register/register.component';
 
