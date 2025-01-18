@@ -1,5 +1,5 @@
 <div class="container my-5" *ngIf="cart$ | async as cart">
-  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)" novalidate>
     <div class="row section">
       <!-- Form Thông tin thanh toán -->
       <div class="col-lg-8">
@@ -14,7 +14,14 @@
             class="form-control"
             id="fullName"
             required
+            #fullName="ngModel"
           />
+          <div
+            *ngIf="fullName.invalid && (fullName.touched || form.submitted)"
+            class="text-danger"
+          >
+            Họ và tên không được để trống.
+          </div>
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">
@@ -26,7 +33,14 @@
               class="form-control"
               id="phone"
               required
+              #phone="ngModel"
             />
+            <div
+              *ngIf="phone.invalid && (phone.touched || form.submitted)"
+              class="text-danger"
+            >
+              Số điện thoại không được để trống.
+            </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="ward" class="form-label">Xã/Phường *</label>
@@ -37,7 +51,14 @@
               class="form-control"
               id="ward"
               required
+              #ward="ngModel"
             />
+            <div
+              *ngIf="ward.invalid && (ward.touched || form.submitted)"
+              class="text-danger"
+            >
+              Xã/Phường không được để trống.
+            </div>
           </div>
         </div>
         <div class="row">
@@ -50,7 +71,14 @@
               class="form-control"
               id="district"
               required
+              #district="ngModel"
             />
+            <div
+              *ngIf="district.invalid && (district.touched || form.submitted)"
+              class="text-danger"
+            >
+              Quận/Huyện không được để trống.
+            </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="city" class="form-label">Tỉnh/Thành phố *</label>
@@ -61,7 +89,14 @@
               class="form-control"
               id="city"
               required
+              #city="ngModel"
             />
+            <div
+              *ngIf="city.invalid && (city.touched || form.submitted)"
+              class="text-danger"
+            >
+              Tỉnh/Thành phố không được để trống.
+            </div>
           </div>
         </div>
         <div class="mb-3">
@@ -73,7 +108,14 @@
             class="form-control"
             id="address"
             required
+            #address="ngModel"
           />
+          <div
+            *ngIf="address.invalid && (address.touched || form.submitted)"
+            class="text-danger"
+          >
+            Địa chỉ không được để trống.
+          </div>
         </div>
         <div class="mb-3">
           <label for="notes" class="form-label">Thông tin bổ sung</label>
@@ -128,10 +170,21 @@
                   [id]="payment.paymentId"
                   [(ngModel)]="orderData.paymentId"
                   [value]="payment.paymentId"
+                  required
+                  #paymentMethod="ngModel"
                 />
                 <label class="form-check-label" [for]="payment.paymentId">
                   {{ payment.paymentMethod }}
                 </label>
+                <div
+                  *ngIf="
+                    paymentMethod.invalid &&
+                    (paymentMethod.touched || form.submitted)
+                  "
+                  class="text-danger mt-2"
+                >
+                  Vui lòng chọn phương thức thanh toán.
+                </div>
               </div>
             </div>
 
@@ -146,6 +199,7 @@
               type="submit"
               class="btn btn-primary w-100 mt-3 border-0"
               style="background-color: #d26e4b; color: #fff"
+              [disabled]="form.invalid"
             >
               ĐẶT HÀNG
             </button>

@@ -125,6 +125,6 @@ public class OrderController : ControllerBase
         }
 
         var order = _orderService.GetOrdersByPaymentStatus(Guid.Parse(userId), false);
-        return Ok(order);
+        return Ok(order.Result);
     }
 }
