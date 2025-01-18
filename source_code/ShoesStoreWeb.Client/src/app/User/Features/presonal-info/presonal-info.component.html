@@ -1,135 +1,132 @@
 <div class="container mt-5">
-  <div class="row section" *ngIf="user$ | async as user">
-    <!-- Sidebar -->
-    <div class="col-md-3">
-      <!-- Ảnh đại diện -->
-      <div class="text-center mb-4" >
-        <img
-          src="https://via.placeholder.com/80"
-          alt="Avatar"
-          class="img-fluid rounded-circle"
-          style="width: 150px; height: 150px; object-fit: cover"
-        />
-        <p class="mt-2 fw-bold">{{user.fullName}}</p>
-        <p class="">{{user.email}}</p>
-      </div>
-
-      <!-- Menu -->
-      <div class="list-group">
-        <a
-          class="list-group-item list-group-item-action border-0 active"
-          style="border-radius: 0; background-color: #f8f9fa; color: #000;"
-          >Thông tin tài khoản</a
-        >
-        <a class="list-group-item list-group-item-action border-0"
-          >Thay đổi mật khẩu</a
-        >
-        <a href="/personal-info/order" class="list-group-item list-group-item-action border-0"
-          >Đơn hàng</a
-        >
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="col-md-9">
-      <!-- Thông tin tài khoản -->
-      <div class="card mb-4 border-0">
-        <div class="card-body">
-          <h5 class="card-title">Thông tin tài khoản</h5>
-          <h5
-            style="
-              border-bottom: 2px solid #000;
-              width: 100px;
-              margin-bottom: 20px;
-            "
-          ></h5>
-
-          <div class="row mb-2">
-            <div class="col-2">Họ tên:</div>
-            <div class="col-10">{{user.fullName}}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-2">Email:</div>
-            <div class="col-10">{{user.email}}</div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-2">Số điện thoại:</div>
-            <div class="col-10">{{user.phoneNumber}}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-2">Địa chỉ:</div>
-            <div class="col-10">{{user.address}}</div>
-          </div>
+  <ng-container *ngIf="user">
+    <div class="row section">
+      <!-- Sidebar -->
+      <div class="col-md-3">
+        <div class="text-center mb-4">
+          <img
+            [src]="urlImage + user.avatar || 'https://via.placeholder.com/150'"
+            alt="Avatar"
+            class="img-fluid rounded-circle border"
+            style="width: 150px; height: 150px; object-fit: cover"
+          />
+          <label class="upload-btn">
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+            Choose File
+          </label>
+          <p class="fw-bold">{{ user.fullName }}</p>
+          <p class="">{{ user.email }}</p>
+        </div>
+        <div class="list-group">
+          <a
+            class="list-group-item active"
+            [class.active]="activeTab === 'info'"
+            (click)="activeTab = 'info'"
+            >Thông tin tài khoản</a
+          >
+          <a
+            class="list-group-item"
+            [class.active]="activeTab === 'password'"
+            (click)="activeTab = 'password'"
+            >Thay đổi mật khẩu</a
+          >
+          <a href="#" class="list-group-item">Đơn hàng</a>
         </div>
       </div>
 
-      <!-- Form chỉnh sửa thông tin -->
-      <div class="card border-0">
-        <div class="card-body">
-          <h5 class="card-title">Thay đổi thông tin</h5>
-          <h5
-            style="
-              border-bottom: 2px solid #000;
-              width: 100px;
-              margin-bottom: 20px;
-            "
-          ></h5>
+      <!-- Main Content -->
+      <div class="col-md-9">
+        <div *ngIf="activeTab === 'info'">
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
 
-          <form  (ngSubmit)="updateProfile()">
-            <div class="row mb-3">
-              <div class="col-2">
-                <label for="name" class="form-label">Họ tên</label>
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5>Thông tin tài khoản</h5>
+              <div class="row mb-2">
+                <div class="col-2">Họ tên:</div>
+                <div class="col-10">{{ user.fullName }}</div>
               </div>
-              <div class="col-10">
-                <input
-                  type="text"
-                  id="name"
-                  class="form-control"
-                  [(ngModel)]="editUser.fullName"
-                  name="name"
-                />
+              <div class="row mb-2">
+                <div class="col-2">Email:</div>
+                <div class="col-10">{{ user.email }}</div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-2">Số điện thoại:</div>
+                <div class="col-10">{{ user.phoneNumber }}</div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-2">Địa chỉ:</div>
+                <div class="col-10">{{ user.address }}</div>
+
               </div>
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col-2">
-                <label for="phone" class="form-label">Số điện thoại</label>
-              </div>
-              <div class="col-10">
-                <input
-                  type="text"
-                  id="phone"
-                  class="form-control"
-                  [(ngModel)]="editUser.phoneNumber"
-                  name="phone"
-                />
-              </div>
-            </div>
 
-            <div class="row mb-3">
-              <div class="col-2">
-                <label for="address" class="form-label">Địa chỉ</label>
-              </div>
-              <div class="col-10">
-                <input
-                  type="text"
-                  id="address"
-                  class="form-control"
-                  [(ngModel)]="editUser.address"
-                  name="address"
-                />
-              </div>
+          <!-- Form  -->
+          <div class="card">
+            <div class="card-body">
+              <h5>Thay đổi thông tin</h5>
+              <form (ngSubmit)="updateProfile()">
+                <div class="row mb-3">
+                  <div class="col-2"><label for="name">Họ tên</label></div>
+                  <div class="col-10">
+                    <input
+                      type="text"
+                      id="name"
+                      class="form-control"
+                      [(ngModel)]="user.fullName"
+                      name="name"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-2">
+                    <label for="phone">Số điện thoại</label>
+                  </div>
+                  <div class="col-10">
+                    <input
+                      type="text"
+                      id="phone"
+                      class="form-control"
+                      [(ngModel)]="user.phoneNumber"
+                      name="phone"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-2"><label for="address">Địa chỉ</label></div>
+                  <div class="col-10">
+                    <input
+                      type="text"
+                      id="address"
+                      class="form-control"
+                      [(ngModel)]="user.address"
+                      name="address"
+                    />
+                  </div>
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-success">
+                    Cập nhật
+                  </button>
+                </div>
+              </form>
             </div>
+          </div>
+        </div>
 
-            <div class="row">
-              <div class="col-12 text-end">
-                <button type="submit" class="btn btn-success">Cập nhật</button>
-              </div>
-            </div>
-          </form>
+        <div *ngIf="activeTab === 'password'">
+          <app-change-password></app-change-password>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>

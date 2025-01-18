@@ -51,7 +51,7 @@ namespace ShoesStoreApp.PLA.Controllers
                     await file.CopyToAsync(stream);
                 }
 
-                var uploadedImage = await _imageService.SaveImageToDatabaseAsync(fileName, fileExtension);
+                var uploadedImage = await _imageService.SaveImageProductToDatabaseAsync(fileName, fileExtension);
 
                 return Ok(uploadedImage);
             }
@@ -103,22 +103,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
 
             var products = await _productService.GetProductsByStatusAsync(status, pageIndex, pageSize);
-
-            var productVms = products.Items.Select(product => new ProductVm
-            {
-                ProductId = product.ProductId,
-                BrandId = product.BrandId,
-                BrandName = product.Brand.BrandName,
-                ProductName = product.ProductName,
-                ProductImage = product.ProductImage,
-                Price = product.Price,
-                Description = product.Description,
-                Status = product.Status,
-            }).ToList();
-
-            var response = new PaginatedResult<ProductVm>(productVms, products.TotalPages, products.PageIndex, pageSize);
-
-            return Ok(response);
+            return Ok(products);
 
         }
 
@@ -132,22 +117,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
 
             var products = await _productService.GetFilteredProductsAsync(filter);
-
-            var productVms = products.Items.Select(product => new ProductVm
-            {
-                ProductId = product.ProductId,
-                BrandId = product.BrandId,
-                BrandName = product.Brand.BrandName,
-                ProductName = product.ProductName,
-                ProductImage = product.ProductImage,
-                Price = product.Price,
-                Description = product.Description,
-                Status = product.Status,
-            }).ToList();
-
-            var response = new PaginatedResult<ProductVm>(productVms, products.TotalPages, products.PageIndex, filter.PageSize);
-
-            return Ok(response);
+            return Ok(products);
         }
 
         // Get Product by Id
@@ -187,22 +157,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
 
             var products = await _productService.GetProductsSimilarAsync(status,brandId,productId, pageIndex, pageSize);
-
-            var productVms = products.Items.Select(product => new ProductVm
-            {
-                ProductId = product.ProductId,
-                BrandId = product.BrandId,
-                BrandName = product.Brand.BrandName,
-                ProductName = product.ProductName,
-                ProductImage = product.ProductImage,
-                Price = product.Price,
-                Description = product.Description,
-                Status = product.Status,
-            }).ToList();
-
-            var response = new PaginatedResult<ProductVm>(productVms, products.TotalPages, products.PageIndex, pageSize);
-
-            return Ok(response);
+            return Ok(products);
 
         }
 

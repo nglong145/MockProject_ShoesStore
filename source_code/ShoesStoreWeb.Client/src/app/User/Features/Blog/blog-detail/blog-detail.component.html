@@ -1,41 +1,23 @@
-<div class="container mt-5">
-  <!-- Article Section -->
+<div class="container blog-detail">
   <div class="mb-4">
     <h1 class="fw-bold">
-      Bí quyết chọn giày Pickleball hoàn hảo: hướng dẫn từ A-Z
+      {{ blog?.title }}
     </h1>
+    <p class="card-text">
+      <small class="text-muted text-bold">
+        {{ blog?.createdDate | date : "dd-MM-yyyy HH:mm" }}
+      </small>
+    </p>
     <p>
-      Pickleball, một môn thể thao đang ngày càng phổ biến, đòi hỏi người chơi
-      không chỉ kỹ năng mà còn cả sự chuẩn bị đúng đắn về trang thiết bị, đặc
-      biệt là giày. Chọn một đôi giày phù hợp không chỉ cải thiện hiệu suất thi
-      đấu mà còn giúp giảm nguy cơ chấn thương.
+      {{ blog?.description }}
     </p>
     <img
-      src="https://via.placeholder.com/800x400"
+      [src]="urlImage + blog?.blogImage"
       class="img-fluid rounded mb-3"
       alt="Pickleball Shoes"
     />
-    <h2 class="fs-5">1. Tại sao giày pickleball lại quan trọng?</h2>
     <p>
-      Mặc dù pickleball có vẻ như không đòi hỏi quá nhiều về thể lực, nhưng thực
-      tế môn thể thao này yêu cầu di chuyển nhanh, thay đổi hướng liên tục và
-      đặc biệt là những bước chân ngang dọc. Một đôi giày phù hợp không chỉ giúp
-      bạn thoải mái mà còn hỗ trợ tốt cho sự ổn định và bền bỉ trong thi đấu.
+      {{ blog?.detail }}
     </p>
   </div>
-
-  <!-- Additional Content Section -->
-  <div class="mb-4">
-    <h2 class="fs-4">Những điểm cần lưu ý khi chọn giày Pickleball</h2>
-    <ul>
-      <li>Độ bám tốt để giữ vững trên mọi bề mặt sân.</li>
-      <li>Trọng lượng nhẹ để di chuyển linh hoạt.</li>
-      <li>Thiết kế thoáng khí, tạo sự thoải mái khi sử dụng lâu dài.</li>
-    </ul>
-  </div>
-
-  <!-- Footer Section -->
-  <footer class="pt-4 mt-5 border-top">
-    <p class="text-muted">&copy; 2025 Pickleball Guide. All rights reserved.</p>
-  </footer>
 </div>

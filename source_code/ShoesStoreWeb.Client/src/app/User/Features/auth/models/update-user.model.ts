@@ -1,8 +1,6 @@
-export interface User {
-  id: string;
+export interface UpdateUser {
   fullName: string;
   avatar: string;
-  email: string;
   phoneNumber: string;
   address: string;
 }

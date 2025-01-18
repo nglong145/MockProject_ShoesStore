@@ -17,7 +17,7 @@ namespace ShoesStoreApp.DAL.Data
         public DbSet<Review> Review { get; set; }
         public DbSet<ImageSystem> Image { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
-        public DbSet<Role> Role { get; set; }
+
 
 
         public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
@@ -29,7 +29,7 @@ namespace ShoesStoreApp.DAL.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-82GOTJUD\\SQLEXPRESS;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
+                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
                      .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             }
         }

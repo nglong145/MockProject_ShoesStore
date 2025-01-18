@@ -12,7 +12,7 @@ using System.Text;
 
 namespace ShoesStoreApp.BLL.Services.AuthenticationService
 {
-    public class AuthenticationService:IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
@@ -28,7 +28,7 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             _context = context;
         }
 
-        public async Task<AuthResultVm> RegisterUserAsync(RegisterVm registerVm)
+        public async Task<string> RegisterUserAsync(RegisterVm registerVm)
         {
             var userExists = await _userManager.FindByEmailAsync(registerVm.Email);
             if (userExists != null)
@@ -51,7 +51,7 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             var result = await _userManager.CreateAsync(newUser, registerVm.Password);
             if (result.Succeeded)
             {
-                return new AuthResultVm { Message = $"User {registerVm.Email} created!" };
+                return $"User {registerVm.Email} created!";
             }
 
             throw new Exception("User could not be created!");
@@ -85,7 +85,7 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             }
 
             // Revoke old token
-            storedToken.IsRevoked = true; 
+            storedToken.IsRevoked = true;
             _context.RefreshToken.Update(storedToken);
 
             var jwtResult = await GenerateJwtTokenAsync(user);
@@ -98,13 +98,22 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
         private async Task<AuthResultVm> GenerateJwtTokenAsync(User user)
         {
             var authClaims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var roleName = await _context.Roles
+                                .Where(r => r.Id == user.RoleId)
+                                .Select(r => r.Name)
+                                .FirstOrDefaultAsync();
+
+            if (!string.IsNullOrEmpty(roleName))
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, roleName));
+            }
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
@@ -139,7 +148,6 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             };
         }
 
-
         public async Task<UserVm> GetUserInfoAsync(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -152,12 +160,12 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             {
                 Id = user.Id,
                 FullName = user.FullName,
+                Avatar = user.Avatar,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address
             };
         }
-
 
         public async Task<bool> UpdateUserInfoAsync(Guid userId, UpdateUserVm updateUserVm)
         {
@@ -170,10 +178,35 @@ namespace ShoesStoreApp.BLL.Services.AuthenticationService
             user.FullName = updateUserVm.FullName;
             user.PhoneNumber = updateUserVm.PhoneNumber;
             user.Address = updateUserVm.Address;
+            user.Avatar = updateUserVm.Avatar;
 
             var result = await _userManager.UpdateAsync(user);
             return result.Succeeded;
         }
 
+
+        public async Task<bool> ChangePasswordAsync(Guid userId, ChangePasswordVm passwordVm)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            var isOldPasswordValid = await _userManager.CheckPasswordAsync(user, passwordVm.OldPassword);
+            if (!isOldPasswordValid)
+            {
+                throw new Exception("Old password is incorrect.");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, passwordVm.OldPassword, passwordVm.NewPassword);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Failed to change password: {errors}");
+            }
+
+            return result.Succeeded;
+        }
     }
 }
