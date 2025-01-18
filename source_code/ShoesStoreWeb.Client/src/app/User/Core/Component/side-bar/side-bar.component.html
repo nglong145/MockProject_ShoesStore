@@ -7,8 +7,8 @@
     <h6>Thương hiệu</h6>
     <select class="form-select" (change)="onBrandChange($event)">
       <option value="">Tất cả</option>
-      <option *ngFor="let brand of brands" [value]="brand.id">
-        {{ brand.name }}
+      <option *ngFor="let brand of brands" [value]="brand.brandId">
+        {{ brand.brandName }}
       </option>
     </select>
   </div>
@@ -21,7 +21,7 @@
         class="btn btn-outline-dark btn-sm"
         *ngFor="let size of sizes"
         [class.active]="selectedSize === size"
-        (click)="onSizeChange(size)"
+        (click)="onSizeClick(size)"
       >
         {{ size }}
       </button>

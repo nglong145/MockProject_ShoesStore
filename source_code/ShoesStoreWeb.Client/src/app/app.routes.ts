@@ -34,6 +34,7 @@ import { BlogDetailComponent } from './User/Features/Blog/blog-detail/blog-detai
 import { BlogPageComponent } from './User/Features/Blog/blog-page/blog-page.component';
 
 import { ListBrandComponent } from './admin/feature/brand/list-brand/list-brand.component';
+import { ChangePasswordComponent } from './User/Features/change-password/change-password.component';
 
 export const routes: Routes = [
   {
@@ -108,13 +109,17 @@ export const routes: Routes = [
       },
 
       {
-        path: 'personal-info',
+        path: 'user/:id',
         component: PresonalInfoComponent,
       },
-      {
-        path: 'personal-info/order',
-        component: TrackingOrderComponent,
-      },
+      // {
+      //   path: 'user/:id/change-password',
+      //   component: ChangePasswordComponent,
+      // },
+      // {
+      //   path: 'user/:id/order',
+      //   component: TrackingOrderComponent,
+      // },
 
       {
         path: 'blog',
@@ -125,7 +130,6 @@ export const routes: Routes = [
         path: 'blog/:id',
         component: BlogDetailComponent,
       },
-      // Thêm các route khác cho user
     ],
   },
   {

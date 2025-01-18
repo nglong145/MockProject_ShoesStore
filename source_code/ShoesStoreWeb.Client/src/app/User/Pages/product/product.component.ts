@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductDetailComponent } from '../../Features/Product/product-detail/product-detail.component';
 import { RelatedProductComponent } from '../../Features/Product/related-product/related-product.component';
 import { ProductDescriptionComponent } from '../../Features/Product/product-description/product-description.component';
@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
-export class ProductComponent implements OnInit, OnChanges {
+export class ProductComponent implements OnInit {
   id: string | null = null;
   product?: Product;
   paramsSubcription?: Subscription;
@@ -60,6 +60,4 @@ export class ProductComponent implements OnInit, OnChanges {
       });
     }
   }
-
-  ngOnChanges(changes: SimpleChanges): void {}
 }

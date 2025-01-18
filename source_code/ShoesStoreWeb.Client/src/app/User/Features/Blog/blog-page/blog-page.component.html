@@ -1,64 +1,49 @@
-<div class="container mt-4">
-  <div class="card border-primary">
-    <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <img
-            src="https://via.placeholder.com/150"
-            class="img-fluid rounded"
-            alt="Article Image"
-          />
-        </div>
-        <div class="col-md-8">
-          <h5 class="card-title">
-            Bí quyết chọn giày Pickleball hoàn hảo: hướng dẫn từ A-Z
-          </h5>
-          <p class="card-text">
-            Pickleball, một môn thể thao ngày càng phổ biến...<br />
-            <small class="text-muted">15-12-2024 15:03</small>
-          </p>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <img
-            src="https://via.placeholder.com/150"
-            class="img-fluid rounded"
-            alt="Article Image"
-          />
-        </div>
-        <div class="col-md-8">
-          <h5 class="card-title">
-            Những mẫu vợt Pickleball đáng mua nhất cuối năm 2024
-          </h5>
-          <p class="card-text">
-            Mùa thu này, sân đấu Pickleball đang trở nên nóng bỏng...<br />
-            <small class="text-muted">11-11-2024 07:00</small>
-          </p>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <img
-            src="https://via.placeholder.com/150"
-            class="img-fluid rounded"
-            alt="Article Image"
-          />
-        </div>
-        <div class="col-md-8">
-          <h5 class="card-title">
-            Đánh Giá Giày Babolat Jet Mach 3: Sự Kết Hợp Hoàn Hảo Giữa Công Nghệ
-            và Hiệu Suất
-          </h5>
-          <p class="card-text">
-            Giày Babolat Jet Mach 3 là lựa chọn hàng đầu cho những ai đam mê thể
-            thao...<br />
-            <small class="text-muted">25-08-2024 00:00</small>
-          </p>
+<div class="section-blogList">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12 mb-4" *ngFor="let blog of blogs">
+        <div class="card h-100">
+          <div class="row g-0" (click)="viewBlogDetail(blog.blogId)">
+            <div class="col-4">
+              <img
+                [src]="urlImage + blog.blogImage"
+                class="img-fluid rounded-start img-blog"
+                alt="Article Image"
+              />
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ blog.title }}</h5>
+                <p class="card-text">
+                  <small class="text-muted">
+                    {{ blog.createdDate | date : "dd-MM-yyyy HH:mm" }}
+                  </small>
+                </p>
+                <p class="card-text blog-description">
+                  {{ blog.description }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Pagination -->
+    <nav class="pagination-container mt-4">
+      <ul class="pagination justify-content-center">
+        <li
+          class="page-item"
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+        >
+          <a
+            class="page-link"
+            [ngClass]="{ active: pageIndex === i + 1 }"
+            (click)="onPageChange(i + 1)"
+            >{{ i + 1 }}</a
+          >
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
