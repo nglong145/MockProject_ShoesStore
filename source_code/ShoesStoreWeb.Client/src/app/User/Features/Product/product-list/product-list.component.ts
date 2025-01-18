@@ -3,7 +3,6 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 import { ProductFilter } from '../models/product-filter.model';
-import { BASE_URL } from '../../../../app.config';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,6 @@ import { Router } from '@angular/router';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent implements OnInit {
-  urlServe: string = `${BASE_URL}`;
   @Input() filters!: ProductFilter;
   products: Product[] = [];
   currentPage: number = 1;
@@ -31,20 +29,6 @@ export class ProductListComponent implements OnInit {
       this.loadProducts();
     }
   }
-
-  // loadProducts(): void {
-  //   this.productService
-  //     .getProductsByStatus(this.status, this.currentPage, this.itemsPerPage)
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.products = response.items;
-  //         this.totalPages = response.totalPages;
-  //       },
-  //       error: (err) => {
-  //         console.error('Error fetching products:', err);
-  //       },
-  //     });
-  // }
 
   loadProducts(): void {
     this.filters.status = '1';

@@ -1,12 +1,14 @@
 <div class="nav-bar navbar-light bg-light sticky-header">
   <div class="nav-container d-flex justify-content-between align-items-center">
+    <!-- Logo -->
     <div class="navbar-left flex-fill">
       <a href="/" class="navbar-brand">
-        <img src="assets/Images/logo.webp" alt="Logo" style="height: 60px" />
+        <img src="assets/Images/logo.webp" alt="Logo" />
       </a>
     </div>
 
-    <div class="navbar-center text-center flex-fill" style="width: 50%">
+    <!-- Menu trung tâm -->
+    <div class="navbar-center text-center flex-fill">
       <ul
         class="navbar-nav d-flex flex-row justify-content-between text-uppercase"
       >
@@ -27,6 +29,8 @@
         </li>
       </ul>
     </div>
+
+    <!-- Tài khoản -->
     <div class="navbar-right text-right flex-fill">
       <ng-container *ngIf="user; else guest">
         <div class="dropdown">
@@ -35,18 +39,24 @@
             id="userDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            style="cursor: pointer"
           >
-            <i class="bi bi-person"></i> {{ user.fullName }}
+            <a href="#" class="me-3"><i class="bi bi-search"></i></a>
+            <a href="#" class="me-3"><i class="bi bi-cart"></i></a>
+            <img
+              [src]="
+                urlImage + user.avatar || 'https://via.placeholder.com/150'
+              "
+              alt="Avatar"
+              class="img-fluid rounded-circle border"
+              style="width: 30px; height: 30px; object-fit: cover"
+            />
           </span>
-          <a href="#" class="me-3"><i class="bi bi-search"></i></a>
-          <a href="#" class="me-3"><i class="bi bi-cart"></i></a>
-
           <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            <li>{{ user.fullName }}</li>
             <li>
-              <a class="dropdown-item" [routerLink]="'/user-profile'"
-                >Quản lý thông tin</a
-              >
+              <a class="dropdown-item" [routerLink]="'/user/' + user.id">
+                Quản lý thông tin
+              </a>
             </li>
             <li>
               <a class="dropdown-item" href="#" (click)="logout()">Đăng xuất</a>
@@ -57,9 +67,9 @@
 
       <!-- Nếu người dùng chưa đăng nhập -->
       <ng-template #guest>
-        <a [routerLink]="'/login'" class="me-3"><i class="bi bi-person"></i></a>
         <a href="#" class="me-3"><i class="bi bi-search"></i></a>
         <a href="#" class="me-3"><i class="bi bi-cart"></i></a>
+        <a [routerLink]="'/login'" class="me-3"><i class="bi bi-person"></i></a>
       </ng-template>
     </div>
   </div>

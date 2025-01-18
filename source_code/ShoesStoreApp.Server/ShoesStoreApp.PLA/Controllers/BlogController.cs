@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.BlogService;
+using ShoesStoreApp.BLL.Services.Image;
 using ShoesStoreApp.BLL.ViewModels;
 using ShoesStoreApp.DAL.Models;
 
@@ -11,11 +14,48 @@ namespace ShoesStoreApp.PLA.Controllers
     public class BlogController : ControllerBase
     {
         private readonly IBlogService _blogService;
-        public BlogController(IBlogService blogService)
+        private readonly IImageService _imageService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public BlogController(IBlogService blogService, IImageService imageService, IWebHostEnvironment webHostEnvironment)
         {
             _blogService = blogService;
+            _imageService = imageService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
+        [HttpPost("Upload-Image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("No file uploaded or file is empty.");
+                }
+
+                _imageService.ValidateFileUpload(file);
+
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                var localPath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", "Blog", $"{fileName}{fileExtension}");
+
+                using (var stream = new FileStream(localPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                var uploadedImage = await _imageService.SaveImageBlogToDatabaseAsync(fileName, fileExtension);
+
+                return Ok(uploadedImage);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-all-blog")]
         public async Task<IActionResult> GetAllBlog()
         {
@@ -56,6 +96,21 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("The blog does not exist!");
         }
 
+
+        [Authorize(Roles = "User")]
+        [HttpGet("Get-All-Blog-Pagination")]
+        public async Task<IActionResult> GetAllBlogPagination([FromQuery] int pageIndex, int pageSize)
+        {
+            if (pageIndex <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { message = "PageIndex and PageSize must be greater than 0." });
+            }
+
+            var blogs = await _blogService.GetBLogListPaginationAsync(pageIndex, pageSize);
+            return Ok(blogs);
+
+        }
+
         [HttpPost("add-new-blog")]
         public async Task<IActionResult> AddNewBlog([FromBody] AddBlogVm addBlogVm)
         {
@@ -66,7 +121,7 @@ namespace ShoesStoreApp.PLA.Controllers
                 BlogImage = addBlogVm.BlogImage,
                 Description = addBlogVm.Description,
                 Detail = addBlogVm.Detail,
-                CreatedDate = addBlogVm.CreatedDate,
+                CreatedDate = DateTime.Now,
             };
             await _blogService.AddAsync(blog);
             return Ok(blog);
@@ -82,7 +137,6 @@ namespace ShoesStoreApp.PLA.Controllers
                 blog.BlogImage = addBlogVm.BlogImage;
                 blog.Description = addBlogVm.Description;
                 blog.Detail = addBlogVm.Detail;
-                blog.CreatedDate = addBlogVm.CreatedDate;
 
                 await _blogService.UpdateAsync(blog);
                 return Ok(blog);

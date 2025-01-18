@@ -1,147 +1,61 @@
-<div class="container my-5 blog-section">
-  <h3 class="mb-4 text-center">Tin Tức - Sự Kiện</h3>
-  <p class="text-muted text-center">Tin tức phổ biến</p>
-  <div class="row">
-    <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
-      <!-- Indicators -->
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#blogCarousel"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#blogCarousel"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-      </div>
-
-      <!-- Carousel Items -->
-      <div class="carousel-inner">
-        <!-- Slide 1 -->
-        <div class="carousel-item active">
-          <div class="row">
-            <!-- Bài viết 1 -->
-            <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
-                <img
-                  src="assets/Images/shoe1.jpg"
-                  class="card-img-top"
-                  alt="Nike Air Force 1"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Những hình ảnh mới nhất về Nike Air Force 1 “Sports
-                    Specialties”
-                  </h5>
-                </div>
+<div class="container mt-4 mb-4">
+  <h4 class="text-center mb-4">Tin Tức - Sự Kiện</h4>
+  <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div
+        *ngFor="let chunk of chunkedBlogs; let i = index"
+        class="carousel-item"
+        [class.active]="i === 0"
+      >
+        <div class="row row-cols-1 row-cols-md-3 g-4 cursor-pointer">
+          <div *ngFor="let blog of chunk" class="col">
+            <div class="card h-100">
+              <img
+                [src]="urlImage + blog.blogImage"
+                class="card-img-top"
+                alt="{{ blog.title }}"
+              />
+              <div class="card-body pb-0">
+                <h6 class="card-title">{{ blog.title }}</h6>
+                <p class="text-muted blog-description">
+                  {{ blog.description }}
+                </p>
               </div>
-            </div>
-            <!-- Bài viết 2 -->
-            <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
-                <img
-                  src="assets/Images/shoe2.jpg"
-                  class="card-img-top"
-                  alt="Air Force 1 Low"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Air Force 1 Low mới với những đường khâu tương phản cực lạ
-                    mắt
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <!-- Bài viết 3 -->
-            <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
-                <img
-                  src="assets/Images/shoe3.jpg"
-                  class="card-img-top"
-                  alt="Adidas UltraBOOST"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Atmos và Adidas tiếp tục bắt tay cho ra mắt UltraBOOST DNA
-                    phiên bản Triple Black Pair
-                  </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item">
-          <div class="row">
-            <!-- Bài viết 4 -->
-            <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
-                <img
-                  src="assets/Images/shoe4.jpg"
-                  class="card-img-top"
-                  alt="Shoe 4"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Bài viết 4</h5>
-                </div>
-              </div>
-            </div>
-            <!-- Bài viết 5 -->
-            <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
-                <img
-                  src="assets/Images/shoe5.jpg"
-                  class="card-img-top"
-                  alt="Shoe 5"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Bài viết 5</h5>
-                </div>
-              </div>
-            </div>
-            <!-- Bài viết 6 -->
-            <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
-                <img
-                  src="assets/Images/shoe6.jpg"
-                  class="card-img-top"
-                  alt="Shoe 6"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Bài viết 6</h5>
-                </div>
+              <div
+                class="card-footer text-center d-flex justify-content-between align-items-center"
+              >
+                <button
+                  class="btn btn-dark"
+                  (click)="viewBlogDetail(blog.blogId)"
+                >
+                  Xem chi tiết
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Controls -->
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#blogCarousel"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#blogCarousel"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
+
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#blogCarousel"
+      data-bs-slide="prev"
+      [hidden]="chunkedBlogs.length <= 1"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#blogCarousel"
+      data-bs-slide="next"
+      [hidden]="chunkedBlogs.length <= 1"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </div>

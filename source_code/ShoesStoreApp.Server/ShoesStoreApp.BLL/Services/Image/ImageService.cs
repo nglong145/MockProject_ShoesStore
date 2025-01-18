@@ -16,11 +16,89 @@ namespace ShoesStoreApp.BLL.Services.Image
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ImageSystem> SaveImageToDatabaseAsync(string fileName, string fileExtension)
+        public async Task<ImageSystem> SaveImageProductToDatabaseAsync(string fileName, string fileExtension)
         {
             var urlPath = $"/Images/Product/{fileName}{fileExtension}";
             var existingImage = await _unitOfWork.GenericRepository<ImageSystem>()
-                .GetQuery(img => img.FileName == fileName && img.FileExtension == fileExtension)
+                .GetQuery(img => img.Url == urlPath)
+                .FirstOrDefaultAsync();
+
+            if (existingImage != null)
+            {
+                return existingImage;
+            }
+
+            var newImage = new ImageSystem
+            {
+                FileExtension = fileExtension,
+                FileName = fileName,
+                Url = urlPath,
+                CreateDate = DateTime.Now,
+            };
+
+            _unitOfWork.GenericRepository<ImageSystem>().Add(newImage);
+            await _unitOfWork.SaveChangesAsync();
+
+            return newImage;
+        }
+
+        public async Task<ImageSystem> SaveImageBrandToDatabaseAsync(string fileName, string fileExtension)
+        {
+            var urlPath = $"/Images/Brand/{fileName}{fileExtension}";
+            var existingImage = await _unitOfWork.GenericRepository<ImageSystem>()
+                .GetQuery(img => img.Url == urlPath)
+                .FirstOrDefaultAsync();
+
+            if (existingImage != null)
+            {
+                return existingImage;
+            }
+
+            var newImage = new ImageSystem
+            {
+                FileExtension = fileExtension,
+                FileName = fileName,
+                Url = urlPath,
+                CreateDate = DateTime.Now,
+            };
+
+            _unitOfWork.GenericRepository<ImageSystem>().Add(newImage);
+            await _unitOfWork.SaveChangesAsync();
+
+            return newImage;
+        }
+
+        public async Task<ImageSystem> SaveImageBlogToDatabaseAsync(string fileName, string fileExtension)
+        {
+            var urlPath = $"/Images/Blog/{fileName}{fileExtension}";
+            var existingImage = await _unitOfWork.GenericRepository<ImageSystem>()
+                .GetQuery(img =>  img.Url == urlPath)
+                .FirstOrDefaultAsync();
+
+            if (existingImage != null)
+            {
+                return existingImage;
+            }
+
+            var newImage = new ImageSystem
+            {
+                FileExtension = fileExtension,
+                FileName = fileName,
+                Url = urlPath,
+                CreateDate = DateTime.Now,
+            };
+
+            _unitOfWork.GenericRepository<ImageSystem>().Add(newImage);
+            await _unitOfWork.SaveChangesAsync();
+
+            return newImage;
+        }
+
+        public async Task<ImageSystem> SaveAvatarToDatabaseAsync(string fileName, string fileExtension)
+        {
+            var urlPath = $"/Images/Avatar/{fileName}{fileExtension}";
+            var existingImage = await _unitOfWork.GenericRepository<ImageSystem>()
+                .GetQuery(img => img.Url == urlPath)
                 .FirstOrDefaultAsync();
 
             if (existingImage != null)

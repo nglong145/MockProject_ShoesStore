@@ -13,4 +13,5 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
-export const BASE_URL: string = 'https://localhost:44320/api';
+export const BASE_URL: string = 'https://localhost:7158/api';
+export const IMG_URL: string = 'https://localhost:7158';

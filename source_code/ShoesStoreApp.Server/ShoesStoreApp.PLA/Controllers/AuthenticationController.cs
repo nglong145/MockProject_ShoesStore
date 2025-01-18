@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.AuthenticationService;
+using ShoesStoreApp.BLL.Services.Image;
 using ShoesStoreApp.BLL.ViewModels.Auth;
 using System.Security.Claims;
 
@@ -10,10 +12,45 @@ namespace ShoesStoreApp.PLA.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IImageService _imageService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(IAuthenticationService authenticationService, IImageService imageService, IWebHostEnvironment webHostEnvironment)
         {
             _authenticationService = authenticationService;
+            _imageService = imageService;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        [HttpPost("Upload-Image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("No file uploaded or file is empty.");
+                }
+
+                _imageService.ValidateFileUpload(file);
+
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                var localPath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", "Avatar", $"{fileName}{fileExtension}");
+
+                using (var stream = new FileStream(localPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                var uploadedImage = await _imageService.SaveAvatarToDatabaseAsync(fileName, fileExtension);
+
+                return Ok(uploadedImage);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         [HttpPost("register")]
@@ -113,5 +150,29 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
+        [HttpPut("Change-Password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordVm passwordVm)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized(new { Message = "User is not authenticated." });
+                }
+
+                var isUpdated = await _authenticationService.ChangePasswordAsync(Guid.Parse(userId), passwordVm);
+                if (!isUpdated)
+                {
+                    return BadRequest(new { Message = "Failed to update user information." });
+                }
+
+                return Ok(new { Message = "User information updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
     }
 }
