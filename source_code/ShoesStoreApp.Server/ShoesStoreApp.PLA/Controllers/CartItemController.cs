@@ -20,6 +20,19 @@ public class CartItemController : ControllerBase
         _cartService = cartService;
     }
 
+    [HttpGet("get-cart-items/{cartId}")]
+    public async Task<IActionResult> GetCartItemsByCartId(Guid cartId)
+    {
+        var cartItems = await _cartItemService.GetCartItemsByCartIdAsync(cartId);
+        if (cartItems == null || !cartItems.Any())
+        {
+            return NotFound(new { Message = "No items found for the given CartId." });
+        }
+
+        return Ok(cartItems);
+    }
+
+
     [HttpPost("add-cart-item")]
     public async Task<IActionResult> AddCartItem([FromBody] AddCartItem cartItem)
     {
@@ -35,8 +48,10 @@ public class CartItemController : ControllerBase
         if (exitItem != null)
         {
             var itemCart = await _cartItemService.GetCartItemAsync(exitItem.CartId, exitItem.ProductId, exitItem.Size);
-            itemCart.Quantity += 1;
+            itemCart.Quantity += cartItem.Quantity;
             itemCart.Size = exitItem.Size;
+
+            await _cartItemService.AdjustSizeQuantity(cartItem.Size, cartItem.ProductId, cartItem.Quantity);
             await _cartItemService.UpdateAsync(itemCart);
             return Ok(itemCart);
         }
@@ -49,7 +64,7 @@ public class CartItemController : ControllerBase
             Quantity = cartItem.Quantity,
             Size = cartItem.Size
         };
-        
+        await _cartItemService.AdjustSizeQuantity(cartItem.Size, cartItem.ProductId, cartItem.Quantity);
         await _cartItemService.AddAsync(item);
         return Ok(item);
     }
@@ -60,7 +75,21 @@ public class CartItemController : ControllerBase
         var cartItem = await _cartItemService.GetCartItemAsync(cartId, productId, size);
         if (cartItem == null)
             return NotFound("cartItem not found");
-        
+
+        int quantityDifference = updateCartItem.Quantity - cartItem.Quantity;
+
+        if (quantityDifference > 0)
+        {
+            // Reduce quantity in stock if quantity increases
+            await _cartItemService.AdjustSizeQuantity(size, productId, quantityDifference);
+        }
+        else if (quantityDifference < 0)
+        {
+            // Refund the quantity in stock if the quantity is reduced
+            await _cartItemService.AdjustSizeQuantity(size, productId, quantityDifference );
+        }
+
+
         cartItem.Quantity = updateCartItem.Quantity;
         cartItem.Price = updateCartItem.Price;
         cartItem.Size = updateCartItem.Size;
@@ -75,7 +104,9 @@ public class CartItemController : ControllerBase
         var cartItem = await _cartItemService.GetCartItemAsync(cartId, productId, size);
         if (cartItem == null)
             return NotFound("cartItem not found");
-        
+
+        await _cartItemService.AdjustSizeQuantity(size, productId, -cartItem.Quantity);
+
         await _cartItemService.DeleteAsync(cartItem);
         return Ok(cartItem);
     }

@@ -34,14 +34,22 @@
     <div class="navbar-right text-right flex-fill">
       <ng-container *ngIf="user; else guest">
         <div class="dropdown">
+          <a href="#" class="me-3"><i class="bi bi-search"></i></a>
+          <a [routerLink]="'/cart'" class="me-3 position-relative"
+            ><i class="bi bi-cart" style="padding-right: 10px"></i>
+            <span
+              class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger"
+              style="font-size: 10px; padding: 5px 7px"
+            >
+              {{ cartCount }}
+            </span>
+          </a>
           <span
             class="dropdown-toggle"
             id="userDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <a href="#" class="me-3"><i class="bi bi-search"></i></a>
-            <a href="#" class="me-3"><i class="bi bi-cart"></i></a>
             <img
               [src]="
                 urlImage + user.avatar || 'https://via.placeholder.com/150'
@@ -52,14 +60,14 @@
             />
           </span>
           <ul class="dropdown-menu" aria-labelledby="userDropdown">
-            <li>{{ user.fullName }}</li>
+            <li class="li-name">{{ user.fullName }}</li>
             <li>
               <a class="dropdown-item" [routerLink]="'/user/' + user.id">
                 Quản lý thông tin
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#" (click)="logout()">Đăng xuất</a>
+              <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
             </li>
           </ul>
         </div>
@@ -68,7 +76,7 @@
       <!-- Nếu người dùng chưa đăng nhập -->
       <ng-template #guest>
         <a href="#" class="me-3"><i class="bi bi-search"></i></a>
-        <a href="#" class="me-3"><i class="bi bi-cart"></i></a>
+        <a [routerLink]="'/login'" class="me-3"><i class="bi bi-cart"></i></a>
         <a [routerLink]="'/login'" class="me-3"><i class="bi bi-person"></i></a>
       </ng-template>
     </div>

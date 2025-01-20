@@ -16,6 +16,11 @@ namespace ShoesStoreApp.DAL.Data
         public DbSet<Product> Product { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<ImageSystem> Image { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
+
+
+
         public DbSet<RefreshToken> RefreshToken { get; set; }
 
 

@@ -34,7 +34,12 @@
             (click)="activeTab = 'password'"
             >Thay đổi mật khẩu</a
           >
-          <a href="#" class="list-group-item">Đơn hàng</a>
+          <a
+            class="list-group-item"
+            [class.active]="activeTab === 'order'"
+            (click)="activeTab = 'order'"
+            >Đơn hàng</a
+          >
         </div>
       </div>
 
@@ -64,11 +69,9 @@
               <div class="row mb-2">
                 <div class="col-2">Địa chỉ:</div>
                 <div class="col-10">{{ user.address }}</div>
-
               </div>
             </div>
           </div>
-
 
           <!-- Form  -->
           <div class="card">
@@ -125,6 +128,10 @@
 
         <div *ngIf="activeTab === 'password'">
           <app-change-password></app-change-password>
+        </div>
+
+        <div *ngIf="activeTab === 'order'">
+          <app-tracking-order></app-tracking-order>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 import { ProductFilter } from '../models/product-filter.model';
 import { Router } from '@angular/router';
+import { IMG_URL } from '../../../../app.config';
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent implements OnInit {
+  urlImage: string = `${IMG_URL}`;
   @Input() filters!: ProductFilter;
   products: Product[] = [];
   currentPage: number = 1;

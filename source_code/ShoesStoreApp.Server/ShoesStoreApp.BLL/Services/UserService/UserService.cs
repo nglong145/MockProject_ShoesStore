@@ -18,9 +18,9 @@ public class UserService : BaseService<User>, IUserService
         _roleManager = roleManager;
     }
     
-    public async Task<UserVM> getUserByEmail(string email)
+    public async Task<UserVM> getUserByEmail(string id)
     {
-        var user = await _userManager.FindByEmailAsync(email);
+        var user = await _userManager.FindByIdAsync(id);
         
         return new UserVM()
         {
