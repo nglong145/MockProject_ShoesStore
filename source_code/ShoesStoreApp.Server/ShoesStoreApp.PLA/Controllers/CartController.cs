@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.CartService;
 using ShoesStoreApp.BLL.ViewModels;
@@ -17,7 +18,7 @@ public class CartController : ControllerBase
     {
         _cartService = cartService;
     }
-
+    [Authorize]
     [HttpGet("get-cart-of-user")]
     public async Task<IActionResult> GetCartByUserId()
     {

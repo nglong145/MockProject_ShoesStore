@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.ReviewService;
 using ShoesStoreApp.BLL.ViewModels;
@@ -82,6 +83,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(reviewVm);
         }
 
+        [Authorize]
         [HttpPost("Add-Review")]
         public async Task<IActionResult> AddReview([FromBody]AddReviewVm reviewVm)
         {
@@ -119,33 +121,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
-        //[HttpPost("Update-Review")]
-        //public async Task<IActionResult> UpdateReview(Guid productId,[FromBody] AddReviewVm reviewVm)
-        //{
-
-        //    var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        //    Guid userId= Guid.Parse(userIdClaim);
-
-        //    if (string.IsNullOrEmpty(userIdClaim))
-        //    {
-        //        return Unauthorized(new { Message = "User is not authenticated." });
-        //    }
-
-        //    var updatedReview = await _reviewService.GetReviewByIdAsync(productId, userId);
-
-        //    if (updatedReview != null)
-        //    {
-        //        updatedReview.Rating = reviewVm.Rating;
-        //        updatedReview.ReviewText = reviewVm.ReviewText;
-        //        updatedReview.Status = reviewVm.ProductImage;
-
-        //        await _reviewService.UpdateAsync(updatedReview);
-        //        return Ok(updatedReview);
-        //    }
-
-        //    return NotFound($"Review doesn't already exist");
-        //}
-
+        [Authorize]
         [HttpDelete("Delete-Review")]
         public async Task<IActionResult> DeleteReview(Guid productId)
         {

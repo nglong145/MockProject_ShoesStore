@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.CartService;
 using ShoesStoreApp.BLL.Services.Custumer;
@@ -42,8 +43,9 @@ public class OrderController : ControllerBase
         _sizeService = sizeService;
         _context = context;
     }
-    
-   [HttpPost("add-new-order")]
+
+    [Authorize]
+    [HttpPost("add-new-order")]
     public async Task<IActionResult> AddNewOrder([FromBody] AddOrderVM addOrderVM)
     {
         var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -124,6 +126,7 @@ public class OrderController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("get-all-unpaid-order-of-user")]
     public async Task<IActionResult> GetAllUnpaidOrder()
     {

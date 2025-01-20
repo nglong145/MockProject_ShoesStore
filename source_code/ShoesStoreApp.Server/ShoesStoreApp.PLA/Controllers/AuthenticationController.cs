@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.AuthenticationService;
 using ShoesStoreApp.BLL.Services.Image;
@@ -20,37 +21,6 @@ namespace ShoesStoreApp.PLA.Controllers
             _authenticationService = authenticationService;
             _imageService = imageService;
             _webHostEnvironment = webHostEnvironment;
-        }
-
-        [HttpPost("Upload-Image")]
-        public async Task<IActionResult> UploadImage(IFormFile file)
-        {
-            try
-            {
-                if (file == null || file.Length == 0)
-                {
-                    return BadRequest("No file uploaded or file is empty.");
-                }
-
-                _imageService.ValidateFileUpload(file);
-
-                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                var fileExtension = Path.GetExtension(file.FileName).ToLower();
-                var localPath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", "Avatar", $"{fileName}{fileExtension}");
-
-                using (var stream = new FileStream(localPath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                var uploadedImage = await _imageService.SaveAvatarToDatabaseAsync(fileName, fileExtension);
-
-                return Ok(uploadedImage);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
         }
 
         [HttpPost("register")]
@@ -85,6 +55,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] string refreshToken)
         {
@@ -103,7 +74,39 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost("Upload-Image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("No file uploaded or file is empty.");
+                }
 
+                _imageService.ValidateFileUpload(file);
+
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                var localPath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", "Avatar", $"{fileName}{fileExtension}");
+
+                using (var stream = new FileStream(localPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                var uploadedImage = await _imageService.SaveAvatarToDatabaseAsync(fileName, fileExtension);
+
+                return Ok(uploadedImage);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        [Authorize]
         [HttpGet("user-info")]
         public async Task<IActionResult> GetUserInfo()
         {
@@ -124,7 +127,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPut("update-user-info")]
         public async Task<IActionResult> UpdateUserInfo([FromBody] UpdateUserVm updateUserVm)
         {
@@ -150,6 +153,7 @@ namespace ShoesStoreApp.PLA.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("Change-Password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordVm passwordVm)
         {

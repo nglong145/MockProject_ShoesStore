@@ -23,6 +23,7 @@ namespace ShoesStoreApp.PLA.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("Upload-Image")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
@@ -96,8 +97,6 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("The blog does not exist!");
         }
 
-
-        [Authorize(Roles = "User")]
         [HttpGet("Get-All-Blog-Pagination")]
         public async Task<IActionResult> GetAllBlogPagination([FromQuery] int pageIndex, int pageSize)
         {
@@ -111,6 +110,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-new-blog")]
         public async Task<IActionResult> AddNewBlog([FromBody] AddBlogVm addBlogVm)
         {
@@ -127,6 +127,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(blog);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-blog/{id}")]
         public async Task<IActionResult> UpdateBlog(Guid id, [FromBody] AddBlogVm addBlogVm)
         {
@@ -144,6 +145,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("The blog does not exist!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-blog/{id}")]
         public async Task<IActionResult> DeleteBlog(Guid id)
         {
