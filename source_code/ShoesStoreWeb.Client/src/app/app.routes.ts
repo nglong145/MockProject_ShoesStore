@@ -12,7 +12,7 @@ import { ListOrderComponent } from './admin/feature/order/list-order/list-order.
 import { AddproductComponent } from './admin/feature/product/addproduct/addproduct.component';
 import { UpdateProductComponent } from './admin/feature/product/update-product/update-product.component';
 import { AddBrandComponent } from './admin/feature/brand/add-brand/add-brand.component';
-import { UpdateBrandComponent } from './admin/feature/brand/update-brand/update-brand.component';
+
 import { AddBlogComponent } from './admin/feature/blog/add-blog/add-blog.component';
 
 // import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blog.component';
@@ -32,6 +32,13 @@ import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blo
 import { BlogListComponent } from './User/Core/Component/blog-list/blog-list.component';
 import { BlogDetailComponent } from './User/Features/Blog/blog-detail/blog-detail.component';
 import { BlogPageComponent } from './User/Features/Blog/blog-page/blog-page.component';
+
+import { ListProductComponent } from './admin/feature/product/list-product/list-product.component';
+
+import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
+import { UpdateBrandsComponent } from './admin/feature/brand/update-brands/update-brands.component';
+import { AddSizeComponent } from './admin/feature/size/add-size/add-size.component';
+import { UpdateSizeComponent } from './admin/feature/size/update-size/update-size.component';
 
 import { ListBrandComponent } from './admin/feature/brand/list-brand/list-brand.component';
 import { ChangePasswordComponent } from './User/Features/change-password/change-password.component';
@@ -61,10 +68,7 @@ export const routes: Routes = [
         path: 'product',
         component: ListProductComponent,
       },
-      // {
-      //   path: 'brand',
-      //   component: ListBrandComponent
-      // },
+
       {
         path: 'blog',
         component: ListBlogComponent,
@@ -145,8 +149,8 @@ export const routes: Routes = [
     component: AddBrandComponent,
   },
   {
-    path: 'admin/brand/update/:id',
-    component: UpdateBrandComponent,
+    path: 'admin/brand/update:id',
+    component: UpdateBrandsComponent,
   },
   {
     path: 'admin/blog/add',
@@ -154,6 +158,15 @@ export const routes: Routes = [
   },
   {
     path: 'admin/blog/update/:id',
+
     component: UpdateBlogComponent,
+  },
+  {
+    path: 'admin/size/add',
+    component: AddSizeComponent,
+  },
+  {
+    path: 'admin/size/update:id',
+    component: UpdateSizeComponent,
   },
 ];

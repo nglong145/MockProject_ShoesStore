@@ -22,7 +22,7 @@ export class ProductService {
   addProduct(model: ProductRequest): Observable<void>{
     return this.http.post<void>(`${BASE_URL}/Product/Add-Product`, model)
   }
-  updateProduct(id: string, moddel: Product): Observable<void>{
+  updateProduct(id: string, moddel: ProductRequest): Observable<void>{
     return this.http.put<void>(`${BASE_URL}/Product/Update-Product/${id}`, moddel)
   }
   deleteProduct(id: string): Observable<void>{
