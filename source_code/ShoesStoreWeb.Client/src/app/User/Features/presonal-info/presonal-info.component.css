@@ -30,3 +30,21 @@
   align-items: center;
   justify-content: center;
 }
+
+.list-group-item {
+  color: #333; /* Màu chữ mặc định */
+  background-color: rgb(248, 249, 250); /* Màu nền mặc định */
+  padding: 10px 15px; /* Khoảng cách trong */
+  text-decoration: none; /* Loại bỏ gạch chân */
+  transition: background-color 0.3s, color 0.3s; /* Hiệu ứng mượt */
+}
+
+.list-group-item:hover {
+  background-color: rgb(203, 203, 203); /* Màu nền khi hover */
+}
+
+.list-group-item.active {
+  background-color: rgb(203, 203, 203); /* Màu nền khi được kích hoạt */
+  color: #333; /* Màu chữ khi được kích hoạt */
+  border-color: rgb(248, 249, 250); /* Đường viền khi được kích hoạt */
+}

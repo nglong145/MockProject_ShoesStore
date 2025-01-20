@@ -19,7 +19,7 @@ public class OrderService : BaseService<Order>, IOrderService
             .GetQuery()
             .Include(o => o.Items)
             .ThenInclude(i => i.Product)
-            .Where(o => o.UserId == userId && o.IsPayment == isPaid)
+            .Where(o => o.UserId == userId )
             .ToList();
 
         return order.Select(o => new OrderVM

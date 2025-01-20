@@ -1,40 +1,7 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row section">
-    <!-- Sidebar -->
-    <div class="col-md-3">
-      <!-- Ảnh đại diện -->
-      <div class="text-center mb-4" *ngIf="user$ | async as user">
-        <img
-          src="https://via.placeholder.com/80"
-          alt="Avatar"
-          class="img-fluid rounded-circle"
-          style="width: 150px; height: 150px; object-fit: cover"
-        />
-        <p class="mt-2 fw-bold">{{user.fullName}}</p>
-        <p class="">{{user.email}}</p>
-      </div>
-
-      <!-- Menu -->
-      <div class="list-group">
-        <a
-          href="/personal-info"
-          class="list-group-item list-group-item-action border-0"
-          style="border-radius: 0"
-          >Thông tin tài khoản</a
-        >
-        <a class="list-group-item list-group-item-action border-0"
-          >Thay đổi mật khẩu</a
-        >
-        <a
-          class="list-group-item list-group-item-action border-0 active"
-          style="background-color: #f8f9fa; color: #000"
-          >Đơn hàng</a
-        >
-      </div>
-    </div>
-
     <!-- Main Content -->
-    <div class="col-md-9">
+    <div class="col-md-12">
       <h5>Đơn hàng</h5>
       <table class="table table-bordered mt-3">
         <thead class="table-light">
@@ -66,10 +33,10 @@
                 >
                   <!-- Hình ảnh sản phẩm -->
                   <img
-                    [src]="item.productImage"
+                    [src]="urlImage + item.productImage"
                     alt="Product"
                     class="me-3 rounded"
-                    style="width: 60px; height: 60px; object-fit: cover"
+                    style="width: 60px; height: 60px; object-fit: contain"
                   />
 
                   <!-- Thông tin sản phẩm -->
@@ -92,7 +59,7 @@
             </td>
 
             <td class="text-center align-middle">
-              {{ order.total | currency : "VND" }}
+              {{ order.total | number }} VNĐ
             </td>
             <td class="text-center align-middle">
               <!-- <span class="badge" [ngClass]="{

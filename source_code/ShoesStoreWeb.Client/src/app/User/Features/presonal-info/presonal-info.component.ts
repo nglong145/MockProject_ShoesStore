@@ -6,15 +6,19 @@ import { User } from '../auth/models/user.model';
 import { AuthService } from '../auth/services/auth.service';
 import { IMG_URL } from '../../../app.config';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-
+import { TrackingOrderComponent } from '../tracking-order/tracking-order.component';
 
 @Component({
   selector: 'app-presonal-info',
-  imports: [CommonModule, FormsModule, ChangePasswordComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ChangePasswordComponent,
+    TrackingOrderComponent,
+  ],
   templateUrl: './presonal-info.component.html',
   styleUrl: './presonal-info.component.css',
 })
-
 export class PresonalInfoComponent implements OnInit {
   urlImage: string = `${IMG_URL}`;
   user: User = {
@@ -83,6 +87,5 @@ export class PresonalInfoComponent implements OnInit {
         alert('Cập nhật thông tin thành công!');
       },
     });
-
   }
 }

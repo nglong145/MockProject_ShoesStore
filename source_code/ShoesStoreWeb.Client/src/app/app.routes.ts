@@ -20,7 +20,6 @@ import { AddBlogComponent } from './admin/feature/blog/add-blog/add-blog.compone
 // import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
 
 import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-info.component';
-import { TrackingOrderComponent } from './User/Features/presonal-info/tracking-order/tracking-order.component';
 import { LoginComponent } from './User/Features/auth/login/login.component';
 import { RegisterComponent } from './User/Features/auth/register/register.component';
 
@@ -42,6 +41,7 @@ import { UpdateSizeComponent } from './admin/feature/size/update-size/update-siz
 
 import { ListBrandComponent } from './admin/feature/brand/list-brand/list-brand.component';
 import { ChangePasswordComponent } from './User/Features/change-password/change-password.component';
+import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
 
 export const routes: Routes = [
   {
@@ -116,14 +116,11 @@ export const routes: Routes = [
         path: 'user/:id',
         component: PresonalInfoComponent,
       },
-      // {
-      //   path: 'user/:id/change-password',
-      //   component: ChangePasswordComponent,
-      // },
-      // {
-      //   path: 'user/:id/order',
-      //   component: TrackingOrderComponent,
-      // },
+
+      {
+        path: 'user/order',
+        component: TrackingOrderComponent,
+      },
 
       {
         path: 'blog',

@@ -9,6 +9,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Product } from '../models/product.model';
 import { Size } from '../models/size.model';
+import { IMG_URL } from '../../../../app.config';
+import { CartService } from '../../cart/service/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,6 +19,7 @@ import { Size } from '../models/size.model';
   styleUrl: './product-detail.component.css',
 })
 export class ProductDetailComponent implements OnInit, OnChanges {
+  urlImage: string = `${IMG_URL}`;
   @Input() product?: Product;
   @Input() sizes: Size[] = [];
 
@@ -24,6 +27,8 @@ export class ProductDetailComponent implements OnInit, OnChanges {
   sizeQuantity: number = 0;
   quantity: number = 1;
   isOutOfStock: boolean = false;
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.updateTotalQuantity();
@@ -85,10 +90,17 @@ export class ProductDetailComponent implements OnInit, OnChanges {
 
   AddtoCart(): void {
     if (this.selectedSize) {
-      console.log('Added to cart:', {
-        product: this.product,
+      const cartItem = {
+        productId: this.product?.productId,
         size: this.selectedSize,
         quantity: this.quantity,
+        price: this.product?.price,
+      };
+
+      this.cartService.addToCart(cartItem).subscribe({
+        next: (response) => {
+          alert('Thêm vào giỏ hàng thành công!');
+        },
       });
     }
   }
