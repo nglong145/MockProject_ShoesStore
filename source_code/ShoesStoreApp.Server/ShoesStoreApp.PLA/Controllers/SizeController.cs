@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.SizeService;
 using ShoesStoreApp.BLL.ViewModels;
@@ -78,7 +79,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("The size does not exist!");
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-new-size")]
         public async Task<IActionResult> AddNewSize([FromBody] AddSizeVm addSizeVm)
         {
@@ -94,6 +95,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(size);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-size/{id}")]
         public async Task<IActionResult> UpdateSize(Guid id, [FromBody] AddSizeVm addSizeVm)
         {
@@ -111,6 +113,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("Update Faild!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-status-size/{id}")]
         public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateStatusSizeVm updateStatusSizeVm)
         {
@@ -125,6 +128,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("Update status size faild!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-size/{id}")]
         public async Task<IActionResult> DeleteSize(Guid id)
         {

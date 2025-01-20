@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.CartService;
 using ShoesStoreApp.BLL.ViewModels;
@@ -15,8 +16,9 @@ public class PaymentMethodController : ControllerBase
     {
         _paymentMethodService = paymentMethodService;
     }
-    
-    [HttpGet("get-all-payment-method")]
+
+        [Authorize]
+        [HttpGet("get-all-payment-method")]
         public async Task<IActionResult> GetAll()
         {
             var payments = await _paymentMethodService.GetAllAsync();
@@ -33,6 +35,7 @@ public class PaymentMethodController : ControllerBase
             return Ok(paymentVM);
         }
 
+        [Authorize]
         [HttpGet("get-payment-method-by-id/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -50,6 +53,7 @@ public class PaymentMethodController : ControllerBase
             return BadRequest("The payment does not exist!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-new-payment-method")]
         public async Task<IActionResult> Add([FromBody] AddPaymentVM addPaymentVm)
         {
@@ -62,6 +66,7 @@ public class PaymentMethodController : ControllerBase
             return Ok(payment);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-payment-method/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] AddPaymentVM addPaymentVm)
         {
@@ -77,6 +82,7 @@ public class PaymentMethodController : ControllerBase
             return BadRequest("The payment does not exist!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-payment-method/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

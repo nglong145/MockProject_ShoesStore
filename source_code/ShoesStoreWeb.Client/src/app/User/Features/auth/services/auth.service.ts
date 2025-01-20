@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { User } from '../models/user.model';
 import { BASE_URL } from '../../../../app.config';
 import { UpdateUser } from '../models/update-user.model';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,10 @@ export class AuthService {
       .post<LoginResponse>(`${BASE_URL}/Authentication/login`, request)
       .pipe(
         tap((response) => {
+          if (!response || !response.token) {
+            throw new Error('Invalid response: Missing token');
+          }
+
           // Lưu token vào cookie và localStorage
           this.cookieService.set(
             'Authentication',
@@ -51,9 +56,20 @@ export class AuthService {
           localStorage.setItem('token', response.token);
 
           // Lấy thông tin người dùng và cập nhật vào BehaviorSubject
-          this.getUserInfo().subscribe((user) => {
-            this.setUser(user);
+          this.getUserInfo().subscribe({
+            next: (user) => {
+              this.setUser(user);
+            },
+            error: () => {
+              console.error('Failed to fetch user info');
+              this.logout(); // Xóa token nếu không lấy được thông tin người dùng
+            },
           });
+        }),
+        catchError((err) => {
+          console.error('Login failed:', err);
+          this.logout(); // Đảm bảo xóa token nếu có lỗi
+          throw err;
         })
       );
   }
@@ -108,6 +124,27 @@ export class AuthService {
   // Lấy thông tin người dùng hiện tại
   getUser(): User | null {
     return this.userSubject.value;
+  }
+
+  getUserRole(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token); // Giải mã token
+      console.log(decodedToken);
+
+      return (
+        decodedToken[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ] || null
+      );
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return null;
+    }
   }
 
   // Đăng xuất người dùng

@@ -34,21 +34,31 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
-    });
 
-    if (!this.user) {
-      this.authService.getUserInfo().subscribe({
-        next: (data) => {
-          this.authService.setUser(data);
-          this.userId = data.id;
-        },
-      });
-    }
+      if (this.user) {
+        // Chỉ khi user đã đăng nhập thì mới gọi các API bên dưới
+        this.authService.getUserInfo().subscribe({
+          next: (data) => {
+            this.authService.setUser(data);
+            this.userId = data.id;
+          },
+          error: (err) => {
+            console.error('Failed to fetch user info:', err);
+          },
+        });
 
-    // Tải dữ liệu giỏ hàng ban đầu
-    this.cartService.loadCart();
-    this.cartService.getCartOfUser().subscribe((cart: Cart) => {
-      this.cartCount = cart.items.length; // Đếm số lượng sản phẩm dựa trên items
+        this.cartService.loadCart();
+        this.cartService.getCartOfUser().subscribe({
+          next: (cart: Cart) => {
+            this.cartCount = cart.items.length; // Đếm số lượng sản phẩm dựa trên items
+          },
+          error: (err) => {
+            console.error('Failed to load cart:', err);
+          },
+        });
+      } else {
+        console.log('User is not logged in');
+      }
     });
   }
 

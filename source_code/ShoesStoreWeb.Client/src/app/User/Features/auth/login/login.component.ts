@@ -28,21 +28,42 @@ export class LoginComponent {
   }
 
   onFormSubmit(): void {
-    console.log(this.model);
-    this.authService.login(this.model).subscribe({
-      next: (response) => {
-        console.log(response);
+    this.loading = true;
 
-        // Sau khi đăng nhập thành công, chuyển hướng về trang chủ và cập nhật thông tin người dùng
-        this.router.navigateByUrl('/').then(() => {
-          // Cập nhật thông tin người dùng vào BehaviorSubject
-          this.authService.getUserInfo().subscribe((user) => {
-            this.authService.setUser(user); // Cập nhật thông tin người dùng vào BehaviorSubject
+    this.authService.login(this.model).subscribe({
+      next: () => {
+        // Lấy role từ token
+        const role = this.authService.getUserRole();
+
+        if (role === 'Admin' || role === 'User') {
+          // Điều hướng theo role
+          const redirectUrl = role === 'Admin' ? '/admin' : '/';
+          this.router.navigate([redirectUrl]);
+
+          // Cập nhật thông tin người dùng
+          this.authService.getUserInfo().subscribe({
+            next: (user) => {
+              this.authService.setUser(user); // Cập nhật BehaviorSubject
+            },
+            error: (err) => {
+              console.error('Failed to fetch user info:', err);
+              this.authService.logout(); // Đăng xuất nếu lấy thông tin thất bại
+              this.router.navigate(['/login']);
+            },
           });
-        });
+        } else {
+          console.error('Role is invalid or missing!');
+          this.authService.logout(); // Đăng xuất nếu role không hợp lệ
+          this.router.navigate(['/login']);
+        }
       },
       error: (err) => {
-        console.log(err);
+        console.error('Login failed:', err);
+        this.loading = false; // Dừng trạng thái loading
+        // Hiển thị lỗi hoặc xử lý thông báo nếu cần
+      },
+      complete: () => {
+        this.loading = false; // Dừng trạng thái loading khi hoàn tất
       },
     });
   }
