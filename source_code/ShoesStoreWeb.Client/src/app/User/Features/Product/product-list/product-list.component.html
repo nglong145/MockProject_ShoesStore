@@ -3,7 +3,7 @@
     <div class="card shadow-sm" (click)="viewProductDetail(product.productId)">
       <img
         class="card-img-top"
-        [src]="product.productImage"
+        [src]="urlImage + product.productImage"
         alt="Product Image"
       />
       <div class="card-body">

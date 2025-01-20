@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.CartService;
 using ShoesStoreApp.BLL.Services.Custumer;
 using ShoesStoreApp.BLL.Services.PaymentService;
+using ShoesStoreApp.BLL.Services.SizeService;
 using ShoesStoreApp.BLL.ViewModels;
 using ShoesStoreApp.BLL.ViewModels.Payment;
 using ShoesStoreApp.DAL.Data;
@@ -19,6 +20,7 @@ public class OrderController : ControllerBase
     private readonly IUserService _userService;
     private readonly ICartItemService _cartItemService;
     private readonly IOrderItemService _orderItemService;
+    private readonly ISizeSrevice _sizeService;
     private readonly IPaymentService _paymentService;
     private readonly ShoesStoreAppDbContext _context;
 
@@ -28,8 +30,8 @@ public class OrderController : ControllerBase
         ICartItemService cartItemService,
         IUserService userService, 
         IOrderItemService orderItemService,
-        IPaymentService paymentService,
-        ShoesStoreAppDbContext context)
+        IPaymentService paymentService, ISizeSrevice sizeService,
+    ShoesStoreAppDbContext context)
     {
         _orderService = orderService;
         _cartService = cartService;
@@ -37,15 +39,18 @@ public class OrderController : ControllerBase
         _userService = userService;
         _orderItemService = orderItemService;
         _paymentService = paymentService;
+        _sizeService = sizeService;
         _context = context;
     }
     
    [HttpPost("add-new-order")]
     public async Task<IActionResult> AddNewOrder([FromBody] AddOrderVM addOrderVM)
     {
-        if (User.Identity.Name == null) return Unauthorized();
+        var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null) 
+            return Unauthorized();
         
-        var user = await  _userService.getUserByEmail(User.Identity.Name);
+        var user = await  _userService.getUserByEmail(userId);
         var cartUser = await _cartService.GetCartByUserId(user.Id);
         decimal totalPrice = 0;
 
@@ -87,6 +92,10 @@ public class OrderController : ControllerBase
                     // Delete item in cart
                     var cartItem = await _cartItemService.GetCartItemAsync(item.CartId, item.ProductId, item.Size);
                     await _cartItemService.DeleteAsync(cartItem);
+
+                    var sizes=await _sizeService.GetSizesByProductId(item.ProductId,item.Size);
+                    sizes.Quantity -= item.Quantity;
+                    await _sizeService.UpdateAsync(sizes);
                 }
 
                 // Update total price for the order

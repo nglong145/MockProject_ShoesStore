@@ -140,25 +140,25 @@
             <div *ngFor="let item of cart.items">
               <div class="row">
                 <div class="col-8">
-                  <span style="font-size: 12px"
+                  <span style="font-size: 14px"
                     >{{ item.productName }} - {{ item.size }} ×
                     {{ item.quantity }}</span
                   >
                 </div>
                 <div class="col-4 text-end">
-                  <span>{{ item.price * item.quantity }} đ</span>
+                  <span>{{ item.price * item.quantity | number }} VNĐ</span>
                 </div>
               </div>
             </div>
             <hr />
             <div class="d-flex justify-content-between">
               <span>Tạm tính</span>
-              <span>{{ total }} đ</span>
+              <span>{{ total | number }} VNĐ</span>
             </div>
             <hr />
             <div class="d-flex justify-content-between">
               <strong>Tổng</strong>
-              <strong>{{ total }} đ</strong>
+              <strong>{{ total | number }} VNĐ</strong>
             </div>
             <hr />
             <div *ngIf="payment$ | async as payments">

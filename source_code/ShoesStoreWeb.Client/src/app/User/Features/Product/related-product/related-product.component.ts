@@ -10,6 +10,7 @@ import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 import { PaginatedResult } from '../models/paginated-result.model';
 import { RouterLink } from '@angular/router';
+import { IMG_URL } from '../../../../app.config';
 
 @Component({
   selector: 'app-related-product',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './related-product.component.css',
 })
 export class RelatedProductComponent implements OnInit, OnChanges {
+  urlImage: string = `${IMG_URL}`;
   @Input() product?: Product;
   productsSimilar: Product[] = [];
   chunkedProducts: Product[][] = [];

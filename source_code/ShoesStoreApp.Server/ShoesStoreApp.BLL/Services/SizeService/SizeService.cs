@@ -18,5 +18,10 @@ namespace ShoesStoreApp.BLL.Services.SizeService
             return await query.ToListAsync();
         }
 
+        public async Task<Size> GetSizesByProductId(Guid id,string sizeName)
+        {
+            var query = _unitOfWork.GenericRepository<Size>().GetQuery().FirstOrDefault(s => s.ProductId == id && s.SizeName == sizeName);
+            return  query;
+        }
     }
 }
