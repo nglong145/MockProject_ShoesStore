@@ -34,7 +34,7 @@ namespace ShoesStoreApp.DAL.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
+                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
                      .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             }
         }

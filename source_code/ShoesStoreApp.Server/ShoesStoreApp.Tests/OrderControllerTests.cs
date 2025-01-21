@@ -39,7 +39,7 @@ public class OrderControllerTests
         _sizeServiceMock = new Mock<ISizeSrevice>();
      
         var options = new DbContextOptionsBuilder<ShoesStoreAppDbContext>()
-            .UseSqlServer("Server=LAPTOP-82GOTJUD\\SQLEXPRESS;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
+            .UseSqlServer("Server=.;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
             .Options;
         
         _contextMock = new ShoesStoreAppDbContext(options);
