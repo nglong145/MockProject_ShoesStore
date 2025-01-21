@@ -21,7 +21,7 @@ namespace ShoesStoreApp.DAL.Data
 
 
 
-        public DbSet<RefreshToken> RefreshToken { get; set; }
+        public virtual DbSet<RefreshToken> RefreshToken { get; set; }
 
 
 

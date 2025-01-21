@@ -23,8 +23,8 @@ import { PresonalInfoComponent } from './User/Features/presonal-info/presonal-in
 import { LoginComponent } from './User/Features/auth/login/login.component';
 import { RegisterComponent } from './User/Features/auth/register/register.component';
 
-import { ListProductComponent } from './admin/feature/product/list-product/list-product.component';
-import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
+// import { ListProductComponent } from './admin/feature/product/list-product/list-product.component';
+// import { ListBlogComponent } from './admin/feature/blog/list-blog/list-blog.component';
 import { IndexComponent } from './admin/Core/index/index.component';
 import { ContactComponent } from './admin/Core/contact/contact.component';
 import { UpdateBlogComponent } from './admin/feature/blog/update-blog/update-blog.component';
@@ -42,11 +42,14 @@ import { UpdateSizeComponent } from './admin/feature/size/update-size/update-siz
 import { ListBrandComponent } from './admin/feature/brand/list-brand/list-brand.component';
 import { ChangePasswordComponent } from './User/Features/change-password/change-password.component';
 import { TrackingOrderComponent } from './User/Features/tracking-order/tracking-order.component';
+import { authGuard } from './User/Features/auth/guard/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [authGuard],
+    data: { roles: ['Admin'] },
     children: [
       {
         path: 'index',
@@ -105,16 +108,22 @@ export const routes: Routes = [
       {
         path: 'cart',
         component: ShoppingCartComponent,
+        canActivate: [authGuard],
+        data: { roles: ['User'] },
       },
 
       {
         path: 'checkout',
         component: PaymentComponent,
+        canActivate: [authGuard],
+        data: { roles: ['User'] },
       },
 
       {
         path: 'user/:id',
         component: PresonalInfoComponent,
+        canActivate: [authGuard],
+        data: { roles: ['User'] },
       },
 
       {

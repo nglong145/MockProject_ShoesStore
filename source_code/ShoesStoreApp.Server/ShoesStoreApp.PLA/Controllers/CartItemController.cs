@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.CartService;
 using ShoesStoreApp.BLL.Services.Custumer;
@@ -20,6 +21,7 @@ public class CartItemController : ControllerBase
         _cartService = cartService;
     }
 
+    [Authorize]
     [HttpGet("get-cart-items/{cartId}")]
     public async Task<IActionResult> GetCartItemsByCartId(Guid cartId)
     {
@@ -32,7 +34,7 @@ public class CartItemController : ControllerBase
         return Ok(cartItems);
     }
 
-
+    [Authorize]
     [HttpPost("add-cart-item")]
     public async Task<IActionResult> AddCartItem([FromBody] AddCartItem cartItem)
     {
@@ -69,6 +71,7 @@ public class CartItemController : ControllerBase
         return Ok(item);
     }
 
+    [Authorize]
     [HttpPut("update-cart-item/{cartId}/{productId}/{size}")]
     public async Task<IActionResult> UpdateCartItem(Guid cartId, Guid productId, string size, [FromBody] UpdateCartItemVM updateCartItem)
     {
@@ -98,6 +101,7 @@ public class CartItemController : ControllerBase
         return Ok(cartItem);
     }
 
+    [Authorize]
     [HttpDelete("remove-cart-item/{cartId}/{productId}/{size}")]
     public async Task<IActionResult> DeleteCartItem(Guid cartId, Guid productId, string size)
     {

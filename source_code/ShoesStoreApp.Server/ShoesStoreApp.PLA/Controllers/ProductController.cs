@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.BrandService;
 using ShoesStoreApp.BLL.Services.Image;
 using ShoesStoreApp.BLL.Services.ProductService;
@@ -30,6 +31,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         // Upload Image Product
+        [Authorize(Roles = "Admin")]
         [HttpPost("Upload-Image")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
@@ -62,6 +64,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         // Get All Product
+        [Authorize(Roles = "Admin")]
         [HttpGet("Get-All-Product")]
         public async Task<IActionResult> GetAllProduct()
         {
@@ -163,6 +166,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
 
         // Add product
+        [Authorize(Roles = "Admin")]
         [HttpPost("Add-Product")]
         public async Task<IActionResult> AddProduct([FromBody] AddProductVm productVm)
         {
@@ -203,6 +207,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         // Update Product
+        [Authorize(Roles = "Admin")]
         [HttpPut("Update-Product/{id}")]
         public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] AddProductVm productVm)
         {
@@ -233,6 +238,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         // Delete product
+        [Authorize(Roles = "Admin")]
         [HttpPut("Delete-Product/{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id, [FromBody] DeleteProductVm productVm)
         {

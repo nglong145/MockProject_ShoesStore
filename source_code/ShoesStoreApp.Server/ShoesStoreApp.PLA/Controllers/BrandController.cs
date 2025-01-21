@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using ShoesStoreApp.BLL.Services.Base;
 using ShoesStoreApp.BLL.Services.BrandService;
@@ -24,6 +25,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("Upload-Image")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
@@ -73,6 +75,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(brandVm);
         }
 
+
         [HttpGet("Get-All-Brand-Pagination")]
         public async Task<IActionResult> GetAllBrandPagination([FromQuery] int pageIndex, int pageSize)
         {
@@ -86,6 +89,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-brand-by-id/{id}")]
         public async Task<IActionResult> GetBrandById(Guid id)
         {
@@ -104,6 +108,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return NotFound("The brand does not exist!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-new-brand")]
         public async Task<IActionResult> AddNewBrand([FromBody] AddBrandVm addBrandVm)
         {
@@ -118,6 +123,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return Ok(brand);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-brand/{id}")]
         public async Task<IActionResult> UpdateBrand(Guid id, [FromBody] AddBrandVm addBrandVm)
         {
@@ -134,6 +140,7 @@ namespace ShoesStoreApp.PLA.Controllers
             return BadRequest("The brand does not exist!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-brand/{id}")]
         public async Task<IActionResult> DeleteBrand(Guid id)
         {
