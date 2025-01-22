@@ -5,6 +5,7 @@ import { Product } from '../models/product.model';
 import { Router } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { IMG_URL } from '../../../../app.config';
+import { DeleteProduct } from '../models/delete-product.model';
 
 @Component({
   selector: 'app-list-product',
@@ -18,7 +19,13 @@ export class ListProductComponent {
   products$?: Observable<Product[]>;
   productsSub?: Subscription;
 
-  constructor(private router: Router, private productService: ProductService) {}
+  model?: DeleteProduct;
+
+  constructor(private router: Router, private productService: ProductService) {
+    this.model = {
+      status: '0',
+    };
+  }
 
   ngOnInit(): void {
     this.products$ = this.productService.getAllProduct();
@@ -38,21 +45,27 @@ export class ListProductComponent {
   }
 
   // Khi click delete chỉ change status về string chứ không xóa
-  deleteProduct(productId: string) {
-    if (confirm('Bạn chắc chắn muốn xóa Product này?')) {
-      this.productsSub = this.productService
-        .deleteProduct(productId)
-        .subscribe({
-          next: (response) => {
-            this.products$ = this.productService.getAllProduct();
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-    }
-  }
+
+  // deleteProduct(productId: string) {
+  //   this.model?.status='0';
+  //   if (confirm('Bạn chắc chắn muốn xóa Product này?')) {
+  //     this.productsSub = this.productService
+  //       .deleteProduct(productId,this.model)
+  //       .subscribe({
+  //         next: (response) => {
+  //           this.products$ = this.productService.getAllProduct();
+  //         },
+  //         error: (err) => {
+  //           console.log(err);
+  //         },
+  //       });
+  //   }
+  // }
   addProduct() {
     this.router.navigateByUrl('admin/product/add');
+  }
+
+  addSize(): void {
+    this.router.navigateByUrl('admin/size/add');
   }
 }

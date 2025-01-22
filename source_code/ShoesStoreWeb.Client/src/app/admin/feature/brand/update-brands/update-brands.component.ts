@@ -9,23 +9,26 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-update-brands',
   imports: [FormsModule],
   templateUrl: './update-brands.component.html',
-  styleUrl: './update-brands.component.css'
+  styleUrl: './update-brands.component.css',
 })
 export class UpdateBrandsComponent {
-  brand: BrandViewModel
-  id?: string | null
-  fileImage: File | null = null
-  baseUrl: string = "https://localhost:7158/Images/Product/";
+  brand: BrandViewModel;
+  id?: string | null;
+  fileImage: File | null = null;
+  baseUrl: string = '/Images/Brand/';
 
-  activedRouteSubscription?: Subscription
-  updateBrandSubscripton?: Subscription
+  activedRouteSubscription?: Subscription;
+  updateBrandSubscripton?: Subscription;
 
-  constructor(private brandService: BrandService, private activedRoute: ActivatedRoute){
+  constructor(
+    private brandService: BrandService,
+    private activedRoute: ActivatedRoute
+  ) {
     this.brand = {
       brandName: '',
       brandImage: '',
-      description: ''
-    }
+      description: '',
+    };
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -39,37 +42,39 @@ export class UpdateBrandsComponent {
   }
   ngOnInit() {
     this.activedRouteSubscription = this.activedRoute.paramMap.subscribe({
-      next: params => {
+      next: (params) => {
         this.id = params.get('id');
-        if(this.id){
+        if (this.id) {
           this.brandService.getBrandById(this.id).subscribe({
-            next: reponse =>{
-              this.brand = reponse
+            next: (reponse) => {
+              this.brand = reponse;
             },
-            error: error => {
-              console.log("error", error)
-            }
-          })
+            error: (error) => {
+              console.log('error', error);
+            },
+          });
         }
-      }
-    })
+      },
+    });
   }
-  ngOnDestroy(){
-    this.activedRouteSubscription?.unsubscribe
-    this.updateBrandSubscripton?.unsubscribe
+  ngOnDestroy() {
+    this.activedRouteSubscription?.unsubscribe;
+    this.updateBrandSubscripton?.unsubscribe;
   }
 
-  updateBrand(){
-    if(this.id){
-      if(this.brand){
-        this.updateBrandSubscripton = this.brandService.updateBrand(this.id, this.brand).subscribe({
-          next: reponse => {
-            console.log("update ok")
-          },
-          error: err => {
-            console.log("update error")
-          }
-        })
+  updateBrand() {
+    if (this.id) {
+      if (this.brand) {
+        this.updateBrandSubscripton = this.brandService
+          .updateBrand(this.id, this.brand)
+          .subscribe({
+            next: (reponse) => {
+              console.log('update ok');
+            },
+            error: (err) => {
+              console.log('update error');
+            },
+          });
       }
     }
   }

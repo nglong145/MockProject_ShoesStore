@@ -149,8 +149,10 @@ export class AuthService {
 
   // Đăng xuất người dùng
   logout(): void {
-    localStorage.clear(); // Xóa localStorage
-    this.cookieService.delete('Authentication', '/'); // Xóa cookie
-    this.userSubject.next(null); // Reset thông tin người dùng
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.cookieService.delete('Authentication', '/');
+    this.userSubject.next(null);
+    console.log('User after logout:', this.userSubject.value);
   }
 }
