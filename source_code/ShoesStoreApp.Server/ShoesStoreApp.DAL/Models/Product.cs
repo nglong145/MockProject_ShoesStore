@@ -1,4 +1,6 @@
-﻿namespace ShoesStoreApp.DAL.Models
+﻿using System.Text.Json.Serialization;
+
+namespace ShoesStoreApp.DAL.Models
 {
     public class Product
     {
@@ -14,8 +16,9 @@
         public List<Size> Sizes { get; set; }
         public List<Review> Reviews { get; set; }
         public List<Discount> Discounts { get; set; }
-
+        [JsonIgnore]
         public List<OrderItem> Items { get; set; }  
+        [JsonIgnore]
         public List<CartItem> CartItems { get; set; }
 
     }

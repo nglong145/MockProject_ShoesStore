@@ -8,16 +8,33 @@ namespace ShoesStoreApp.DAL.Data
 {
     public class ShoesStoreAppDbContext : IdentityDbContext<User, Role, Guid>
     {
-        //public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) :base(optionsBuilder)
-        //{
+        public DbSet<Brand> Brand { get; set; }
+        public DbSet<Blog> Blog { get; set; }
 
-        //}
+        public DbSet<Size> Size { get; set; }
+
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<ImageSystem> Image { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
+
+
+
+        public virtual DbSet<RefreshToken> RefreshToken { get; set; }
+
+
+
+        public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
+        {
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB;Trusted_Connection=True;TrustServerCertificate=True")
+                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
                      .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             }
         }
@@ -30,10 +47,15 @@ namespace ShoesStoreApp.DAL.Data
             modelBuilder.Ignore<IdentityUserRole<Guid>>();
 
 
+            modelBuilder.Entity<User>()
+                        .HasOne(u => u.Role)
+                        .WithMany(r => r.Users)
+                        .HasForeignKey(u => u.RoleId);
+
             // Config when delete brand, don't delete product
             modelBuilder.Entity<Product>()
                         .HasOne(p => p.Brand)
-                        .WithMany()
+                        .WithMany(b=>b.Products)
                         .HasForeignKey(p => p.BrandId)
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -67,7 +89,7 @@ namespace ShoesStoreApp.DAL.Data
                         .HasForeignKey(r => r.UserId);
 
             // Config OrderItem
-            modelBuilder.Entity<OrderItem>().HasKey(oi => new { oi.OrderId, oi.ProductId });
+            modelBuilder.Entity<OrderItem>().HasKey(oi => new { oi.OrderId, oi.ProductId, oi.Size });
 
             modelBuilder.Entity<OrderItem>()
                         .HasOne<Order>(oi => oi.Order)
@@ -80,7 +102,7 @@ namespace ShoesStoreApp.DAL.Data
                         .HasForeignKey(oi => oi.ProductId);
 
             // Config CartItem
-            modelBuilder.Entity<CartItem>().HasKey(ci => new { ci.CartId, ci.ProductId });
+            modelBuilder.Entity<CartItem>().HasKey(ci => new { ci.CartId, ci.ProductId, ci.Size });
 
             modelBuilder.Entity<CartItem>()
                         .HasOne<Cart>(ci => ci.Cart)
@@ -91,6 +113,8 @@ namespace ShoesStoreApp.DAL.Data
                         .HasOne<Product>(ci => ci.Product)
                         .WithMany(p => p.CartItems)
                         .HasForeignKey(ci => ci.ProductId);
+
+            modelBuilder.Seed();
         }
     }
 }
