@@ -1,4 +1,4 @@
-<div class="container my-5" *ngIf="cart$ | async as cart">
+<div class="container my-5 section" *ngIf="cart$ | async as cart">
   <form #form="ngForm" (ngSubmit)="onFormSubmit(form)" novalidate>
     <div class="row section">
       <!-- Form Thông tin thanh toán -->

@@ -8,6 +8,7 @@
       </div>
     </div>
     <button class="btn btn-success" (click)="addProduct()">Add product</button>
+    <button class="btn btn-success" (click)="addSize()">Add Size</button>
   </div>
 
   <ng-container *ngIf="products$ | async as products">
@@ -31,12 +32,7 @@
           >
             Update
           </button>
-          <button
-            class="btn btn-danger ms-2"
-            (click)="deleteProduct(product.productId)"
-          >
-            Delete
-          </button>
+          <button class="btn btn-danger ms-2">Delete</button>
         </td>
       </tr>
     </table>

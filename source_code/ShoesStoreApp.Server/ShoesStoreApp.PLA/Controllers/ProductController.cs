@@ -215,12 +215,7 @@ namespace ShoesStoreApp.PLA.Controllers
 
             if (product != null)
             {
-                var brand = await _brandService.GetByIdAsync(productVm.BrandId);
 
-                if (brand == null)
-                {
-                    return BadRequest("Brand doesn't already exist");
-                }
 
                 product.BrandId= productVm.BrandId;
                 product.ProductName= productVm.ProductName;

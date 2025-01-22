@@ -10,22 +10,22 @@ import { Router } from '@angular/router';
   selector: 'app-add-brand',
   imports: [FormsModule],
   templateUrl: './add-brand.component.html',
-  styleUrl: './add-brand.component.css'
+  styleUrl: './add-brand.component.css',
 })
 export class AddBrandComponent {
-  brand: BrandViewModel
-  addBrandSubscription?: Subscription
-  fileImage: File | null = null
-  baseUrl: string = "https://localhost:7158/Images/Product/";
-  constructor(private brandService: BrandService, private router: Router){
+  brand: BrandViewModel;
+  addBrandSubscription?: Subscription;
+  fileImage: File | null = null;
+  baseUrl: string = '/Images/Brand/';
+  constructor(private brandService: BrandService, private router: Router) {
     this.brand = {
       brandName: '',
       brandImage: '',
-      description: ''
-    }
+      description: '',
+    };
   }
   ngOnDestroy() {
-    this.addBrandSubscription?.unsubscribe
+    this.addBrandSubscription?.unsubscribe;
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -38,26 +38,30 @@ export class AddBrandComponent {
     }
   }
   addBrand() {
-    if(this.fileImage != null){
+    if (this.fileImage != null) {
       const formData = new FormData();
-      formData.append('file', this.fileImage)
-      this.addBrandSubscription = this.brandService.uploadImage(formData).subscribe({
-        next: reponse => {
-          this.addBrandSubscription = this.brandService.addBrand(this.brand).subscribe({
-            next: reponse => {
-              console.log("add success")
-              this.router.navigateByUrl('admin/brand')
-            },
-            error: err => {
-              console.log(this.brand)
-              console.log("error")
-            }
-          })
-        },
-        error: err => {
-          console.log("upload file error")
-        }
-      })
+      formData.append('file', this.fileImage);
+      this.addBrandSubscription = this.brandService
+        .uploadImage(formData)
+        .subscribe({
+          next: (reponse) => {
+            this.addBrandSubscription = this.brandService
+              .addBrand(this.brand)
+              .subscribe({
+                next: (reponse) => {
+                  console.log('add success');
+                  this.router.navigateByUrl('admin/brand');
+                },
+                error: (err) => {
+                  console.log(this.brand);
+                  console.log('error');
+                },
+              });
+          },
+          error: (err) => {
+            console.log('upload file error');
+          },
+        });
     }
   }
 }

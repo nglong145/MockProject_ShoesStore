@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../Features/auth/services/auth.service';
 import { User } from '../../../Features/auth/models/user.model';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,7 @@ import { Cart } from '../../../Features/cart/models/Cart.model';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   urlImage: string = `${IMG_URL}`;
   user: User | null = null;
   userId: string | null = null;
@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit {
   cartCount: number = 0;
   uniqueProductCount: number = 0;
 
+  private userSubscription?: Subscription;
+
   constructor(
     private authService: AuthService,
     private cartService: CartService,
@@ -32,39 +34,18 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
-      this.user = user;
-
-      if (this.user) {
-        // Chỉ khi user đã đăng nhập thì mới gọi các API bên dưới
-        this.authService.getUserInfo().subscribe({
-          next: (data) => {
-            this.authService.setUser(data);
-            this.userId = data.id;
-          },
-          error: (err) => {
-            console.error('Failed to fetch user info:', err);
-          },
-        });
-
-        this.cartService.loadCart();
-        this.cartService.getCartOfUser().subscribe({
-          next: (cart: Cart) => {
-            this.cartCount = cart.items.length; // Đếm số lượng sản phẩm dựa trên items
-          },
-          error: (err) => {
-            console.error('Failed to load cart:', err);
-          },
-        });
-      } else {
-        console.log('User is not logged in');
-      }
+    this.userSubscription = this.authService.user$.subscribe((user) => {
+      this.user = user; // Cập nhật thông tin user
+      console.log('User updated:', user);
     });
   }
-
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe(); // Hủy Subscription để tránh giữ giá trị cũ
+    }
+  }
   logout(): void {
     this.authService.logout();
-    // this.cartService.clearCart();
     this.router.navigate(['/login']);
   }
 }

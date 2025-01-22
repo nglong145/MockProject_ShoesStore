@@ -5,31 +5,39 @@ import { Product } from '../models/product.model';
 import { BASE_URL } from '../../../../app.config';
 import { ProductRequest } from '../models/addproduct.moddel';
 import { ImageRequest } from '../models/image.model';
+import { DeleteProduct } from '../models/delete-product.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  getAllProduct(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${BASE_URL}/Product/Get-All-Product`);
+  }
+  getProductById(id: string): Observable<Product> {
+    return this.http.get<Product>(
+      `${BASE_URL}/Product/Get-Product-By-Id/${id}`
+    );
+  }
+  addProduct(model: ProductRequest): Observable<void> {
+    return this.http.post<void>(`${BASE_URL}/Product/Add-Product`, model);
+  }
+  updateProduct(id: string, moddel: ProductRequest): Observable<void> {
+    return this.http.put<void>(
+      `${BASE_URL}/Product/Update-Product/${id}`,
+      moddel
+    );
+  }
+  deleteProduct(id: string, model: DeleteProduct): Observable<void> {
+    return this.http.put<void>(
+      `${BASE_URL}/Product/Delete-Product/${id}`,
+      model
+    );
+  }
 
-  getAllProduct(): Observable<Product[]>{
-    return this.http.get<Product[]>(`${BASE_URL}/Product/Get-All-Product`)
-  }
-  getProductById(id: string) :Observable<Product>{
-    return this.http.get<Product>(`${BASE_URL}/Product/Get-Product-By-Id/${id}`)
-  }
-  addProduct(model: ProductRequest): Observable<void>{
-    return this.http.post<void>(`${BASE_URL}/Product/Add-Product`, model)
-  }
-  updateProduct(id: string, moddel: ProductRequest): Observable<void>{
-    return this.http.put<void>(`${BASE_URL}/Product/Update-Product/${id}`, moddel)
-  }
-  deleteProduct(id: string): Observable<void>{
-    return this.http.delete<void>(`${BASE_URL}/Product/Delete-Product/${id}`)
-  }
-
-  uploadImage(file: FormData): Observable<void>{
+  uploadImage(file: FormData): Observable<void> {
     return this.http.post<void>(`${BASE_URL}/Product/Upload-Image`, file);
   }
 }

@@ -13,68 +13,66 @@ import { Brand } from '../../brand/model/brand';
   selector: 'app-update-product',
   imports: [FormsModule, CommonModule],
   templateUrl: './update-product.component.html',
-  styleUrl: './update-product.component.css'
+  styleUrl: './update-product.component.css',
 })
 export class UpdateProductComponent {
-  product: ProductRequest
-  id?: string | null
-  fileImage: File | null = null
-  baseUrl: string = "https://localhost:7158/Images/Product/";
+  product: ProductRequest;
+  id?: string | null;
+  fileImage: File | null = null;
+  baseUrl: string = '/Images/Product/';
 
-  brand$?: Observable<Brand[]>
+  brand$?: Observable<Brand[]>;
 
-  activedRouteSubscription?: Subscription
-  updateProductSubscripton?: Subscription
+  activedRouteSubscription?: Subscription;
+  updateProductSubscripton?: Subscription;
 
-  constructor(private productService: ProductService, private brandService: BrandService, private activeRouter: ActivatedRoute){
+  constructor(
+    private productService: ProductService,
+    private brandService: BrandService,
+    private activeRouter: ActivatedRoute
+  ) {
     this.product = {
       productName: '',
       productImage: '',
       price: 0,
       description: '',
       status: '',
-      brandId: ''
-    }
+      brandId: '',
+    };
   }
 
-  ngOnDestroy(){
-    this.activedRouteSubscription?.unsubscribe
-    this.updateProductSubscripton?.unsubscribe
+  ngOnDestroy() {
+    this.activedRouteSubscription?.unsubscribe;
+    this.updateProductSubscripton?.unsubscribe;
   }
 
   ngOnInit(): void {
-    this.brand$ = this.brandService.getAllBrand()
-    this.activedRouteSubscription = this.activeRouter.paramMap.subscribe(
-      {
-        next: params => {
-          this.id = params.get('id');
-          console.log(this.id);
-          if (this.id) {
-            this.productService.getProductById(this.id).subscribe(
-              {
-                next: response => {
-                  this.product = response;
-                },
-                error: err => {
-                  console.log(err);
-                }
-              }
-            );
-          }
+    this.brand$ = this.brandService.getAllBrand();
+    this.activedRouteSubscription = this.activeRouter.paramMap.subscribe({
+      next: (params) => {
+        this.id = params.get('id');
+        console.log(this.id);
+        if (this.id) {
+          this.productService.getProductById(this.id).subscribe({
+            next: (response) => {
+              this.product = response;
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
         }
-      }
-    );
+      },
+    });
   }
 
-
-  onClick(event : Event):void{
+  onClick(event: Event): void {
     const selectedValue = (event.target as HTMLSelectElement).value;
     if (selectedValue === 'Block') {
       console.log('User selected Block');
     } else if (selectedValue === 'Active') {
       console.log('User selected Active');
     }
-    
   }
 
   onFileSelected(event: Event): void {
@@ -91,25 +89,29 @@ export class UpdateProductComponent {
   onFormSubmit() {
     if (this.id) {
       if (this.product) {
-        if(this.fileImage != null){
-          const formData = new FormData()
-          formData.append('file', this.fileImage)
+        if (this.fileImage != null) {
+          const formData = new FormData();
+          formData.append('file', this.fileImage);
 
-          this.updateProductSubscripton = this.productService.uploadImage(formData).subscribe({
-            next: reponse => {
-              this.updateProductSubscripton = this.productService.updateProduct(this.id!, this.product).subscribe({
-                next: response => {
-                  console.log('update ok')
-                },
-                error: err => {
-                  console.log(err);
-                }
-              });
-            },
-            error: err => {
-              console.log('update error')
-            }
-          })
+          this.updateProductSubscripton = this.productService
+            .uploadImage(formData)
+            .subscribe({
+              next: (reponse) => {
+                this.updateProductSubscripton = this.productService
+                  .updateProduct(this.id!, this.product)
+                  .subscribe({
+                    next: (response) => {
+                      console.log('update ok');
+                    },
+                    error: (err) => {
+                      console.log(err);
+                    },
+                  });
+              },
+              error: (err) => {
+                console.log('update error');
+              },
+            });
         }
       }
     }

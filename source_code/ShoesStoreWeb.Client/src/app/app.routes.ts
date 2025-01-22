@@ -56,6 +56,10 @@ export const routes: Routes = [
         component: IndexComponent,
       },
       {
+        path: 'brand',
+        component: ListBrandComponent,
+      },
+      {
         path: 'contact',
         component: ContactComponent,
       },
@@ -75,6 +79,39 @@ export const routes: Routes = [
       {
         path: 'blog',
         component: ListBlogComponent,
+      },
+      {
+        path: 'product/add',
+        component: AddproductComponent,
+      },
+      {
+        path: 'product/update/:id',
+        component: UpdateProductComponent,
+      },
+      {
+        path: 'brand/add',
+        component: AddBrandComponent,
+      },
+      {
+        path: 'brand/update:id',
+        component: UpdateBrandsComponent,
+      },
+      {
+        path: 'blog/add',
+        component: AddBlogComponent,
+      },
+      {
+        path: 'blog/update/:id',
+
+        component: UpdateBlogComponent,
+      },
+      {
+        path: 'size/add',
+        component: AddSizeComponent,
+      },
+      {
+        path: 'size/update:id',
+        component: UpdateSizeComponent,
       },
     ],
   },
@@ -141,38 +178,5 @@ export const routes: Routes = [
         component: BlogDetailComponent,
       },
     ],
-  },
-  {
-    path: 'admin/product/add',
-    component: AddproductComponent,
-  },
-  {
-    path: 'admin/product/update/:id',
-    component: UpdateProductComponent,
-  },
-  {
-    path: 'admin/brand/add',
-    component: AddBrandComponent,
-  },
-  {
-    path: 'admin/brand/update:id',
-    component: UpdateBrandsComponent,
-  },
-  {
-    path: 'admin/blog/add',
-    component: AddBlogComponent,
-  },
-  {
-    path: 'admin/blog/update/:id',
-
-    component: UpdateBlogComponent,
-  },
-  {
-    path: 'admin/size/add',
-    component: AddSizeComponent,
-  },
-  {
-    path: 'admin/size/update:id',
-    component: UpdateSizeComponent,
   },
 ];

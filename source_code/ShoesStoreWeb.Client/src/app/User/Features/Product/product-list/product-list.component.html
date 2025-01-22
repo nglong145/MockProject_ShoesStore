@@ -8,11 +8,9 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ product.productName }}</h5>
+        <p>{{ product.brandName }}</p>
         <div class="d-flex justify-content-between align-items-center">
           <p class="card-text">{{ product.price | number }} VNĐ</p>
-          <div class="btn btn-primary btn-cart" (click)="addToCart(product)">
-            <i class="bi bi-cart"></i>
-          </div>
         </div>
       </div>
     </div>

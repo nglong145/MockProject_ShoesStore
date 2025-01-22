@@ -13,41 +13,44 @@ import { BrandService } from '../../brand/service/brand-service.service';
   selector: 'app-addproduct',
   imports: [FormsModule, CommonModule],
   templateUrl: './addproduct.component.html',
-  styleUrl: './addproduct.component.css'
+  styleUrl: './addproduct.component.css',
 })
 export class AddproductComponent {
   model: ProductRequest;
   // brand$?: BrandService
   addProductSub?: Subscription;
-  baseUrl: string = "https://localhost:7158/Images/Product/";
-  fileImage: File | null = null
-  brand$?: Observable<Brand[]>
-  constructor(private router: Router, private productService: ProductService, private brandService: BrandService){
+  baseUrl: string = '/Images/Product/';
+  fileImage: File | null = null;
+  brand$?: Observable<Brand[]>;
+  constructor(
+    private router: Router,
+    private productService: ProductService,
+    private brandService: BrandService
+  ) {
     this.model = {
-      productName:'',
-      productImage:'',
+      productName: '',
+      productImage: '',
       price: 0,
       description: '',
       status: '',
-      brandId: ''
-    }
+      brandId: '',
+    };
   }
 
   ngOnInit() {
-    this.brand$ = this.brandService.getAllBrand()
+    this.brand$ = this.brandService.getAllBrand();
   }
 
   ngOnDestroy() {
-    this.addProductSub?.unsubscribe
+    this.addProductSub?.unsubscribe;
   }
-  onClick(event : Event):void{
+  onClick(event: Event): void {
     const selectedValue = (event.target as HTMLSelectElement).value;
     if (selectedValue === 'Block') {
       console.log('User selected Block');
     } else if (selectedValue === 'Active') {
       console.log('User selected Active');
     }
-    
   }
 
   onFileSelected(event: Event): void {
@@ -60,27 +63,28 @@ export class AddproductComponent {
       this.model.productImage = ''; // Không có file được chọn
     }
   }
-  onFormSubmit(){
-    if(this.fileImage != null){
-      const formData = new FormData()
-      formData.append('file', this.fileImage)
+  onFormSubmit() {
+    if (this.fileImage != null) {
+      const formData = new FormData();
+      formData.append('file', this.fileImage);
       this.addProductSub = this.productService.uploadImage(formData).subscribe({
-        next: reponse => {
-          this.addProductSub = this.productService.addProduct(this.model).subscribe({
-            next: reponse => {
-              console.log('add product cuccess')
-            },
-            error: err => {
-              console.log('add product error')
-              console.log(this.model)
-            }
-          })
+        next: (reponse) => {
+          this.addProductSub = this.productService
+            .addProduct(this.model)
+            .subscribe({
+              next: (reponse) => {
+                console.log('add product cuccess');
+              },
+              error: (err) => {
+                console.log('add product error');
+                console.log(this.model);
+              },
+            });
         },
-        error: err => {
-          console.log('upload image arr')
-        }
-      })
+        error: (err) => {
+          console.log('upload image arr');
+        },
+      });
     }
-    
   }
 }
