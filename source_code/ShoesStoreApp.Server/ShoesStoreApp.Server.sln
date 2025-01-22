@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesStoreApp.PLA", "ShoesS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.AuthenticationServices", "UnitTest.AuthenticationServices\UnitTest.AuthenticationServices.csproj", "{BA7377C4-E20D-4126-9DE8-29BFE8333E2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoesStoreApp.Tests", "ShoesStoreApp.Tests\ShoesStoreApp.Tests.csproj", "{353FC927-1BF7-4909-B476-AF904C8B2461}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
