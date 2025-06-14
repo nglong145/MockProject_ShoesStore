@@ -25,19 +25,19 @@ namespace ShoesStoreApp.DAL.Data
 
 
 
-        public ShoesStoreAppDbContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
+        public ShoesStoreAppDbContext(DbContextOptions<ShoesStoreAppDbContext> options) : base(options)
         {
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
-                     .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=.;Database=ShoesStoreApp_DB1;Trusted_Connection=True;TrustServerCertificate=True")
+        //             .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+        //    }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
